@@ -61,5 +61,5 @@ Ride explorer je veb aplikacija koja služi za podršku prevoza ljudi deljenjem 
 
 - SQL - PostgreSQL
 
-### Napomena diplomski
+### Napomena za diplomski
 Ukoliko bude bilo potrebno neko proširenje za diplomski otvoren sam za sugestije i predloge
