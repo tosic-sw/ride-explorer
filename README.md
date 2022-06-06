@@ -34,7 +34,7 @@ Ride explorer je veb aplikacija koja služi za podršku prevoza ljudi deljenjem 
 ### Korisnik
 
 - Upravljanje profilom (izmena šifre i ostalih podataka)
-- Pretraga vožnji 
+- Pretraga vožnji (pretraga vožnji je složena pretraga koja po nekom kriterijumu pronalazi sve moguće "podvožnje" koje vode od početnog mesta do destinacije)
 - Zahtev za učestovanje u vožnji
 - Uvid u završene vožnje
 - Ocenjivanje korisnika/vozača koji su učestvovali u istoj vožnji uz komentar 
@@ -60,3 +60,6 @@ Ride explorer je veb aplikacija koja služi za podršku prevoza ljudi deljenjem 
 ### Baze podataka:
 
 - SQL - PostgreSQL
+
+### Napomena diplomski
+Ukoliko bude bilo potrebno neko proširenje za diplomski otvoren sam za sugestije i predloge
