@@ -34,7 +34,16 @@ Ride explorer je veb aplikacija koja služi za podršku prevoza ljudi deljenjem 
 ### Korisnik
 
 - Upravljanje profilom (izmena šifre i ostalih podataka)
-- Pretraga vožnji (pretraga vožnji je složena pretraga koja po nekom kriterijumu pronalazi sve moguće "podvožnje" koje vode od početnog mesta do destinacije)
+- Prosta pretraga vožnji - unosi se početno stajalište i destinacija, a rezultat pretrage su sve vožnje koje vode od početnog stajališta do destinacije.
+- Složena pretraga vožnji na osnovu kriterijuma - pronalazi sve, odnosno, ograničen broj podvožnji koje vode od početne destinacije do odredišta na osnovu kriterijuma (ograničen broj podvožnji postoji iz razloga što može da se desi da postoji ogroman broj podvožnji koje vode od početne destinacije do odredišta). 
+
+  Jedinični rezultat pretrage je skup podvožnji koje vode od početne destinacije do odredišta. Tih jediničnih rezultata biće recimo naboljih 5 po kriterijumu. Osnovni kriterijum koji planiram da implementiram je ukupna dužina puta svih podvožnji, ako budem imao vremena dodaću i kriterijum za vreme i za broj stanica. 
+  - Primer: <br />
+    Početna destinacija: Beograd <br />
+    Odredište: Novi Sad <br />
+    Rezultati: |Beograd, Novi Sad| ; |Beograd, Stara Pazova, Novi Sad| ; |Beograd, Beška, Novi Sad| <br />
+    Gde su rezultati pretrage 3 najbolja rezultata po kriterijumu dužine puta
+  
 - Zahtev za učestovanje u vožnji
 - Uvid u završene vožnje
 - Ocenjivanje korisnika/vozača koji su učestvovali u istoj vožnji uz komentar 
