@@ -20,6 +20,18 @@ var Admins = []models.Admin{
 			Password: "admin",
 		},
 	},
+	{
+		Model:     gorm.Model{},
+		Email:     "milic@maildrop.cc",
+		Username:  "milic",
+		Firstname: "Dragan",
+		Lastname:  "Milic",
+		Role:      "ADMIN",
+		UserAccount: models.UserAccount{
+			Model:    gorm.Model{},
+			Password: "milic",
+		},
+	},
 }
 
 // #################################### //
