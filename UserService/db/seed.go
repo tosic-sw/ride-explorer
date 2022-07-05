@@ -3,6 +3,7 @@ package db
 import (
 	"UserService/models"
 	"gorm.io/gorm"
+	"time"
 )
 
 // #################################### //
@@ -48,7 +49,6 @@ var Passengers = []models.Passenger{
 		Firstname: "Marko",
 		Lastname:  "Bjelica",
 		Role:      "PASSENGER",
-		Banned:    false,
 		UserAccount: models.UserAccount{
 			Model:    gorm.Model{},
 			Username: "beli",
@@ -57,18 +57,19 @@ var Passengers = []models.Passenger{
 		},
 	},
 	{
-		Model:     gorm.Model{},
-		Email:     "boki@maildrop.cc",
-		Username:  "boki",
-		Firstname: "Bojan",
-		Lastname:  "Baskalo",
-		Role:      "PASSENGER",
-		Banned:    true,
+		Model:       gorm.Model{},
+		Email:       "boki@maildrop.cc",
+		Username:    "boki",
+		Firstname:   "Bojan",
+		Lastname:    "Baskalo",
+		Role:        "PASSENGER",
+		BannedUntil: time.Now().AddDate(0, 3, 0).UnixMilli(),
 		UserAccount: models.UserAccount{
-			Model:    gorm.Model{},
-			Username: "boki",
-			Password: "boki",
-			Role:     models.PASSENGER,
+			Model:       gorm.Model{},
+			Username:    "boki",
+			Password:    "boki",
+			Role:        models.PASSENGER,
+			BannedUntil: time.Now().AddDate(0, 3, 0).UnixMilli(),
 		},
 	},
 }
@@ -98,7 +99,6 @@ var Drivers = []models.Driver{
 			Volume:          1600,
 			Power:           105,
 		},
-		Banned: false,
 	},
 	{
 		Model:     gorm.Model{},
@@ -122,7 +122,6 @@ var Drivers = []models.Driver{
 			Volume:          1600,
 			Power:           101,
 		},
-		Banned: false,
 	},
 }
 

@@ -10,6 +10,7 @@ import (
 func MapRoutesAndServe(handler *handlers.UsersHandler) {
 	router := mux.NewRouter()
 
+	// Ukljuci podatak o banu
 	router.HandleFunc("/api/users/login", handler.Login).Methods(http.MethodPost)
 	router.HandleFunc("/api/users/authorize/admin", handler.AuthorizeAdmin).Methods(http.MethodGet)
 	router.HandleFunc("/api/users/authorize/driver", handler.AuthorizeDriver).Methods(http.MethodGet)
@@ -27,7 +28,6 @@ func MapRoutesAndServe(handler *handlers.UsersHandler) {
 	router.HandleFunc("/api/users/driver/{username}", handler.GetDriver).Methods(http.MethodGet)
 	router.HandleFunc("/api/users/passenger/{username}", handler.GetPassenger).Methods(http.MethodGet)
 
-	router.HandleFunc("/api/users/admin", handler.UpdateAdmin).Methods(http.MethodPut)
 	router.HandleFunc("/api/users/driver", handler.UpdateDriver).Methods(http.MethodPut)
 	router.HandleFunc("/api/users/passenger", handler.UpdatePassenger).Methods(http.MethodPut)
 

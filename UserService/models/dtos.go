@@ -12,13 +12,28 @@ type UserDTO struct {
 	Role      string `json:"role"`
 }
 
-type UserWithAccDTO struct {
-	Email          string         `json:"email"`
-	Username       string         `json:"username"`
-	Firstname      string         `json:"firstname"`
-	Lastname       string         `json:"lastname"`
-	Role           string         `json:"role"`
-	UserAccountDTO UserAccountDTO `json:"userAccount"`
+type RegistrationDTO struct {
+	Email     string `json:"email"`
+	Username  string `json:"username"`
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
+	Password  string `json:"password"`
+}
+
+type DriverRegistrationDTO struct {
+	Email     string `json:"email"`
+	Username  string `json:"username"`
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
+	Password  string `json:"password"`
+	Car       CarDTO `json:"car"`
+}
+
+type UserForUpdateDTO struct {
+	Email     string `json:"email"`
+	Username  string `json:"username"`
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
 }
 
 type DriverDTO struct {
@@ -55,6 +70,11 @@ type LoginDTO struct {
 type ErrorResponse struct {
 	Message string `json:"message"`
 }
+
+type SuccessResponse struct {
+	Message string `json:"message"`
+}
+
 type TokenState struct {
 	Token string `json:"token"`
 }

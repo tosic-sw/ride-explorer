@@ -1,14 +1,17 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 type UserAccount struct {
 	gorm.Model
-	Username string `gorm:"not null"`
-	Password string `gorm:"not null"`
-	Role     Role   `gorm:"not null"`
-	UserID   int
-	UserType string
+	Username    string `gorm:"not null"`
+	Password    string `gorm:"not null"`
+	Role        Role   `gorm:"not null"`
+	UserID      int
+	UserType    string
+	BannedUntil int64
 }
 
 type Admin struct {
@@ -30,7 +33,7 @@ type Driver struct {
 	Role        Role        `gorm:"not null"`
 	UserAccount UserAccount `gorm:"polymorphic:User;"`
 	Car         Car
-	Banned      bool
+	BannedUntil int64
 }
 
 type Passenger struct {
@@ -41,7 +44,7 @@ type Passenger struct {
 	Lastname    string      `gorm:"not null"`
 	Role        Role        `gorm:"not null"`
 	UserAccount UserAccount `gorm:"polymorphic:User;"`
-	Banned      bool
+	BannedUntil int64
 }
 
 type Car struct {
