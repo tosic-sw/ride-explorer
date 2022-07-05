@@ -4,8 +4,8 @@ type Role string
 
 const (
 	ADMIN     Role = "ADMIN"
-	DRIVER         = "DRIVER"
-	PASSENGER      = "PASSENGER"
+	DRIVER    Role = "DRIVER"
+	PASSENGER Role = "PASSENGER"
 )
 
 func (s Role) String() string {

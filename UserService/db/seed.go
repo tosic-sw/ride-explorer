@@ -17,7 +17,9 @@ var Admins = []models.Admin{
 		Role:      "ADMIN",
 		UserAccount: models.UserAccount{
 			Model:    gorm.Model{},
+			Username: "admin",
 			Password: "admin",
+			Role:     models.ADMIN,
 		},
 	},
 	{
@@ -29,7 +31,9 @@ var Admins = []models.Admin{
 		Role:      "ADMIN",
 		UserAccount: models.UserAccount{
 			Model:    gorm.Model{},
+			Username: "milic",
 			Password: "milic",
+			Role:     models.ADMIN,
 		},
 	},
 }
@@ -47,7 +51,9 @@ var Passengers = []models.Passenger{
 		Banned:    false,
 		UserAccount: models.UserAccount{
 			Model:    gorm.Model{},
+			Username: "beli",
 			Password: "beli",
+			Role:     models.PASSENGER,
 		},
 	},
 	{
@@ -60,7 +66,9 @@ var Passengers = []models.Passenger{
 		Banned:    true,
 		UserAccount: models.UserAccount{
 			Model:    gorm.Model{},
+			Username: "boki",
 			Password: "boki",
+			Role:     models.PASSENGER,
 		},
 	},
 }
@@ -77,7 +85,9 @@ var Drivers = []models.Driver{
 		Role:      "DRIVER",
 		UserAccount: models.UserAccount{
 			Model:    gorm.Model{},
+			Username: "tica",
 			Password: "tica",
+			Role:     models.DRIVER,
 		},
 		Car: models.Car{
 			Model:           gorm.Model{},
@@ -99,7 +109,9 @@ var Drivers = []models.Driver{
 		Role:      "DRIVER",
 		UserAccount: models.UserAccount{
 			Model:    gorm.Model{},
+			Username: "ukica",
 			Password: "ukica",
+			Role:     models.DRIVER,
 		},
 		Car: models.Car{
 			Model:           gorm.Model{},

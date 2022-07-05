@@ -3,9 +3,12 @@ package handlers
 import (
 	"UserService/data"
 	"UserService/models"
+	"UserService/utils"
 	"encoding/json"
+	"github.com/dgrijalva/jwt-go"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 type UsersHandler struct {
@@ -17,7 +20,74 @@ func NewUsersHandler(repository *data.Repository) *UsersHandler {
 }
 
 func (uh *UsersHandler) Login(resWriter http.ResponseWriter, req *http.Request) {
+	var loginDTO models.LoginDTO
+	json.NewDecoder(req.Body).Decode(&loginDTO)
 
+	acc, err := uh.repository.FindOneAcc(loginDTO.Username)
+	if err != nil {
+		resWriter.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Invalid credentials"})
+		return
+	}
+
+	tokenStr, err := utils.CreateToken(acc)
+	if err != nil {
+		resWriter.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	resWriter.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(resWriter).Encode(models.TokenState{
+		Token: tokenStr,
+	})
+}
+
+func (uh *UsersHandler) AuthorizeAdmin(resWriter http.ResponseWriter, req *http.Request) {
+	bearer := req.Header["Authorization"]
+	if bearer == nil {
+		resWriter.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	tokenStr := strings.Split(bearer[0], " ")[1]
+	token, err := utils.ParseTokenStr(tokenStr)
+	claims := token.Claims.(jwt.MapClaims)
+
+	if err != nil || !token.Valid || claims["role"] != models.ADMIN.String() {
+		resWriter.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+func (uh *UsersHandler) AuthorizeDriver(resWriter http.ResponseWriter, req *http.Request) {
+	bearer := req.Header["Authorization"]
+	if bearer == nil {
+		resWriter.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	tokenStr := strings.Split(bearer[0], " ")[1]
+	token, err := utils.ParseTokenStr(tokenStr)
+	claims := token.Claims.(jwt.MapClaims)
+
+	if err != nil || !token.Valid || claims["role"] != models.DRIVER.String() {
+		resWriter.WriteHeader(http.StatusUnauthorized)
+	}
+}
+
+func (uh *UsersHandler) AuthorizePassenger(resWriter http.ResponseWriter, req *http.Request) {
+	bearer := req.Header["Authorization"]
+	if bearer == nil {
+		resWriter.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	tokenStr := strings.Split(bearer[0], " ")[1]
+	token, err := utils.ParseTokenStr(tokenStr)
+	claims := token.Claims.(jwt.MapClaims)
+
+	if err != nil || !token.Valid || claims["role"] != models.PASSENGER.String() {
+		resWriter.WriteHeader(http.StatusUnauthorized)
+	}
 }
 
 func (uh *UsersHandler) DriverRegistration(resWriter http.ResponseWriter, req *http.Request) {
@@ -106,6 +176,14 @@ func (uh *UsersHandler) BanDriver(resWriter http.ResponseWriter, req *http.Reque
 }
 
 func (uh *UsersHandler) BanPassenger(resWriter http.ResponseWriter, req *http.Request) {
+
+}
+
+func (uh *UsersHandler) DeleteDriver(resWriter http.ResponseWriter, req *http.Request) {
+
+}
+
+func (uh *UsersHandler) DeletePassenger(resWriter http.ResponseWriter, req *http.Request) {
 
 }
 

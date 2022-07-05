@@ -18,6 +18,18 @@ func concat(str string) string {
 	return "%" + strings.ToLower(str) + "%"
 }
 
+func (repo *Repository) FindOneAcc(username string) (*models.UserAccount, error) {
+	var acc models.UserAccount
+
+	result := repo.db.Where("username = ?", username).First(&acc)
+
+	if result.Error != nil {
+		return &acc, result.Error
+	}
+
+	return &acc, nil
+}
+
 func (repo *Repository) FindOneAdmin(username string) (*models.Admin, error) {
 	var admin models.Admin
 
