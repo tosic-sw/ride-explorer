@@ -68,6 +68,9 @@ func SendReqAndReturnResponse(resWriter http.ResponseWriter, req *http.Request, 
 	client := http.Client{Timeout: timeout}
 
 	request, _ := http.NewRequest(method, endpoint, req.Body)
+	if bearer := req.Header["Authorization"]; bearer != nil {
+		request.Header.Set("Authorization", bearer[0])
+	}
 
 	response, err := client.Do(request)
 	if err != nil {

@@ -420,6 +420,7 @@ func (uh *UsersHandler) ChangePassword(resWriter http.ResponseWriter, req *http.
 	}
 
 	bearer := req.Header["Authorization"]
+	fmt.Println(bearer)
 	if bearer == nil {
 		resWriter.WriteHeader(http.StatusUnauthorized)
 		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Unauthorized"})
