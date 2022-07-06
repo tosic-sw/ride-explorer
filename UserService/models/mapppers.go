@@ -15,7 +15,6 @@ func (admin *Admin) ToDTO() UserDTO {
 func (admin *Admin) ToUpdateDTO() UserForUpdateDTO {
 	return UserForUpdateDTO{
 		Email:     admin.Email,
-		Username:  admin.Username,
 		Firstname: admin.Firstname,
 		Lastname:  admin.Lastname,
 	}
@@ -34,6 +33,7 @@ func (regDTO *RegistrationDTO) ToAdmin() *Admin {
 			Username: regDTO.Username,
 			Password: regDTO.Password,
 			Role:     ADMIN,
+			Verified: true,
 		},
 	}
 }
@@ -51,7 +51,6 @@ func (driver *Driver) ToDTO() UserDTO {
 func (driver *Driver) ToUpdateDTO() UserForUpdateDTO {
 	return UserForUpdateDTO{
 		Email:     driver.Email,
-		Username:  driver.Username,
 		Firstname: driver.Firstname,
 		Lastname:  driver.Lastname,
 	}
@@ -65,11 +64,13 @@ func (regDTO *DriverRegistrationDTO) ToDriver() *Driver {
 		Firstname: regDTO.Firstname,
 		Lastname:  regDTO.Lastname,
 		Role:      DRIVER,
+		Verified:  false,
 		UserAccount: UserAccount{
 			Model:    gorm.Model{},
 			Username: regDTO.Username,
 			Password: regDTO.Password,
 			Role:     DRIVER,
+			Verified: false,
 		},
 		Car: Car{
 			Model:           gorm.Model{},
@@ -96,7 +97,6 @@ func (passenger *Passenger) ToDTO() UserDTO {
 func (passenger *Passenger) ToUpdateDTO() UserForUpdateDTO {
 	return UserForUpdateDTO{
 		Email:     passenger.Email,
-		Username:  passenger.Username,
 		Firstname: passenger.Firstname,
 		Lastname:  passenger.Lastname,
 	}
@@ -115,6 +115,7 @@ func (regDTO *RegistrationDTO) ToPassenger() *Passenger {
 			Username: regDTO.Username,
 			Password: regDTO.Password,
 			Role:     PASSENGER,
+			Verified: true,
 		},
 	}
 }

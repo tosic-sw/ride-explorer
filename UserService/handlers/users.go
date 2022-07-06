@@ -33,6 +33,12 @@ func (uh *UsersHandler) Login(resWriter http.ResponseWriter, req *http.Request) 
 		return
 	}
 
+	if acc.Password != loginDTO.Password {
+		resWriter.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Wrong password"})
+		return
+	}
+
 	tokenStr, err := utils.CreateToken(acc)
 	if err != nil {
 		fmt.Println(err.Error())
@@ -41,8 +47,30 @@ func (uh *UsersHandler) Login(resWriter http.ResponseWriter, req *http.Request) 
 		return
 	}
 
-	resWriter.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(resWriter).Encode(models.TokenState{Token: tokenStr})
+}
+
+func (uh *UsersHandler) Authenticate(resWriter http.ResponseWriter, req *http.Request) {
+	bearer := req.Header["Authorization"]
+	if bearer == nil {
+		resWriter.WriteHeader(http.StatusUnauthorized)
+		return
+	}
+
+	tokenStr := strings.Split(bearer[0], " ")[1]
+	token, err := utils.ParseTokenStr(tokenStr)
+	claims := token.Claims.(jwt.MapClaims)
+
+	if err != nil || !token.Valid {
+		resWriter.WriteHeader(http.StatusUnauthorized)
+	}
+
+	// Check if banned or deleted
+	var username = fmt.Sprintf("%v", claims["username"])
+	_, err = uh.repository.FindOneLogin(username)
+	if err != nil {
+		resWriter.WriteHeader(http.StatusUnauthorized)
+	}
 }
 
 func (uh *UsersHandler) AuthorizeAdmin(resWriter http.ResponseWriter, req *http.Request) {
@@ -171,6 +199,36 @@ func (uh *UsersHandler) DriverRegistration(resWriter http.ResponseWriter, req *h
 	json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Driver successfully registered"})
 }
 
+func (uh *UsersHandler) DriverVerification(resWriter http.ResponseWriter, req *http.Request) {
+	params := mux.Vars(req)
+	username := params["username"]
+
+	resWriter.Header().Set("Content-Type", "application/json")
+
+	account, err := uh.repository.FindOneAcc(username)
+	if err != nil {
+		resWriter.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Driver does not exist in database"})
+		return
+	}
+
+	if account.Verified {
+		resWriter.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Driver already verified"})
+		return
+	}
+
+	err = uh.repository.VerifyDriver(username)
+	if err != nil {
+		fmt.Println(err.Error())
+		resWriter.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Unknown error happened while verifying driver"})
+		return
+	}
+
+	json.NewEncoder(resWriter).Encode(models.SuccessResponse{Message: "Driver successfully verified"})
+}
+
 func (uh *UsersHandler) PassengerRegistration(resWriter http.ResponseWriter, req *http.Request) {
 	var regDTO models.RegistrationDTO
 	resWriter.Header().Set("Content-Type", "application/json")
@@ -293,25 +351,53 @@ func (uh *UsersHandler) GetPassenger(resWriter http.ResponseWriter, req *http.Re
 	json.NewEncoder(resWriter).Encode(passenger.ToDTO())
 }
 
-func (uh *UsersHandler) UpdateDriver(resWriter http.ResponseWriter, req *http.Request) {
+func (uh *UsersHandler) UpdateProfile(resWriter http.ResponseWriter, req *http.Request) {
 	var userDTO models.UserForUpdateDTO
 	resWriter.Header().Set("Content-Type", "application/json")
 
-	err := json.NewDecoder(req.Body).Decode(&userDTO)
+	var err = json.NewDecoder(req.Body).Decode(&userDTO)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Invalid data sent"})
 		return
 	}
 
-	_, err = uh.repository.FindOneDriver(userDTO.Username)
+	// Dobavi claims
+	bearer := req.Header["Authorization"]
+	if bearer == nil {
+		resWriter.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Unauthorized"})
+		return
+	}
+
+	tokenStr := strings.Split(bearer[0], " ")[1]
+	token, err := utils.ParseTokenStr(tokenStr)
+	claims := token.Claims.(jwt.MapClaims)
+
+	var username = fmt.Sprintf("%v", claims["username"])
+
+	if claims["role"] == models.ADMIN.String() {
+		_, err = uh.repository.FindOneAdmin(username)
+	} else if claims["role"] == models.DRIVER.String() {
+		_, err = uh.repository.FindOneDriver(username)
+	} else if claims["role"] == models.PASSENGER.String() {
+		_, err = uh.repository.FindOnePassenger(username)
+	}
+
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	_, err = uh.repository.UpdateDriver(&userDTO)
+	if claims["role"] == models.ADMIN.String() {
+		_, err = uh.repository.UpdateAdmin(&userDTO, username)
+	} else if claims["role"] == models.DRIVER.String() {
+		_, err = uh.repository.UpdateDriver(&userDTO, username)
+	} else if claims["role"] == models.PASSENGER.String() {
+		_, err = uh.repository.UpdatePassenger(&userDTO, username)
+	}
+
 	if err != nil {
 		fmt.Println(err.Error())
 		resWriter.WriteHeader(http.StatusInternalServerError)
@@ -319,11 +405,11 @@ func (uh *UsersHandler) UpdateDriver(resWriter http.ResponseWriter, req *http.Re
 		return
 	}
 
-	json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Data successfully updated"})
+	json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Profile successfully updated"})
 }
 
-func (uh *UsersHandler) UpdatePassenger(resWriter http.ResponseWriter, req *http.Request) {
-	var userDTO models.UserForUpdateDTO
+func (uh *UsersHandler) ChangePassword(resWriter http.ResponseWriter, req *http.Request) {
+	var userDTO models.UserPasswordChangeDTO
 	resWriter.Header().Set("Content-Type", "application/json")
 
 	err := json.NewDecoder(req.Body).Decode(&userDTO)
@@ -333,14 +419,27 @@ func (uh *UsersHandler) UpdatePassenger(resWriter http.ResponseWriter, req *http
 		return
 	}
 
-	_, err = uh.repository.FindOnePassenger(userDTO.Username)
+	bearer := req.Header["Authorization"]
+	if bearer == nil {
+		resWriter.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Unauthorized"})
+		return
+	}
+
+	tokenStr := strings.Split(bearer[0], " ")[1]
+	token, err := utils.ParseTokenStr(tokenStr)
+	claims := token.Claims.(jwt.MapClaims)
+
+	var username = fmt.Sprintf("%v", claims["username"])
+
+	_, err = uh.repository.FindOneAcc(username)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	_, err = uh.repository.UpdatePassenger(&userDTO)
+	_, err = uh.repository.ChangePassword(username, userDTO.Password)
 	if err != nil {
 		fmt.Println(err.Error())
 		resWriter.WriteHeader(http.StatusInternalServerError)
@@ -348,7 +447,7 @@ func (uh *UsersHandler) UpdatePassenger(resWriter http.ResponseWriter, req *http
 		return
 	}
 
-	json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Data successfully updated"})
+	json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Password successfully changed"})
 }
 
 func (uh *UsersHandler) BanDriver(resWriter http.ResponseWriter, req *http.Request) {

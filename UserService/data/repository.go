@@ -35,7 +35,7 @@ func (repo *Repository) FindOneAcc(username string) (*models.UserAccount, error)
 func (repo *Repository) FindOneLogin(username string) (*models.UserAccount, error) {
 	var acc models.UserAccount
 
-	result := repo.db.Where("username = ?", username).First(&acc)
+	result := repo.db.Where("username = ? AND verified = true", username).First(&acc)
 
 	if result.Error != nil {
 		return &acc, errors.New("username does not exist in database")
@@ -63,7 +63,7 @@ func (repo *Repository) FindOneAdmin(username string) (*models.Admin, error) {
 func (repo *Repository) FindOneDriver(username string) (*models.Driver, error) {
 	var driver models.Driver
 
-	result := repo.db.Where("username = ?", username).First(&driver)
+	result := repo.db.Where("username = ? AND verified = true", username).First(&driver)
 
 	if result.Error != nil {
 		return &driver, errors.New("username does not exists in database")
@@ -134,6 +134,26 @@ func (repo *Repository) SaveDriver(driver *models.Driver) (*models.Driver, error
 	return driver, nil
 }
 
+func (repo *Repository) VerifyDriver(username string) error {
+	var driver models.Driver
+	result := repo.db.Where("username = ?", username).First(&driver)
+	if result.Error != nil {
+		return result.Error
+	}
+	driver.Verified = true
+	repo.db.Save(&driver)
+
+	var account models.UserAccount
+	result = repo.db.Where("username = ?", username).First(&account)
+	if result.Error != nil {
+		return result.Error
+	}
+	account.Verified = true
+	repo.db.Save(&account)
+
+	return nil
+}
+
 func (repo *Repository) SavePassenger(passenger *models.Passenger) (*models.Passenger, error) {
 	result := repo.db.Create(passenger)
 
@@ -144,9 +164,9 @@ func (repo *Repository) SavePassenger(passenger *models.Passenger) (*models.Pass
 	return passenger, nil
 }
 
-func (repo *Repository) UpdateAdmin(dto *models.UserForUpdateDTO) (*models.Admin, error) {
+func (repo *Repository) UpdateAdmin(dto *models.UserForUpdateDTO, username string) (*models.Admin, error) {
 	var admin models.Admin
-	result := repo.db.Where("username = ?", dto.Username).First(&admin)
+	result := repo.db.Where("username = ?", username).First(&admin)
 
 	if result.Error != nil {
 		return &admin, result.Error
@@ -160,12 +180,12 @@ func (repo *Repository) UpdateAdmin(dto *models.UserForUpdateDTO) (*models.Admin
 	return &admin, nil
 }
 
-func (repo *Repository) UpdateDriver(dto *models.UserForUpdateDTO) (*models.Driver, error) {
+func (repo *Repository) UpdateDriver(dto *models.UserForUpdateDTO, username string) (*models.Driver, error) {
 	var driver models.Driver
-	result := repo.db.Where("username = ?", dto.Username).First(&driver)
+	result := repo.db.Where("username = ? AND verified = true", username).First(&driver)
 
 	if result.Error != nil {
-		return &driver, errors.New("username does not exists in database")
+		return &driver, errors.New("username does not exists in database or not verified")
 	}
 
 	driver.Email = dto.Email
@@ -176,9 +196,9 @@ func (repo *Repository) UpdateDriver(dto *models.UserForUpdateDTO) (*models.Driv
 	return &driver, nil
 }
 
-func (repo *Repository) UpdatePassenger(dto *models.UserForUpdateDTO) (*models.Passenger, error) {
+func (repo *Repository) UpdatePassenger(dto *models.UserForUpdateDTO, username string) (*models.Passenger, error) {
 	var passenger models.Passenger
-	result := repo.db.Where("username = ?", dto.Username).First(&passenger)
+	result := repo.db.Where("username = ?", username).First(&passenger)
 
 	if result.Error != nil {
 		return &passenger, errors.New("username does not exists in database")
@@ -190,6 +210,20 @@ func (repo *Repository) UpdatePassenger(dto *models.UserForUpdateDTO) (*models.P
 	repo.db.Save(&passenger)
 
 	return &passenger, nil
+}
+
+func (repo *Repository) ChangePassword(username string, password string) (*models.UserAccount, error) {
+	var account models.UserAccount
+	result := repo.db.Where("username = ?  AND verified = true", username).First(&account)
+
+	if result.Error != nil {
+		return &account, errors.New("username does not exists in database")
+	}
+
+	account.Password = password
+	repo.db.Save(&account)
+
+	return &account, nil
 }
 
 func (repo *Repository) DeleteDriver(username string) error {
@@ -283,7 +317,7 @@ func (repo *Repository) SearchDrivers(search string, offset int, size int) ([]*m
 	var totalElements int64 = -1
 
 	result := repo.db.Scopes(repo.paginate(offset, size)).
-		Where("(deleted_at IS NULL AND banned_until < ?) AND "+
+		Where("(deleted_at IS NULL AND banned_until < ? AND verified = true) AND "+
 			"('' = ? or "+
 			"firstname LIKE ? or "+
 			"lastname LIKE ? or "+
@@ -292,7 +326,7 @@ func (repo *Repository) SearchDrivers(search string, offset int, size int) ([]*m
 		Find(&drivers)
 
 	result = repo.db.Table("drivers").
-		Where("(deleted_at IS NULL AND banned_until < ?) AND "+
+		Where("(deleted_at IS NULL AND banned_until < ? AND verified = true) AND "+
 			"('' = ? or "+
 			"firstname LIKE ? or "+
 			"lastname LIKE ? or "+

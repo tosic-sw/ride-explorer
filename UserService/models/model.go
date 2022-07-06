@@ -10,8 +10,9 @@ type UserAccount struct {
 	Password    string `gorm:"not null"`
 	Role        Role   `gorm:"not null"`
 	UserID      int
-	UserType    string
+	UserType    string `gorm:"not null"`
 	BannedUntil int64
+	Verified    bool `gorm:"not null"`
 }
 
 type Admin struct {
@@ -34,6 +35,7 @@ type Driver struct {
 	UserAccount UserAccount `gorm:"polymorphic:User;"`
 	Car         Car
 	BannedUntil int64
+	Verified    bool `gorm:"not null"`
 }
 
 type Passenger struct {
