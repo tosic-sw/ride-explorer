@@ -38,5 +38,12 @@ func MapRoutesAndServe() {
 	router.HandleFunc("/api/drives/driver/finished/{username}", handlers.FinishedDrivesOfDriver).Methods(http.MethodGet)
 	router.HandleFunc("/api/drives/driver/unfinished/{username}", handlers.UnfinishedDrivesOfDriver).Methods(http.MethodGet)
 
+	router.HandleFunc("/api/reservations/{id:[0-9]+}", handlers.GetReservation).Methods(http.MethodGet)
+	router.HandleFunc("/api/reservations", handlers.CreateReservation).Methods(http.MethodPost)
+	router.HandleFunc("/api/reservations/{id:[0-9]+}", handlers.DeleteReservation).Methods(http.MethodDelete)
+	router.HandleFunc("/api/reservations/verify/{id:[0-9]+}", handlers.VerifyReservation).Methods(http.MethodPut)
+	router.HandleFunc("/api/reservations/user/verified", handlers.GetAllByUserVerified).Methods(http.MethodGet)
+	router.HandleFunc("/api/reservations/user/unverified", handlers.GetAllByUserUnverified).Methods(http.MethodGet)
+
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

@@ -19,6 +19,15 @@ pub fn find(id: i32) -> Result<Json<Drive>, Status> {
         .map_err(|error| error_status(error))
 }
 
+#[get("/drives/exists/<id>/<username>")]
+pub fn one_unfinished_driver(id: i32, username: String) -> Result<Json<Drive>, Status> {
+    let conn = establish_connection();
+
+    find_one_unfinished_driver(&conn, &username, id)
+        .map(|drive| Json(drive))
+        .map_err(|error| error_status(error))
+}
+
 #[post("/drives", data = "<new_drive>")]
 pub fn create(new_drive: Json<NewDrive>) -> Result<status::Created<Json<Drive>>, Status> {
     let conn = establish_connection();
@@ -123,5 +132,10 @@ fn drive_created(drive: Drive) -> status::Created<Json<Drive>> {
 }
 
 fn main() {
-    rocket::ignite().mount("/api", routes![find, create, update, finish, reserve, delete, search, all, finished_driver, unfinished_driver],).launch();
+    let conn = establish_connection();
+    _ = insert_d1(&conn);
+    _ = insert_d2(&conn);
+    _ = insert_d3(&conn);
+
+    rocket::ignite().mount("/api", routes![find, create, update, finish, reserve, delete, search, all, finished_driver, unfinished_driver, one_unfinished_driver],).launch();
 }

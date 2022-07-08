@@ -24,6 +24,66 @@ pub fn establish_connection() -> PgConnection {
         .expect(&format!("Error connecting to {}", database_url))
 }
 
+pub fn insert_d1(conn: &PgConnection) -> QueryResult<Drive> {
+    let d1 = &NewDrive {
+        driver_username: String::from("tica"),
+        departure_location: String::from("Novi Sad"),
+        destination: String::from("Beograd"),
+        departure_date_time: 1659981600000,
+        departure_address: String::from(""),
+        free_places: 3,
+        planned_arrival_time: 1659985200000,
+        note: String::from("Ciao bella"),
+        distance: 90,
+    };
+
+    use schema::drives;
+
+    diesel::insert_into(drives::table)
+        .values(d1)
+        .get_result(conn)
+}
+
+pub fn insert_d2(conn: &PgConnection) -> QueryResult<Drive> {
+    let d2 = &NewDrive {
+        driver_username: String::from("tica"),
+        departure_location: String::from("Novi Sad"),
+        destination: String::from("Beograd"),
+        departure_date_time: 1659981600000,
+        departure_address: String::from(""),
+        free_places: 3,
+        planned_arrival_time: 1659985200000,
+        note: String::from("Ciao bella"),
+        distance: 90,
+    };
+
+    use schema::drives;
+
+    diesel::insert_into(drives::table)
+        .values(d2)
+        .get_result(conn)
+}
+
+pub fn insert_d3(conn: &PgConnection) -> QueryResult<Drive> {
+    let d3 = &NewDrive {
+        driver_username: String::from("ukica"),
+        departure_location: String::from("Novi Sad"),
+        destination: String::from("Beograd"),
+        departure_date_time: 1659981600000,
+        departure_address: String::from(""),
+        free_places: 3,
+        planned_arrival_time: 1659985200000,
+        note: String::from("Ciao bella"),
+        distance: 90,
+    };
+
+    use schema::drives;
+
+    diesel::insert_into(drives::table)
+        .values(d3)
+        .get_result(conn)
+}
+
 pub fn create_drive(conn: &PgConnection, new_drive: &NewDrive) -> QueryResult<Drive> {
     use schema::drives;
 
@@ -111,6 +171,18 @@ pub fn find_one_finished_driver(conn: &PgConnection, driver: &String, _id: i32) 
 
     let results = drives
         .filter(finished.eq(true))
+        .filter(id.eq(_id))
+        .filter(driver_username.eq(driver))
+        .get_result::<Drive>(conn);
+
+    results
+}
+
+pub fn find_one_unfinished_driver(conn: &PgConnection, driver: &String, _id: i32) -> QueryResult<Drive> {
+    use schema::drives::dsl::*;
+
+    let results = drives
+        .filter(finished.eq(false))
         .filter(id.eq(_id))
         .filter(driver_username.eq(driver))
         .get_result::<Drive>(conn);

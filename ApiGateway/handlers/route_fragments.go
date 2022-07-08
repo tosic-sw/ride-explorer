@@ -3,7 +3,10 @@ package handlers
 // Roots
 const UserServiceRoot string = "http://localhost:8081/api/users/"
 const DriveServiceRoot string = "http://localhost:8000/api/drives/"
+const ReservationServiceRoot string = "http://localhost:8082/api/reservations/"
+
 const _DriveServiceRoot string = "http://localhost:8000/api/drives"
+const _ReservationServiceRoot string = "http://localhost:8082/api/reservations"
 
 // Common
 const Driver string = "driver/"
@@ -31,3 +34,8 @@ const _Reserve string = "reserve"
 const _Search string = "search"
 const Finished string = "finished/"
 const Unfinished string = "unfinished/"
+
+// ReservationService
+const _Verified = "verified"
+const _Unverified = "unverified"
+const User = "user/"
