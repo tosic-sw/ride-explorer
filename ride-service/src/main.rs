@@ -46,7 +46,7 @@ pub fn finish(username: String, id: i32) -> Result<Json<Drive>, Status> {
         .map_err(|error| error_status(error))
 }
 
-#[put("/drives/reserve", data = "<dto>")]
+#[put("/drives/adjust-places", data = "<dto>")]
 pub fn reserve(dto: Json<ReserveDTO>) -> Result<Json<Drive>, Status> {
     let conn = establish_connection();
 

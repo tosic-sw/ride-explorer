@@ -61,7 +61,7 @@ func FinishDriveOfDriver(resWriter http.ResponseWriter, req *http.Request) {
 	SendReqAndReturnResponse(resWriter, req, http.MethodPut, DriveServiceRoot+Driver+username+Slash+Finish+id)
 }
 
-func ReserveDrive(resWriter http.ResponseWriter, req *http.Request) {
+func AdjustPlaces(resWriter http.ResponseWriter, req *http.Request) {
 	if status, err := Authorize(req, "passenger"); err != nil {
 		resWriter.Header().Set("Content-Type", "application/json")
 		resWriter.WriteHeader(status)

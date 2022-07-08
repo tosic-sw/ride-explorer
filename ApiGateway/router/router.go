@@ -32,7 +32,7 @@ func MapRoutesAndServe() {
 	router.HandleFunc("/api/drives", handlers.CreateDrive).Methods(http.MethodPost)
 	router.HandleFunc("/api/drives", handlers.UpdateDrive).Methods(http.MethodPut)
 	router.HandleFunc("/api/drives/driver/{username}/finish/{id}", handlers.FinishDriveOfDriver).Methods(http.MethodPut)
-	router.HandleFunc("/api/drives/reserve", handlers.ReserveDrive).Methods(http.MethodPut)
+	router.HandleFunc("/api/drives/adjust-places", handlers.AdjustPlaces).Methods(http.MethodPut)
 	router.HandleFunc("/api/drives/driver/{username}/{id}", handlers.DeleteDriveOfDriver).Methods(http.MethodDelete)
 	router.HandleFunc("/api/drives/search", handlers.SearchDrives).Methods(http.MethodPost)
 	router.HandleFunc("/api/drives/driver/finished/{username}", handlers.FinishedDrivesOfDriver).Methods(http.MethodGet)
