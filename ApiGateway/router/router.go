@@ -28,5 +28,15 @@ func MapRoutesAndServe() {
 	router.HandleFunc("/api/users/driver/{username}", handlers.DeleteDriver).Methods(http.MethodDelete)
 	router.HandleFunc("/api/users/passenger/{username}", handlers.DeletePassenger).Methods(http.MethodDelete)
 
+	router.HandleFunc("/api/drives/{id}", handlers.GetDrive).Methods(http.MethodGet)
+	router.HandleFunc("/api/drives", handlers.CreateDrive).Methods(http.MethodPost)
+	router.HandleFunc("/api/drives", handlers.UpdateDrive).Methods(http.MethodPut)
+	router.HandleFunc("/api/drives/driver/{username}/finish/{id}", handlers.FinishDriveOfDriver).Methods(http.MethodPut)
+	router.HandleFunc("/api/drives/reserve", handlers.ReserveDrive).Methods(http.MethodPut)
+	router.HandleFunc("/api/drives/driver/{username}/{id}", handlers.DeleteDriveOfDriver).Methods(http.MethodDelete)
+	router.HandleFunc("/api/drives/search", handlers.SearchDrives).Methods(http.MethodPost)
+	router.HandleFunc("/api/drives/driver/finished/{username}", handlers.FinishedDrivesOfDriver).Methods(http.MethodGet)
+	router.HandleFunc("/api/drives/driver/unfinished/{username}", handlers.UnfinishedDrivesOfDriver).Methods(http.MethodGet)
+
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

@@ -19,7 +19,7 @@ pub fn find(id: i32) -> Result<Json<Drive>, Status> {
         .map_err(|error| error_status(error))
 }
 
-#[post("/drives", format ="application/json", data = "<new_drive>")]
+#[post("/drives", data = "<new_drive>")]
 pub fn create(new_drive: Json<NewDrive>) -> Result<status::Created<Json<Drive>>, Status> {
     let conn = establish_connection();
 
@@ -28,7 +28,7 @@ pub fn create(new_drive: Json<NewDrive>) -> Result<status::Created<Json<Drive>>,
         .map_err(|error| error_status(error))
 }
 
-#[put("/drives", format ="application/json", data = "<dto>")]
+#[put("/drives", data = "<dto>")]
 pub fn update(dto: Json<UpdateDriveDTO>) -> Result<Json<Drive>, Status> {
     let conn = establish_connection();
 
@@ -46,7 +46,7 @@ pub fn finish(username: String, id: i32) -> Result<Json<Drive>, Status> {
         .map_err(|error| error_status(error))
 }
 
-#[put("/drives/reserve", format ="application/json", data = "<dto>")]
+#[put("/drives/reserve", data = "<dto>")]
 pub fn reserve(dto: Json<ReserveDTO>) -> Result<Json<Drive>, Status> {
     let conn = establish_connection();
 
@@ -55,16 +55,27 @@ pub fn reserve(dto: Json<ReserveDTO>) -> Result<Json<Drive>, Status> {
         .map_err(|error| error_status(error))
 }
 
-#[delete("/drives/<id>")]
-pub fn delete(id: i32) -> Result<status::NoContent, Status> {
+#[delete("/drives/driver/<username>/<id>")]
+pub fn delete(username: String, id: i32) -> Result<status::NoContent, Status> {
     let conn = establish_connection();
 
-    delete_drive(&conn, id)
-        .map(|_| status::NoContent)
-        .map_err(|error| error_status(error))
+    let mut can_delete = false;
+
+    let _ = find_one_finished_driver(&conn, &username, id)
+        .map(|_| can_delete = true)
+        .map_err(|error| error_status(error));
+
+    if can_delete {
+        delete_drive(&conn, &username, id)
+            .map(|_| status::NoContent)
+            .map_err(|error| error_status(error))
+    } else {
+        Err(error_status(Error::NotFound))
+    }
+
 }
 
-#[post("/drives/search", format ="application/json", data = "<dto>")]
+#[post("/drives/search", data = "<dto>")]
 pub fn search(dto: Json<SearchDTO>) -> Result<Json<Vec<Drive>>, Status> {
     let conn = establish_connection();
 

@@ -9,23 +9,6 @@ import (
 	"time"
 )
 
-const UserServiceRoot string = "http://localhost:8081/api/users/"
-const LoginApi = "login"
-const AuthorizeApi string = "authorize/"
-const _AuthenticateApi string = "authenticate"
-const Registration string = "registration/"
-const Search string = "search/"
-const Admin string = "admin/"
-const Driver string = "driver/"
-const Passenger string = "passenger/"
-const _Admin string = "admin"
-const _Driver string = "driver"
-const _Passenger string = "passenger"
-const _Profile string = "profile"
-const _ChangePassword string = "change-password"
-const Ban string = "ban/"
-const Verify string = "verify/"
-
 func Login(resWriter http.ResponseWriter, req *http.Request) {
 	timeout := time.Duration(5 * time.Second)
 	client := http.Client{Timeout: timeout}

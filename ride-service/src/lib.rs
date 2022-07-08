@@ -56,19 +56,28 @@ pub fn finish_drive(conn: &PgConnection, username: &String, _id: i32) -> QueryRe
     drive
 }
 
-pub fn reserve_drive(conn: &PgConnection, id: i32, reserved_num: i32) -> QueryResult<Drive> {
-    use schema::drives::dsl::drives;
+pub fn reserve_drive(conn: &PgConnection, _id: i32, reserved_num: i32) -> QueryResult<Drive> {
+    use schema::drives::dsl::*;
 
-    let drive = diesel::update(drives.find(id))
+    let drive = diesel::update
+        (drives.
+            filter((free_places-reserved_num).gt(-1)).
+            filter(finished.eq(false)).
+            filter(id.eq(_id)))
         .set(free_places.eq(free_places - reserved_num))
         .get_result::<Drive>(conn);
 
     drive
 }
 
-pub fn delete_drive(conn: &PgConnection, _id: i32) -> QueryResult<usize> {
+pub fn delete_drive(conn: &PgConnection, driver: &String, _id: i32) -> QueryResult<usize> {
     use schema::drives::dsl::*;
-    diesel::delete(drives.filter(id.eq(_id))).execute(conn)
+
+    diesel::delete(drives
+        .filter(id.eq(_id))
+        .filter(finished.eq(true))
+        .filter(driver_username.eq(driver)))
+        .execute(conn)
 }
 
 pub fn find_one(conn: &PgConnection, _id: i32) -> QueryResult<Drive> {
@@ -93,6 +102,18 @@ pub fn search_drives(conn: &PgConnection, depart: &String, dest: &String) -> Que
         .filter(departure_date_time.gt(millis))
         .limit(100)
         .load::<Drive>(conn);
+
+    results
+}
+
+pub fn find_one_finished_driver(conn: &PgConnection, driver: &String, _id: i32) -> QueryResult<Drive> {
+    use schema::drives::dsl::*;
+
+    let results = drives
+        .filter(finished.eq(true))
+        .filter(id.eq(_id))
+        .filter(driver_username.eq(driver))
+        .get_result::<Drive>(conn);
 
     results
 }
