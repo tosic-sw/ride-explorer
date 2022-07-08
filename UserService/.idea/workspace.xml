@@ -4,31 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67ebd713-021c-4344-bd48-7cb4b18ef8de" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../ApiGateway/handlers/reservation_service.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/data/repository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/db/db.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/db/seed.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/handlers/reservations.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/handlers/utils.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/models/dtos.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/models/mappers.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/models/models.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/router/router.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/handlers/route_fragments.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/handlers/route_fragments.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/router/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/UserService.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/UserService.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/users.go" afterDir="false" />
-    </list>
+    <list default="true" id="67ebd713-021c-4344-bd48-7cb4b18ef8de" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,21 +23,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.format.on.save.advertiser.fired": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "C:/Users/Jorg"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.format.on.save.advertiser.fired&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.watchers.conflict.with.on.save.actions.check.performed&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Jorg&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="go build UserService" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="UserService" />
