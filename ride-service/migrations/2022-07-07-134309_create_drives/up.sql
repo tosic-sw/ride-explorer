@@ -1,5 +1,6 @@
 CREATE TABLE drives (
   id SERIAL PRIMARY KEY,
+  driver_username VARCHAR NOT NULL,
   departure_location VARCHAR NOT NULL,
   destination VARCHAR NOT NULL,
   departure_date_time BIGINT NOT NULL,

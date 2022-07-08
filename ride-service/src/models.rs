@@ -4,6 +4,7 @@ use super::schema::drives;
 #[derive(Queryable, Serialize)]
 pub struct Drive {
     pub id: i32,
+    pub driver_username: String,
     pub departure_location: String,
     pub destination: String,
     pub departure_date_time: i64,
@@ -18,6 +19,7 @@ pub struct Drive {
 #[derive(Insertable, Deserialize)]
 #[table_name="drives"]
 pub struct NewDrive {
+    pub driver_username: String,
     pub departure_location: String,
     pub destination: String,
     pub departure_date_time: i64,

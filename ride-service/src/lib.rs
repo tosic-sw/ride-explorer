@@ -12,7 +12,7 @@ use dotenv::dotenv;
 use std::env;
 use std::time::{SystemTime, UNIX_EPOCH};
 
-use crate::schema::drives::{departure_address, free_places, note, finished};
+use crate::schema::drives::{departure_address, free_places, note};
 use self::models::{Drive, NewDrive, UpdateDriveDTO};
 
 pub fn establish_connection() -> PgConnection {
@@ -42,10 +42,14 @@ pub fn update_drive(conn: &PgConnection, dto: &UpdateDriveDTO) -> QueryResult<Dr
     drive
 }
 
-pub fn finish_drive(conn: &PgConnection, id: i32) -> QueryResult<Drive> {
-    use schema::drives::dsl::drives;
+pub fn finish_drive(conn: &PgConnection, username: &String, _id: i32) -> QueryResult<Drive> {
+    use schema::drives::dsl::*;
 
-    let drive = diesel::update(drives.find(id))
+    let drive = diesel::update
+        (drives.
+            filter(id.eq(_id)).
+            filter(finished.eq(false)).
+            filter(driver_username.eq(username)))
         .set(finished.eq(true))
         .get_result::<Drive>(conn);
 
@@ -87,6 +91,30 @@ pub fn search_drives(conn: &PgConnection, depart: &String, dest: &String) -> Que
         .filter(destination.eq(dest))
         .filter(finished.eq(false))
         .filter(departure_date_time.gt(millis))
+        .limit(100)
+        .load::<Drive>(conn);
+
+    results
+}
+
+pub fn find_finished_driver(conn: &PgConnection, driver: &String) -> QueryResult<Vec<Drive>> {
+    use schema::drives::dsl::*;
+
+    let results = drives
+        .filter(finished.eq(true))
+        .filter(driver_username.eq(driver))
+        .limit(100)
+        .load::<Drive>(conn);
+
+    results
+}
+
+pub fn find_unfinished_driver(conn: &PgConnection, driver: &String) -> QueryResult<Vec<Drive>> {
+    use schema::drives::dsl::*;
+
+    let results = drives
+        .filter(finished.eq(false))
+        .filter(driver_username.eq(driver))
         .limit(100)
         .load::<Drive>(conn);
 

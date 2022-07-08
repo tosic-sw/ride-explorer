@@ -37,11 +37,11 @@ pub fn update(dto: Json<UpdateDriveDTO>) -> Result<Json<Drive>, Status> {
         .map_err(|error| error_status(error))
 }
 
-#[put("/drives/finish/<id>")]
-pub fn finish(id: i32) -> Result<Json<Drive>, Status> {
+#[put("/drives/driver/<username>/finish/<id>")]
+pub fn finish(username: String, id: i32) -> Result<Json<Drive>, Status> {
     let conn = establish_connection();
 
-    finish_drive(&conn, id)
+    finish_drive(&conn, &username, id)
         .map(|drive| Json(drive))
         .map_err(|error| error_status(error))
 }
@@ -73,6 +73,24 @@ pub fn search(dto: Json<SearchDTO>) -> Result<Json<Vec<Drive>>, Status> {
         .map_err(|error| error_status(error))
 }
 
+#[get("/drives/driver/finished/<username>")]
+pub fn finished_driver(username: String) -> Result<Json<Vec<Drive>>, Status> {
+
+    let conn = establish_connection();
+    find_finished_driver(&conn, &username)
+        .map(|drives| Json(drives))
+        .map_err(|error| error_status(error))
+}
+
+#[get("/drives/driver/unfinished/<username>")]
+pub fn unfinished_driver(username: String) -> Result<Json<Vec<Drive>>, Status> {
+
+    let conn = establish_connection();
+    find_unfinished_driver(&conn, &username)
+        .map(|drives| Json(drives))
+        .map_err(|error| error_status(error))
+}
+
 #[get("/drives")]
 pub fn all() -> Result<Json<Vec<Drive>>, Status> {
 
@@ -81,7 +99,6 @@ pub fn all() -> Result<Json<Vec<Drive>>, Status> {
         .map(|drives| Json(drives))
         .map_err(|error| error_status(error))
 }
-
 
 fn error_status(error: Error) -> Status {
     match error {
@@ -95,5 +112,5 @@ fn drive_created(drive: Drive) -> status::Created<Json<Drive>> {
 }
 
 fn main() {
-    rocket::ignite().mount("/api", routes![find, create, update, finish, reserve, delete, search, all],).launch();
+    rocket::ignite().mount("/api", routes![find, create, update, finish, reserve, delete, search, all, finished_driver, unfinished_driver],).launch();
 }

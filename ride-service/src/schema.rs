@@ -1,6 +1,7 @@
 table! {
     drives (id) {
         id -> Int4,
+        driver_username -> Varchar,
         departure_location -> Varchar,
         destination -> Varchar,
         departure_date_time -> Int8,
