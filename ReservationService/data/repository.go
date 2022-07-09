@@ -38,14 +38,14 @@ func (repo *Repository) FindOneByUser(id uint, username string) (*models.Reserva
 	return &res, nil
 }
 
-func (repo *Repository) SaveReservation(acc *models.Reservation) (*models.Reservation, error) {
-	result := repo.db.Create(acc)
+func (repo *Repository) SaveReservation(res *models.Reservation) (*models.Reservation, error) {
+	result := repo.db.Create(res)
 
 	if result.Error != nil {
-		return acc, errors.New("an error occurred while saving reservation")
+		return res, errors.New("an error occurred while saving reservation")
 	}
 
-	return acc, nil
+	return res, nil
 }
 
 func (repo *Repository) DeleteReservation(id uint, username string) error {
