@@ -38,6 +38,19 @@ func (repo *Repository) FindOneByUser(id uint, username string) (*models.Reserva
 	return &res, nil
 }
 
+func (repo *Repository) FindByDriveIdAndUsername(driveId int32, username string, verified bool) ([]*models.Reservation, error) {
+	var reservations []*models.Reservation
+
+	result := repo.db.Where("drive_id = ? AND passenger_username = ? AND verified = ?", driveId, username, verified).
+		Find(&reservations)
+
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	return reservations, nil
+}
+
 func (repo *Repository) SaveReservation(res *models.Reservation) (*models.Reservation, error) {
 	result := repo.db.Create(res)
 

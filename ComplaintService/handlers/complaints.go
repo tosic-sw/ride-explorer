@@ -42,15 +42,87 @@ func (ch *ComplaintsHandler) CreateComplaint(resWriter http.ResponseWriter, req 
 		return
 	}
 
-	res := complaintDTO.ToComplaint(username)
-	_, err = ch.repository.SaveComplaint(&res)
+	role, err := GetRoleFromRequest(req)
 	if err != nil {
-		fmt.Println(err.Error())
-		resWriter.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(resWriter).Encode(models.Response{Message: "Unknown error happened while saving complaint"})
+		resWriter.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(resWriter).Encode(models.Response{Message: err.Error()})
+		return
 	}
 
-	json.NewEncoder(resWriter).Encode(models.Response{Message: "Complaint successfully created"})
+	complaint := complaintDTO.ToComplaint(username)
+	if role == "DRIVER" {
+		ch.ProceedSavingAndReturnResponseDriver(&resWriter, &complaint)
+	} else if role == "PASSENGER" {
+		ch.ProceedSavingAndReturnResponsePassenger(&resWriter, &complaint)
+	}
+}
+
+func (ch *ComplaintsHandler) ProceedSavingAndReturnResponseDriver(resWriter *http.ResponseWriter, complaint *models.Complaint) {
+	if err := ExistsFinishedDriveDriver(complaint.DriveId, complaint.Accuser); err != nil {
+		json.NewEncoder(*resWriter).Encode(models.Response{Message: err.Error()})
+		return
+	}
+
+	if err := ExistsVerifiedReservation(complaint.DriveId, complaint.Accused); err != nil {
+		json.NewEncoder(*resWriter).Encode(models.Response{Message: err.Error()})
+		return
+	}
+
+	_, err := ch.repository.SaveComplaint(complaint)
+	if err != nil {
+		fmt.Println(err.Error())
+		(*resWriter).WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(*resWriter).Encode(models.Response{Message: "Unknown error happened while saving complaint"})
+	}
+
+	json.NewEncoder(*resWriter).Encode(models.Response{Message: "Complaint successfully created"})
+}
+
+func (ch *ComplaintsHandler) ProceedSavingAndReturnResponsePassenger(resWriter *http.ResponseWriter, complaint *models.Complaint) {
+	accusedRole, err := GetRoleOfUser(complaint.Accused)
+	if err != nil {
+		(*resWriter).WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(*resWriter).Encode(models.Response{Message: err.Error()})
+		return
+	}
+
+	if accusedRole == "DRIVER" {
+		if err := ExistsFinishedDriveDriver(complaint.DriveId, complaint.Accused); err != nil {
+			(*resWriter).WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(*resWriter).Encode(models.Response{Message: err.Error()})
+			return
+		}
+		if err := ExistsVerifiedReservation(complaint.DriveId, complaint.Accused); err != nil {
+			(*resWriter).WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(*resWriter).Encode(models.Response{Message: err.Error()})
+			return
+		}
+	} else if accusedRole == "PASSENGER" {
+		if err := ExistsFinishedDrive(complaint.DriveId); err != nil {
+			(*resWriter).WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(*resWriter).Encode(models.Response{Message: err.Error()})
+			return
+		}
+		if err := ExistsVerifiedReservation(complaint.DriveId, complaint.Accuser); err != nil {
+			(*resWriter).WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(*resWriter).Encode(models.Response{Message: err.Error()})
+			return
+		}
+		if err := ExistsVerifiedReservation(complaint.DriveId, complaint.Accused); err != nil {
+			(*resWriter).WriteHeader(http.StatusBadRequest)
+			json.NewEncoder(*resWriter).Encode(models.Response{Message: err.Error()})
+			return
+		}
+	}
+
+	_, err = ch.repository.SaveComplaint(complaint)
+	if err != nil {
+		fmt.Println(err.Error())
+		(*resWriter).WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(*resWriter).Encode(models.Response{Message: "Unknown error happened while saving complaint"})
+	}
+
+	json.NewEncoder(*resWriter).Encode(models.Response{Message: "Complaint successfully created"})
 }
 
 func (ch *ComplaintsHandler) DeleteComplaint(resWriter http.ResponseWriter, req *http.Request) {

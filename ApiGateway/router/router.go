@@ -45,5 +45,9 @@ func MapRoutesAndServe() {
 	router.HandleFunc("/api/reservations/user/verified", handlers.GetAllByUserVerified).Methods(http.MethodGet)
 	router.HandleFunc("/api/reservations/user/unverified", handlers.GetAllByUserUnverified).Methods(http.MethodGet)
 
+	router.HandleFunc("/api/complaints", handlers.GetAllComplaints).Methods(http.MethodGet)
+	router.HandleFunc("/api/complaints", handlers.CreateComplaint).Methods(http.MethodPost)
+	router.HandleFunc("/api/complaints/{id:[0-9]+}", handlers.DeleteComplaint).Methods(http.MethodDelete)
+
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

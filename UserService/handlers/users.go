@@ -516,6 +516,22 @@ func (uh *UsersHandler) DeletePassenger(resWriter http.ResponseWriter, req *http
 	json.NewEncoder(resWriter).Encode(models.SuccessResponse{Message: "Passenger successfully deleted"})
 }
 
+func (uh *UsersHandler) GetRoleForUsername(resWriter http.ResponseWriter, req *http.Request) {
+	params := mux.Vars(req)
+	username := params["username"]
+
+	resWriter.Header().Set("Content-Type", "application/json")
+
+	acc, err := uh.repository.FindOneAccRole(username)
+	if err != nil {
+		resWriter.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "User with given username not found"})
+		return
+	}
+
+	json.NewEncoder(resWriter).Encode(models.RoleDTO{Role: acc.Role.String()})
+}
+
 func (uh *UsersHandler) parseSearchPageable(req *http.Request) (string, int, int) {
 	q := req.URL.Query()
 	search := q.Get("search")

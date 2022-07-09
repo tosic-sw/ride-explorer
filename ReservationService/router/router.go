@@ -17,5 +17,7 @@ func MapRoutesAndServe(handler *handlers.ReservationsHandler) {
 	router.HandleFunc("/api/reservations/user/verified", handler.GetAllByUserVerified).Methods(http.MethodGet)
 	router.HandleFunc("/api/reservations/user/unverified", handler.GetAllByUserUnverified).Methods(http.MethodGet)
 
+	router.HandleFunc("/api/reservations/is-verified/{username}/{drive-id:[0-9]+}", handler.IsVerifiedByDriveIdAndUser).Methods(http.MethodGet)
+
 	log.Fatal(http.ListenAndServe(":8082", router))
 }

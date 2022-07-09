@@ -81,3 +81,7 @@ type SuccessResponse struct {
 type TokenState struct {
 	Token string `json:"token"`
 }
+
+type RoleDTO struct {
+	Role string `json:"role"`
+}

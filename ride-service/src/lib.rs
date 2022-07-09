@@ -190,6 +190,17 @@ pub fn find_one_unfinished_driver(conn: &PgConnection, driver: &String, _id: i32
     results
 }
 
+pub fn find_one_finished(conn: &PgConnection, _id: i32) -> QueryResult<Drive> {
+    use schema::drives::dsl::*;
+
+    let results = drives
+        .filter(finished.eq(true))
+        .filter(id.eq(_id))
+        .get_result::<Drive>(conn);
+
+    results
+}
+
 pub fn find_finished_driver(conn: &PgConnection, driver: &String) -> QueryResult<Vec<Drive>> {
     use schema::drives::dsl::*;
 

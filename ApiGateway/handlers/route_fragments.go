@@ -4,9 +4,11 @@ package handlers
 const UserServiceRoot string = "http://localhost:8081/api/users/"
 const DriveServiceRoot string = "http://localhost:8000/api/drives/"
 const ReservationServiceRoot string = "http://localhost:8082/api/reservations/"
+const ComplaintServiceRoot string = "http://localhost:8083/api/complaints/"
 
 const _DriveServiceRoot string = "http://localhost:8000/api/drives"
 const _ReservationServiceRoot string = "http://localhost:8082/api/reservations"
+const _ComplaintServiceRoot string = "http://localhost:8083/api/complaints"
 
 // Common
 const Driver string = "driver/"

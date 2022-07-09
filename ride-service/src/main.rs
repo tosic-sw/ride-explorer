@@ -19,11 +19,29 @@ pub fn find(id: i32) -> Result<Json<Drive>, Status> {
         .map_err(|error| error_status(error))
 }
 
-#[get("/drives/exists/<id>/<username>")]
+#[get("/drives/unfinished/<id>/<username>")]
 pub fn one_unfinished_driver(id: i32, username: String) -> Result<Json<Drive>, Status> {
     let conn = establish_connection();
 
     find_one_unfinished_driver(&conn, &username, id)
+        .map(|drive| Json(drive))
+        .map_err(|error| error_status(error))
+}
+
+#[get("/drives/finished/<id>/<username>")]
+pub fn one_finished_driver(id: i32, username: String) -> Result<Json<Drive>, Status> {
+    let conn = establish_connection();
+
+    find_one_finished_driver(&conn, &username, id)
+        .map(|drive| Json(drive))
+        .map_err(|error| error_status(error))
+}
+
+#[get("/drives/finished/<id>")]
+pub fn one_finished(id: i32) -> Result<Json<Drive>, Status> {
+    let conn = establish_connection();
+
+    find_one_finished(&conn, id)
         .map(|drive| Json(drive))
         .map_err(|error| error_status(error))
 }
@@ -137,5 +155,6 @@ fn main() {
     _ = insert_d2(&conn);
     _ = insert_d3(&conn);
 
-    rocket::ignite().mount("/api", routes![find, create, update, finish, reserve, delete, search, all, finished_driver, unfinished_driver, one_unfinished_driver],).launch();
+    rocket::ignite().mount("/api", routes![find, create, update, finish, reserve, delete, search, all, finished_driver, unfinished_driver, one_unfinished_driver,
+                                                 one_finished, one_finished_driver],).launch();
 }

@@ -38,5 +38,7 @@ func MapRoutesAndServe(handler *handlers.UsersHandler) {
 	router.HandleFunc("/api/users/driver/{username}", handler.DeleteDriver).Methods(http.MethodDelete)
 	router.HandleFunc("/api/users/passenger/{username}", handler.DeletePassenger).Methods(http.MethodDelete)
 
+	router.HandleFunc("/api/users/role/{username}", handler.GetRoleForUsername).Methods(http.MethodGet)
+
 	log.Fatal(http.ListenAndServe(":8081", router))
 }

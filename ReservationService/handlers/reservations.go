@@ -196,6 +196,28 @@ func (uh *ReservationsHandler) GetAllByUserUnverified(resWriter http.ResponseWri
 	json.NewEncoder(resWriter).Encode(resDTOs)
 }
 
+func (uh *ReservationsHandler) IsVerifiedByDriveIdAndUser(resWriter http.ResponseWriter, req *http.Request) {
+	params := mux.Vars(req)
+	idStr := params["drive-id"]
+	username := params["username"]
+	idInt, _ := strconv.ParseInt(idStr, 10, 32)
+
+	reservations, err := uh.repository.FindByDriveIdAndUsername(int32(idInt), username, true)
+	if err != nil {
+		resWriter.WriteHeader(http.StatusNotFound)
+		return
+	}
+
+	for _, reservation := range reservations {
+		if reservation.Verified {
+			resWriter.WriteHeader(http.StatusOK)
+			return
+		}
+	}
+
+	resWriter.WriteHeader(http.StatusNotFound)
+}
+
 func (uh *ReservationsHandler) parseSearchPageable(req *http.Request) (int, int) {
 	q := req.URL.Query()
 

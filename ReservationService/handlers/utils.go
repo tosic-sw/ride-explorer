@@ -74,7 +74,7 @@ func UpdateDrivePlaces(driveId int32, places int32) error {
 func VerifyDriveReservation(driveId int32, driver_username string) error {
 	driveIdStr := strconv.Itoa(int(driveId))
 
-	endpoint := "http://localhost:8000/api/drives/exists" + "/" + driveIdStr + "/" + driver_username
+	endpoint := "http://localhost:8000/api/drives/unfinished" + "/" + driveIdStr + "/" + driver_username
 	resp, err := http.Get(endpoint)
 
 	if resp.StatusCode != http.StatusOK || err != nil {

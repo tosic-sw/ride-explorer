@@ -18,3 +18,7 @@ type CreateComplaintDTO struct {
 type Response struct {
 	Message string `json:"message"`
 }
+
+type RoleDTO struct {
+	Role string `json:"role"`
+}

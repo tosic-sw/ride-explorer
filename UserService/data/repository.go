@@ -32,6 +32,18 @@ func (repo *Repository) FindOneAcc(username string) (*models.UserAccount, error)
 	return &acc, nil
 }
 
+func (repo *Repository) FindOneAccRole(username string) (*models.UserAccount, error) {
+	var acc models.UserAccount
+
+	result := repo.db.Where("username = ? AND verified = true", username).First(&acc)
+
+	if result.Error != nil {
+		return &acc, errors.New("account with given username does not exist")
+	}
+
+	return &acc, nil
+}
+
 func (repo *Repository) FindOneLogin(username string) (*models.UserAccount, error) {
 	var acc models.UserAccount
 
