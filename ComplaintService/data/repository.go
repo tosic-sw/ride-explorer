@@ -64,7 +64,6 @@ func (repo *Repository) FindAll(offset int, size int) ([]*models.Complaint, int6
 
 	result = repo.db.Table("complaints").
 		Order("id desc").
-		Find(&complaints).
 		Count(&totalElements)
 
 	if result.Error != nil {

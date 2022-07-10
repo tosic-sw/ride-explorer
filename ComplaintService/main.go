@@ -12,7 +12,7 @@ func main() {
 
 	repository := data.NewRepository(dbConn)
 
-	usersHandler := handlers.NewComplaintsHandler(repository)
+	complaintsHandler := handlers.NewComplaintsHandler(repository)
 
-	router.MapRoutesAndServe(usersHandler)
+	router.MapRoutesAndServe(complaintsHandler)
 }
