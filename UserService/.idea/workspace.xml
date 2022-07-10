@@ -4,27 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="67ebd713-021c-4344-bd48-7cb4b18ef8de" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../ApiGateway/handlers/complaint_service.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ComplaintService/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../ReservationService/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/handlers/route_fragments.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/handlers/route_fragments.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/router/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ComplaintService/handlers/complaints.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ComplaintService/handlers/complaints.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ComplaintService/handlers/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ComplaintService/handlers/utils.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ComplaintService/models/dtos.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ComplaintService/models/dtos.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ReservationService/data/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ReservationService/data/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ReservationService/handlers/reservations.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ReservationService/handlers/reservations.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ReservationService/handlers/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ReservationService/handlers/utils.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ReservationService/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ReservationService/router/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/data/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/dtos.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/dtos.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ride-service/src/lib.rs" beforeDir="false" afterPath="$PROJECT_DIR$/../ride-service/src/lib.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ride-service/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/../ride-service/src/main.rs" afterDir="false" />
-    </list>
+    <list default="true" id="67ebd713-021c-4344-bd48-7cb4b18ef8de" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
