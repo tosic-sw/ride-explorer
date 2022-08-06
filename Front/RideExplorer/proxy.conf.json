@@ -1,0 +1,7 @@
+{
+	"/ride-explorer":{
+		"target": "http://localhost:8080/",
+		"secure": false,
+		"pathRewrite": {"^/ride-explorer" : ""}
+	}
+}
