@@ -15,10 +15,10 @@ var Ratings = []models.Rating{
 		Text:      "Smoking in car",
 	},
 	{
-		Evaluator: "tica",
-		Evaluated: "beli",
+		Evaluator: "beli",
+		Evaluated: "tica",
 		DriveId:   1,
 		Positive:  false,
-		Text:      "Sot smoking in car",
+		Text:      "Not smoking in car",
 	},
 }

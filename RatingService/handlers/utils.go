@@ -79,7 +79,7 @@ func GetRoleOfUser(username string) (string, error) {
 }
 
 func ExistsFinishedDrive(id uint) error {
-	endpoint := "http://localhost:8000/api/drives/" + strconv.Itoa(int(id))
+	endpoint := "http://localhost:8000/api/drives/finished/" + strconv.Itoa(int(id))
 	resp, err := http.Get(endpoint)
 	if err != nil {
 		return errors.New("internal server error")
@@ -93,7 +93,7 @@ func ExistsFinishedDrive(id uint) error {
 }
 
 func ExistsFinishedDriveDriver(driveId uint, driver string) error {
-	endpoint := "http://localhost:8000/api/drives/" + strconv.Itoa(int(driveId)) + "/" + driver
+	endpoint := "http://localhost:8000/api/drives/finished/" + strconv.Itoa(int(driveId)) + "/" + driver
 	resp, err := http.Get(endpoint)
 	if err != nil {
 		return errors.New("internal server error")
@@ -108,6 +108,7 @@ func ExistsFinishedDriveDriver(driveId uint, driver string) error {
 
 func ExistsVerifiedReservation(driveId uint, passenger string) error {
 	endpoint := "http://localhost:8082/api/reservations/is-verified/" + passenger + "/" + strconv.Itoa(int(driveId))
+
 	resp, err := http.Get(endpoint)
 	if err != nil {
 		return errors.New("internal server error")

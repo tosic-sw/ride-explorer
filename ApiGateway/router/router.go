@@ -49,5 +49,10 @@ func MapRoutesAndServe() {
 	router.HandleFunc("/api/complaints", handlers.CreateComplaint).Methods(http.MethodPost)
 	router.HandleFunc("/api/complaints/{id:[0-9]+}", handlers.DeleteComplaint).Methods(http.MethodDelete)
 
+	router.HandleFunc("/api/ratings", handlers.CreateRating).Methods(http.MethodPost)
+	router.HandleFunc("/api/ratings/{id:[0-9]+}", handlers.UpdateRating).Methods(http.MethodPut)
+	router.HandleFunc("/api/ratings/{id:[0-9]+}", handlers.DeleteRating).Methods(http.MethodDelete)
+	router.HandleFunc("/api/ratings/evaluated/{username}", handlers.GetAllForEvaluated).Methods(http.MethodGet)
+
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

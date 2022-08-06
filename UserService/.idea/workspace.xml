@@ -5,17 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67ebd713-021c-4344-bd48-7cb4b18ef8de" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../RatingService/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../RatingService/router/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ComplaintService/data/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ComplaintService/data/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ComplaintService/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ComplaintService/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RatingService/data/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RatingService/data/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RatingService/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/../RatingService/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RatingService/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/../RatingService/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RatingService/handlers/raings.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RatingService/handlers/ratings.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RatingService/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RatingService/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RatingService/models/dtos.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RatingService/models/dtos.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../RatingService/models/mappers.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RatingService/models/mappers.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../ApiGateway/handlers/rating_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ApiGateway/handlers/route_fragments.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/handlers/route_fragments.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ApiGateway/handlers/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/handlers/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ApiGateway/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/router/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ComplaintService/handlers/complaints.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ComplaintService/handlers/complaints.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ComplaintService/handlers/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ComplaintService/handlers/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RatingService/db/seed.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RatingService/db/seed.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RatingService/handlers/ratings.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RatingService/handlers/ratings.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RatingService/handlers/utils.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RatingService/handlers/utils.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../RatingService/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/../RatingService/router/router.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

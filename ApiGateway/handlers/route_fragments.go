@@ -5,10 +5,12 @@ const UserServiceRoot string = "http://localhost:8081/api/users/"
 const DriveServiceRoot string = "http://localhost:8000/api/drives/"
 const ReservationServiceRoot string = "http://localhost:8082/api/reservations/"
 const ComplaintServiceRoot string = "http://localhost:8083/api/complaints/"
+const RatingServiceRoot string = "http://localhost:8084/api/ratings/"
 
 const _DriveServiceRoot string = "http://localhost:8000/api/drives"
 const _ReservationServiceRoot string = "http://localhost:8082/api/reservations"
 const _ComplaintServiceRoot string = "http://localhost:8083/api/complaints"
+const _RatingServiceRoot string = "http://localhost:8084/api/ratings"
 
 // Common
 const Driver string = "driver/"
@@ -41,3 +43,13 @@ const Unfinished string = "unfinished/"
 const _Verified = "verified"
 const _Unverified = "unverified"
 const User = "user/"
+
+// RatingService
+const Evaluated = "evaluated/"
+
+// Pageable
+const pSearch = "search="
+const pPage = "page="
+const pSize = "size="
+const QMark = "?"
+const Amp = "&"

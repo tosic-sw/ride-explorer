@@ -93,3 +93,7 @@ func AdjustAllHeaders(resWriter *http.ResponseWriter, response *http.Response) {
 	}
 	(*resWriter).WriteHeader(response.StatusCode)
 }
+
+func ComposePageable(search string, size string, page string) string {
+	return QMark + pSearch + search + Amp + pSize + size + Amp + pPage + page
+}

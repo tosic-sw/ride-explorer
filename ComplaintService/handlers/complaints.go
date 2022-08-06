@@ -73,6 +73,7 @@ func (ch *ComplaintsHandler) ProceedSavingAndReturnResponseDriver(resWriter *htt
 		fmt.Println(err.Error())
 		(*resWriter).WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(*resWriter).Encode(models.Response{Message: "Unknown error happened while saving complaint"})
+		return
 	}
 
 	json.NewEncoder(*resWriter).Encode(models.Response{Message: "Complaint successfully created"})
@@ -92,7 +93,7 @@ func (ch *ComplaintsHandler) ProceedSavingAndReturnResponsePassenger(resWriter *
 			json.NewEncoder(*resWriter).Encode(models.Response{Message: err.Error()})
 			return
 		}
-		if err := ExistsVerifiedReservation(complaint.DriveId, complaint.Accused); err != nil {
+		if err := ExistsVerifiedReservation(complaint.DriveId, complaint.Accuser); err != nil {
 			(*resWriter).WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(*resWriter).Encode(models.Response{Message: err.Error()})
 			return
@@ -120,6 +121,7 @@ func (ch *ComplaintsHandler) ProceedSavingAndReturnResponsePassenger(resWriter *
 		fmt.Println(err.Error())
 		(*resWriter).WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(*resWriter).Encode(models.Response{Message: "Unknown error happened while saving complaint"})
+		return
 	}
 
 	json.NewEncoder(*resWriter).Encode(models.Response{Message: "Complaint successfully created"})
@@ -135,6 +137,7 @@ func (ch *ComplaintsHandler) DeleteComplaint(resWriter http.ResponseWriter, req 
 	if _, err := ch.repository.FindOne(uint(idInt)); err == nil {
 		resWriter.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(resWriter).Encode(models.Response{Message: "Invalid complaint id sent for deletion"})
+		return
 	}
 
 	err = ch.repository.DeleteComplaint(uint(idInt))

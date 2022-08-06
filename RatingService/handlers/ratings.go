@@ -92,7 +92,7 @@ func (ch *RatingsHandler) ProceedSavingAndReturnResponsePassenger(resWriter *htt
 			json.NewEncoder(*resWriter).Encode(models.Response{Message: err.Error()})
 			return
 		}
-		if err := ExistsVerifiedReservation(rating.DriveId, rating.Evaluated); err != nil {
+		if err := ExistsVerifiedReservation(rating.DriveId, rating.Evaluator); err != nil {
 			(*resWriter).WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(*resWriter).Encode(models.Response{Message: err.Error()})
 			return
@@ -120,6 +120,7 @@ func (ch *RatingsHandler) ProceedSavingAndReturnResponsePassenger(resWriter *htt
 		fmt.Println(err.Error())
 		(*resWriter).WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(*resWriter).Encode(models.Response{Message: "Unknown error happened while saving rating"})
+		return
 	}
 
 	json.NewEncoder(*resWriter).Encode(models.Response{Message: "Rating successfully created"})
@@ -136,11 +137,13 @@ func (ch *RatingsHandler) DeleteRating(resWriter http.ResponseWriter, req *http.
 	if err != nil {
 		resWriter.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(resWriter).Encode(models.Response{Message: err.Error()})
+		return
 	}
 
-	if _, err := ch.repository.FindOneByEvaluator(uint(idInt), username); err == nil {
+	if _, err := ch.repository.FindOneByEvaluator(uint(idInt), username); err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(resWriter).Encode(models.Response{Message: "Invalid rating id sent for given evaluator"})
+		return
 	}
 
 	err = ch.repository.DeleteRating(uint(idInt))
@@ -173,6 +176,7 @@ func (ch *RatingsHandler) UpdateRating(resWriter http.ResponseWriter, req *http.
 	if _, err := ch.repository.FindOneComplex(username, ratingDTO.Evaluated, ratingDTO.DriveId); err != nil {
 		resWriter.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(resWriter).Encode(models.Response{Message: "Rating with given params does not exist"})
+		return
 	}
 
 	_, err = ch.repository.UpdateRating(uint(idInt), username, ratingDTO.Positive, ratingDTO.Text)
