@@ -68,7 +68,8 @@ func GetAllByUserVerified(resWriter http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	SendReqAndReturnResponse(resWriter, req, http.MethodGet, ReservationServiceRoot+User+_Verified)
+	pageable := GetPageableFromRequest(req)
+	SendReqAndReturnResponse(resWriter, req, http.MethodGet, ReservationServiceRoot+User+_Verified+pageable)
 }
 
 func GetAllByUserUnverified(resWriter http.ResponseWriter, req *http.Request) {
@@ -79,5 +80,6 @@ func GetAllByUserUnverified(resWriter http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	SendReqAndReturnResponse(resWriter, req, http.MethodGet, ReservationServiceRoot+User+_Unverified)
+	pageable := GetPageableFromRequest(req)
+	SendReqAndReturnResponse(resWriter, req, http.MethodGet, ReservationServiceRoot+User+_Unverified+pageable)
 }

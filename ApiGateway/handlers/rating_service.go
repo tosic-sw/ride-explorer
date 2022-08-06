@@ -68,19 +68,13 @@ func DeleteRating(resWriter http.ResponseWriter, req *http.Request) {
 }
 
 func GetAllForEvaluated(resWriter http.ResponseWriter, req *http.Request) {
-	search := req.URL.Query().Get("search")
-	size := req.URL.Query().Get("size")
-	page := req.URL.Query().Get("page")
-	pageable := ComposePageable(search, size, page)
-
 	params := mux.Vars(req)
 	username := params["username"]
-
-	path := RatingServiceRoot + Evaluated + username + pageable
+	pageable := GetPageableFromRequest(req)
 
 	status, err := Authenticate(req)
 	if err == nil {
-		SendReqAndReturnResponse(resWriter, req, http.MethodGet, path)
+		SendReqAndReturnResponse(resWriter, req, http.MethodGet, RatingServiceRoot+Evaluated+username+pageable)
 		return
 	}
 

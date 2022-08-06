@@ -59,7 +59,6 @@ func RegistrationPassenger(resWriter http.ResponseWriter, req *http.Request) {
 }
 
 func SearchAdmin(resWriter http.ResponseWriter, req *http.Request) {
-
 	if status, err := Authorize(req, "admin"); err != nil {
 		resWriter.Header().Set("Content-Type", "application/json")
 		resWriter.WriteHeader(status)
@@ -67,7 +66,8 @@ func SearchAdmin(resWriter http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Search+_Admin)
+	pageable := GetPageableFromRequest(req)
+	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Search+_Admin+pageable)
 }
 
 func SearchDriver(resWriter http.ResponseWriter, req *http.Request) {
@@ -78,7 +78,8 @@ func SearchDriver(resWriter http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Search+_Driver)
+	pageable := GetPageableFromRequest(req)
+	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Search+_Driver+pageable)
 }
 
 func SearchPassenger(resWriter http.ResponseWriter, req *http.Request) {
@@ -89,7 +90,8 @@ func SearchPassenger(resWriter http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Search+_Passenger)
+	pageable := GetPageableFromRequest(req)
+	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Search+_Passenger+pageable)
 }
 
 func GetAdmin(resWriter http.ResponseWriter, req *http.Request) {

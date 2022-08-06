@@ -94,6 +94,14 @@ func AdjustAllHeaders(resWriter *http.ResponseWriter, response *http.Response) {
 	(*resWriter).WriteHeader(response.StatusCode)
 }
 
-func ComposePageable(search string, size string, page string) string {
+func GetPageableFromRequest(req *http.Request) string {
+	search := req.URL.Query().Get("search")
+	size := req.URL.Query().Get("size")
+	page := req.URL.Query().Get("page")
+
+	return composePageable(search, size, page)
+}
+
+func composePageable(search string, size string, page string) string {
 	return QMark + pSearch + search + Amp + pSize + size + Amp + pPage + page
 }
