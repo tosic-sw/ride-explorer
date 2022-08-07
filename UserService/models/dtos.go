@@ -78,6 +78,10 @@ type SuccessResponse struct {
 	Message string `json:"message"`
 }
 
+type MessageResponse struct {
+	Message string `json:"message"`
+}
+
 type TokenState struct {
 	Token string `json:"token"`
 }

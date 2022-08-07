@@ -29,13 +29,13 @@ func (uh *UsersHandler) Login(resWriter http.ResponseWriter, req *http.Request) 
 	acc, err := uh.repository.FindOneLogin(loginDTO.Username)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusUnauthorized)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: err.Error()})
 		return
 	}
 
 	if acc.Password != loginDTO.Password {
 		resWriter.WriteHeader(http.StatusUnauthorized)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Wrong password"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Wrong password"})
 		return
 	}
 
@@ -43,7 +43,7 @@ func (uh *UsersHandler) Login(resWriter http.ResponseWriter, req *http.Request) 
 	if err != nil {
 		fmt.Println(err.Error())
 		resWriter.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Unknown error happened at login"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Unknown error happened at login"})
 		return
 	}
 
@@ -81,6 +81,7 @@ func (uh *UsersHandler) AuthorizeAdmin(resWriter http.ResponseWriter, req *http.
 	}
 
 	tokenStr := strings.Split(bearer[0], " ")[1]
+	fmt.Println(tokenStr)
 	token, err := utils.ParseTokenStr(tokenStr)
 	claims := token.Claims.(jwt.MapClaims)
 
@@ -149,13 +150,13 @@ func (uh *UsersHandler) AdminRegistration(resWriter http.ResponseWriter, req *ht
 	err := json.NewDecoder(req.Body).Decode(&regDTO)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Invalid data sent"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Invalid data sent"})
 		return
 	}
 
 	if _, err = uh.repository.FindOneAcc(regDTO.Username); err == nil {
 		resWriter.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Username already taken"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Username already taken"})
 	}
 
 	user := regDTO.ToAdmin()
@@ -163,11 +164,11 @@ func (uh *UsersHandler) AdminRegistration(resWriter http.ResponseWriter, req *ht
 	if err != nil {
 		fmt.Println(err.Error())
 		resWriter.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Unknown error happened at admin registration"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Unknown error happened at admin registration"})
 		return
 	}
 
-	json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Admin successfully registered"})
+	json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Admin successfully registered"})
 }
 
 func (uh *UsersHandler) DriverRegistration(resWriter http.ResponseWriter, req *http.Request) {
@@ -177,13 +178,13 @@ func (uh *UsersHandler) DriverRegistration(resWriter http.ResponseWriter, req *h
 	err := json.NewDecoder(req.Body).Decode(&regDTO)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Invalid data sent"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Invalid data sent"})
 		return
 	}
 
 	if _, err = uh.repository.FindOneAcc(regDTO.Username); err == nil {
 		resWriter.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Username already taken"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Username already taken"})
 		return
 	}
 
@@ -192,11 +193,11 @@ func (uh *UsersHandler) DriverRegistration(resWriter http.ResponseWriter, req *h
 	if err != nil {
 		fmt.Println(err.Error())
 		resWriter.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Unknown error happened at driver registration"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Unknown error happened at driver registration"})
 		return
 	}
 
-	json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Driver successfully registered"})
+	json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Driver successfully registered"})
 }
 
 func (uh *UsersHandler) DriverVerification(resWriter http.ResponseWriter, req *http.Request) {
@@ -208,13 +209,13 @@ func (uh *UsersHandler) DriverVerification(resWriter http.ResponseWriter, req *h
 	account, err := uh.repository.FindOneAcc(username)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Driver does not exist in database"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Driver does not exist in database"})
 		return
 	}
 
 	if account.Verified {
 		resWriter.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Driver already verified"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Driver already verified"})
 		return
 	}
 
@@ -222,11 +223,11 @@ func (uh *UsersHandler) DriverVerification(resWriter http.ResponseWriter, req *h
 	if err != nil {
 		fmt.Println(err.Error())
 		resWriter.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Unknown error happened while verifying driver"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Unknown error happened while verifying driver"})
 		return
 	}
 
-	json.NewEncoder(resWriter).Encode(models.SuccessResponse{Message: "Driver successfully verified"})
+	json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Driver successfully verified"})
 }
 
 func (uh *UsersHandler) PassengerRegistration(resWriter http.ResponseWriter, req *http.Request) {
@@ -236,13 +237,13 @@ func (uh *UsersHandler) PassengerRegistration(resWriter http.ResponseWriter, req
 	err := json.NewDecoder(req.Body).Decode(&regDTO)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Invalid data sent"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Invalid data sent"})
 		return
 	}
 
 	if _, err = uh.repository.FindOneAcc(regDTO.Username); err == nil {
 		resWriter.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Username already taken"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Username already taken"})
 		return
 	}
 
@@ -251,11 +252,11 @@ func (uh *UsersHandler) PassengerRegistration(resWriter http.ResponseWriter, req
 	if err != nil {
 		fmt.Println(err.Error())
 		resWriter.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Unknown error happened at passenger registration"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Unknown error happened at passenger registration"})
 		return
 	}
 
-	json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Passenger successfully registered"})
+	json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Passenger successfully registered"})
 }
 
 func (uh *UsersHandler) SearchAdmin(resWriter http.ResponseWriter, req *http.Request) {
@@ -312,7 +313,7 @@ func (uh *UsersHandler) GetAdmin(resWriter http.ResponseWriter, req *http.Reques
 	admin, err := uh.repository.FindOneAdmin(username)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: err.Error()})
 		return
 	}
 
@@ -328,7 +329,7 @@ func (uh *UsersHandler) GetDriver(resWriter http.ResponseWriter, req *http.Reque
 	driver, err := uh.repository.FindOneDriver(username)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: err.Error()})
 		return
 	}
 
@@ -344,7 +345,7 @@ func (uh *UsersHandler) GetPassenger(resWriter http.ResponseWriter, req *http.Re
 	passenger, err := uh.repository.FindOnePassenger(username)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: err.Error()})
 		return
 	}
 
@@ -358,7 +359,7 @@ func (uh *UsersHandler) UpdateProfile(resWriter http.ResponseWriter, req *http.R
 	var err = json.NewDecoder(req.Body).Decode(&userDTO)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Invalid data sent"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Invalid data sent"})
 		return
 	}
 
@@ -366,7 +367,7 @@ func (uh *UsersHandler) UpdateProfile(resWriter http.ResponseWriter, req *http.R
 	bearer := req.Header["Authorization"]
 	if bearer == nil {
 		resWriter.WriteHeader(http.StatusUnauthorized)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Unauthorized"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Unauthorized"})
 		return
 	}
 
@@ -386,7 +387,7 @@ func (uh *UsersHandler) UpdateProfile(resWriter http.ResponseWriter, req *http.R
 
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: err.Error()})
 		return
 	}
 
@@ -401,11 +402,11 @@ func (uh *UsersHandler) UpdateProfile(resWriter http.ResponseWriter, req *http.R
 	if err != nil {
 		fmt.Println(err.Error())
 		resWriter.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: err.Error()})
 		return
 	}
 
-	json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Profile successfully updated"})
+	json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Profile successfully updated"})
 }
 
 func (uh *UsersHandler) ChangePassword(resWriter http.ResponseWriter, req *http.Request) {
@@ -415,14 +416,14 @@ func (uh *UsersHandler) ChangePassword(resWriter http.ResponseWriter, req *http.
 	err := json.NewDecoder(req.Body).Decode(&userDTO)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusBadRequest)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Invalid data sent"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Invalid data sent"})
 		return
 	}
 
 	bearer := req.Header["Authorization"]
 	if bearer == nil {
 		resWriter.WriteHeader(http.StatusUnauthorized)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Unauthorized"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Unauthorized"})
 		return
 	}
 
@@ -435,7 +436,7 @@ func (uh *UsersHandler) ChangePassword(resWriter http.ResponseWriter, req *http.
 	_, err = uh.repository.FindOneAcc(username)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: err.Error()})
 		return
 	}
 
@@ -443,11 +444,11 @@ func (uh *UsersHandler) ChangePassword(resWriter http.ResponseWriter, req *http.
 	if err != nil {
 		fmt.Println(err.Error())
 		resWriter.WriteHeader(http.StatusInternalServerError)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: err.Error()})
 		return
 	}
 
-	json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Password successfully changed"})
+	json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Password successfully changed"})
 }
 
 func (uh *UsersHandler) BanDriver(resWriter http.ResponseWriter, req *http.Request) {
@@ -459,11 +460,11 @@ func (uh *UsersHandler) BanDriver(resWriter http.ResponseWriter, req *http.Reque
 	_, _, err := uh.repository.BanDriver(username)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: err.Error()})
 		return
 	}
 
-	json.NewEncoder(resWriter).Encode(models.SuccessResponse{Message: "Driver successfully banned"})
+	json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Driver successfully banned"})
 }
 
 func (uh *UsersHandler) BanPassenger(resWriter http.ResponseWriter, req *http.Request) {
@@ -475,11 +476,11 @@ func (uh *UsersHandler) BanPassenger(resWriter http.ResponseWriter, req *http.Re
 	_, _, err := uh.repository.BanPassenger(username)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: err.Error()})
 		return
 	}
 
-	json.NewEncoder(resWriter).Encode(models.SuccessResponse{Message: "Passenger successfully banned"})
+	json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Passenger successfully banned"})
 }
 
 func (uh *UsersHandler) DeleteDriver(resWriter http.ResponseWriter, req *http.Request) {
@@ -491,12 +492,12 @@ func (uh *UsersHandler) DeleteDriver(resWriter http.ResponseWriter, req *http.Re
 	err := uh.repository.DeleteDriver(username)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Driver to delete not found"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Driver to delete not found"})
 		return
 	}
 	_ = uh.repository.DeleteUserAccount(username)
 
-	json.NewEncoder(resWriter).Encode(models.SuccessResponse{Message: "Driver successfully deleted"})
+	json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Driver successfully deleted"})
 }
 
 func (uh *UsersHandler) DeletePassenger(resWriter http.ResponseWriter, req *http.Request) {
@@ -508,12 +509,12 @@ func (uh *UsersHandler) DeletePassenger(resWriter http.ResponseWriter, req *http
 	err := uh.repository.DeletePassenger(username)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "Passenger to delete not found"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Passenger to delete not found"})
 		return
 	}
 	_ = uh.repository.DeleteUserAccount(username)
 
-	json.NewEncoder(resWriter).Encode(models.SuccessResponse{Message: "Passenger successfully deleted"})
+	json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Passenger successfully deleted"})
 }
 
 func (uh *UsersHandler) GetRoleForUsername(resWriter http.ResponseWriter, req *http.Request) {
@@ -525,7 +526,7 @@ func (uh *UsersHandler) GetRoleForUsername(resWriter http.ResponseWriter, req *h
 	acc, err := uh.repository.FindOneAccRole(username)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: "User with given username not found"})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "User with given username not found"})
 		return
 	}
 

@@ -55,7 +55,7 @@ func DriverVerification(resWriter http.ResponseWriter, req *http.Request) {
 }
 
 func RegistrationPassenger(resWriter http.ResponseWriter, req *http.Request) {
-	SendReqAndReturnResponse(resWriter, req, http.MethodPost, UserServiceRoot+Registration+_Driver)
+	SendReqAndReturnResponse(resWriter, req, http.MethodPost, UserServiceRoot+Registration+_Passenger)
 }
 
 func SearchAdmin(resWriter http.ResponseWriter, req *http.Request) {
