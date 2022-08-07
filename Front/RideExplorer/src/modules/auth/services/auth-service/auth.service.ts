@@ -1,15 +1,18 @@
 import { Injectable } from "@angular/core";
-import { HttpHeaders, HttpClient } from "@angular/common/http";
+import { HttpHeaders, HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Login } from "src/modules/shared/models/login";
 import { Token } from "src/modules/shared/models/token";
+import { MessageResponse } from "src/modules/shared/models/message-response";
+import { RegistrationDTO } from "../../models/registration-dto";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
-  private headers = new HttpHeaders({ "Content-Type": "application/json" });
 
+  private headers = new HttpHeaders({ "Content-Type": "application/json" });
+  
   constructor(private http: HttpClient) {}
 
   login(auth: Login): Observable<Token> {
@@ -28,5 +31,16 @@ export class AuthService {
       return false;
     }
     return true;
+  }
+
+  adminPassRegistration(dto: RegistrationDTO, role: string): Observable<HttpResponse<MessageResponse>> {
+    let queryParams = {};
+    
+    queryParams = { 
+      headers: this.headers, 
+      observe: "response" 
+    };
+
+    return this.http.post<HttpResponse<MessageResponse>>("ride-explorer/api/users/registration/" + role, dto, queryParams);
   }
 }

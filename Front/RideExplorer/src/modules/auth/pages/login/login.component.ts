@@ -44,7 +44,7 @@ export class LoginComponent {
       const role = info.role;
         
       if (role === "ADMIN") {
-        this.router.navigate(["ridexplorer/user/view"]);
+        this.router.navigate(["ridexplorer"]);
       }
       else if (role === "DRIVER") {
         this.router.navigate(["ridexplorer"]);
