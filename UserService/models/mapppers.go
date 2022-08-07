@@ -48,6 +48,24 @@ func (driver *Driver) ToDTO() UserDTO {
 	}
 }
 
+func (driver *Driver) ToDriverDTO() DriverWithCarDTO {
+	return DriverWithCarDTO{
+		Email:     driver.Email,
+		Username:  driver.Username,
+		Firstname: driver.Firstname,
+		Lastname:  driver.Lastname,
+		Role:      string(driver.Role),
+		Car: CarDTO{
+			PlateNumber:     driver.Car.PlateNumber,
+			Brand:           driver.Car.Brand,
+			CarModel:        driver.Car.CarModel,
+			FuelConsumption: driver.Car.FuelConsumption,
+			Volume:          driver.Car.Volume,
+			Power:           driver.Car.Power,
+		},
+	}
+}
+
 func (driver *Driver) ToUpdateDTO() UserForUpdateDTO {
 	return UserForUpdateDTO{
 		Email:     driver.Email,

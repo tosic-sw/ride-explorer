@@ -155,7 +155,7 @@ func (ch *ComplaintsHandler) GetAllComplaints(resWriter http.ResponseWriter, req
 	offset, size := ch.parseSearchPageable(req)
 
 	complaints, totalElements, _ := ch.repository.FindAll(offset, size)
-	var resDTOs []models.ComplaintDTO
+	resDTOs := []models.ComplaintDTO{}
 
 	for _, complaint := range complaints {
 		resDTOs = append(resDTOs, complaint.ToDTO())

@@ -81,7 +81,6 @@ func (uh *UsersHandler) AuthorizeAdmin(resWriter http.ResponseWriter, req *http.
 	}
 
 	tokenStr := strings.Split(bearer[0], " ")[1]
-	fmt.Println(tokenStr)
 	token, err := utils.ParseTokenStr(tokenStr)
 	claims := token.Claims.(jwt.MapClaims)
 
@@ -263,7 +262,7 @@ func (uh *UsersHandler) SearchAdmin(resWriter http.ResponseWriter, req *http.Req
 	search, offset, size := uh.parseSearchPageable(req)
 
 	users, totalElements, _ := uh.repository.SearchAdmins(search, offset, size)
-	var userDTOs []models.UserDTO
+	userDTOs := []models.UserDTO{}
 
 	for _, admin := range users {
 		userDTOs = append(userDTOs, admin.ToDTO())
@@ -277,8 +276,8 @@ func (uh *UsersHandler) SearchAdmin(resWriter http.ResponseWriter, req *http.Req
 func (uh *UsersHandler) SearchDriver(resWriter http.ResponseWriter, req *http.Request) {
 	search, offset, size := uh.parseSearchPageable(req)
 
-	users, totalElements, _ := uh.repository.SearchDrivers(search, offset, size)
-	var userDTOs []models.UserDTO
+	users, totalElements, _ := uh.repository.SearchDrivers(search, offset, size, true)
+	userDTOs := []models.UserDTO{}
 
 	for _, driver := range users {
 		userDTOs = append(userDTOs, driver.ToDTO())
@@ -293,10 +292,25 @@ func (uh *UsersHandler) SearchPassenger(resWriter http.ResponseWriter, req *http
 	search, offset, size := uh.parseSearchPageable(req)
 
 	users, totalElements, _ := uh.repository.SearchPassengers(search, offset, size)
-	var userDTOs []models.UserDTO
+	userDTOs := []models.UserDTO{}
 
 	for _, passenger := range users {
 		userDTOs = append(userDTOs, passenger.ToDTO())
+	}
+
+	resWriter.Header().Set("Content-Type", "application/json")
+	resWriter.Header().Set("total-elements", strconv.FormatInt(totalElements, 10))
+	json.NewEncoder(resWriter).Encode(userDTOs)
+}
+
+func (uh *UsersHandler) SearchUnverifiedDriver(resWriter http.ResponseWriter, req *http.Request) {
+	search, offset, size := uh.parseSearchPageable(req)
+
+	users, totalElements, _ := uh.repository.SearchDrivers(search, offset, size, false)
+	userDTOs := []models.UserDTO{}
+
+	for _, driver := range users {
+		userDTOs = append(userDTOs, driver.ToDTO())
 	}
 
 	resWriter.Header().Set("Content-Type", "application/json")
@@ -326,14 +340,33 @@ func (uh *UsersHandler) GetDriver(resWriter http.ResponseWriter, req *http.Reque
 
 	resWriter.Header().Set("Content-Type", "application/json")
 
-	driver, err := uh.repository.FindOneDriver(username)
+	driver, err := uh.repository.FindOneDriverWithCar(username)
+
+	fmt.Println(driver.Car.CarModel)
+
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: err.Error()})
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Driver not found"})
 		return
 	}
 
-	json.NewEncoder(resWriter).Encode(driver.ToDTO())
+	json.NewEncoder(resWriter).Encode(driver.ToDriverDTO())
+}
+
+func (uh *UsersHandler) GetUnverifiedDriver(resWriter http.ResponseWriter, req *http.Request) {
+	params := mux.Vars(req)
+	username := params["username"]
+
+	resWriter.Header().Set("Content-Type", "application/json")
+
+	driver, err := uh.repository.FindOneUnverifiedDriverWithCar(username)
+	if err != nil {
+		resWriter.WriteHeader(http.StatusNotFound)
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Unverified driver not found for given username"})
+		return
+	}
+
+	json.NewEncoder(resWriter).Encode(driver.ToDriverDTO())
 }
 
 func (uh *UsersHandler) GetPassenger(resWriter http.ResponseWriter, req *http.Request) {

@@ -164,7 +164,7 @@ func (uh *ReservationsHandler) GetAllByUserVerified(resWriter http.ResponseWrite
 	offset, size := uh.parseSearchPageable(req)
 
 	reservations, totalElements, _ := uh.repository.FindAllByUser(username, true, offset, size)
-	var resDTOs []models.ReservationDTO
+	resDTOs := []models.ReservationDTO{}
 
 	for _, reservation := range reservations {
 		resDTOs = append(resDTOs, reservation.ToDTO())
@@ -185,7 +185,7 @@ func (uh *ReservationsHandler) GetAllByUserUnverified(resWriter http.ResponseWri
 	offset, size := uh.parseSearchPageable(req)
 
 	reservations, totalElements, _ := uh.repository.FindAllByUser(username, false, offset, size)
-	var resDTOs []models.ReservationDTO
+	resDTOs := []models.ReservationDTO{}
 
 	for _, reservation := range reservations {
 		resDTOs = append(resDTOs, reservation.ToDTO())

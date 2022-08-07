@@ -31,6 +31,7 @@ const _Profile string = "profile"
 const _ChangePassword string = "change-password"
 const Ban string = "ban/"
 const Verify string = "verify/"
+const Unverified string = "unverified/"
 
 // DriveService
 const Finish string = "finish/"

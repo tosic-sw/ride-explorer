@@ -84,6 +84,30 @@ func (repo *Repository) FindOneDriver(username string) (*models.Driver, error) {
 	return &driver, nil
 }
 
+func (repo *Repository) FindOneDriverWithCar(username string) (*models.Driver, error) {
+	var driver models.Driver
+
+	result := repo.db.Preload("Car").Where("username = ? AND verified = true", username).First(&driver)
+
+	if result.Error != nil {
+		return &driver, errors.New("username does not exists in database")
+	}
+
+	return &driver, nil
+}
+
+func (repo *Repository) FindOneUnverifiedDriverWithCar(username string) (*models.Driver, error) {
+	var driver models.Driver
+
+	result := repo.db.Preload("Car").Where("username = ? AND verified = false", username).First(&driver)
+
+	if result.Error != nil {
+		return &driver, errors.New("not existent unverified driver for given username")
+	}
+
+	return &driver, nil
+}
+
 func (repo *Repository) FindOnePassenger(username string) (*models.Passenger, error) {
 	var passenger models.Passenger
 
@@ -324,26 +348,26 @@ func (repo *Repository) SearchAdmins(search string, offset int, size int) ([]*mo
 
 	return admins, totalElements, nil
 }
-func (repo *Repository) SearchDrivers(search string, offset int, size int) ([]*models.Driver, int64, error) {
+func (repo *Repository) SearchDrivers(search string, offset int, size int, verified bool) ([]*models.Driver, int64, error) {
 	var drivers []*models.Driver
 	var totalElements int64 = -1
 
 	result := repo.db.Scopes(repo.paginate(offset, size)).
-		Where("(deleted_at IS NULL AND banned_until < ? AND verified = true) AND "+
+		Where("(deleted_at IS NULL AND banned_until < ? AND verified = ?) AND "+
 			"('' = ? or "+
 			"firstname LIKE ? or "+
 			"lastname LIKE ? or "+
 			"email LIKE ? or "+
-			"username LIKE ?)", time.Now().UnixMilli(), search, concat(search), concat(search), concat(search), concat(search)).
+			"username LIKE ?)", time.Now().UnixMilli(), verified, search, concat(search), concat(search), concat(search), concat(search)).
 		Find(&drivers)
 
 	result = repo.db.Table("drivers").
-		Where("(deleted_at IS NULL AND banned_until < ? AND verified = true) AND "+
+		Where("(deleted_at IS NULL AND banned_until < ? AND verified = ?) AND "+
 			"('' = ? or "+
 			"firstname LIKE ? or "+
 			"lastname LIKE ? or "+
 			"email LIKE ? or "+
-			"username LIKE ?)", time.Now().UnixMilli(), search, concat(search), concat(search), concat(search), concat(search)).
+			"username LIKE ?)", time.Now().UnixMilli(), verified, search, concat(search), concat(search), concat(search), concat(search)).
 		Count(&totalElements)
 
 	if result.Error != nil {

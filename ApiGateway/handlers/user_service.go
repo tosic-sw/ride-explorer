@@ -82,6 +82,18 @@ func SearchDriver(resWriter http.ResponseWriter, req *http.Request) {
 	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Search+_Driver+pageable)
 }
 
+func SearchUnverifiedDriver(resWriter http.ResponseWriter, req *http.Request) {
+	if status, err := Authorize(req, "admin"); err != nil {
+		resWriter.Header().Set("Content-Type", "application/json")
+		resWriter.WriteHeader(status)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	pageable := GetPageableFromRequest(req)
+	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Search+Driver+_Unverified+pageable)
+}
+
 func SearchPassenger(resWriter http.ResponseWriter, req *http.Request) {
 	if status, err := Authorize(req, "admin"); err != nil {
 		resWriter.Header().Set("Content-Type", "application/json")
@@ -118,6 +130,19 @@ func GetDriver(resWriter http.ResponseWriter, req *http.Request) {
 	username := params["username"]
 
 	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Driver+username)
+}
+
+func GetUnverifiedDriver(resWriter http.ResponseWriter, req *http.Request) {
+	if status, err := Authenticate(req); err != nil {
+		resWriter.Header().Set("Content-Type", "application/json")
+		resWriter.WriteHeader(status)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		return
+	}
+	params := mux.Vars(req)
+	username := params["username"]
+
+	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Driver+Unverified+username)
 }
 
 func GetPassenger(resWriter http.ResponseWriter, req *http.Request) {

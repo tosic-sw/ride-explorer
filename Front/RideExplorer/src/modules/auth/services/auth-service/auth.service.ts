@@ -55,5 +55,16 @@ export class AuthService {
     return this.http.post<HttpResponse<MessageResponse>>("ride-explorer/api/users/registration/driver", dto, queryParams);
   }
 
+  driverVerification(username: string): Observable<HttpResponse<MessageResponse>> {
+    let queryParams = {};
+    
+    queryParams = { 
+      headers: this.headers, 
+      observe: "response" 
+    };
+
+    return this.http.put<HttpResponse<MessageResponse>>("ride-explorer/api/users/registration/driver/verify/" + username, queryParams);
+  }
+
 
 }

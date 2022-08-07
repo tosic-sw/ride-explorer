@@ -23,10 +23,12 @@ func MapRoutesAndServe(handler *handlers.UsersHandler) {
 
 	router.HandleFunc("/api/users/search/admin", handler.SearchAdmin).Methods(http.MethodGet)
 	router.HandleFunc("/api/users/search/driver", handler.SearchDriver).Methods(http.MethodGet)
+	router.HandleFunc("/api/users/search/driver/unverified", handler.SearchUnverifiedDriver).Methods(http.MethodGet)
 	router.HandleFunc("/api/users/search/passenger", handler.SearchPassenger).Methods(http.MethodGet)
 
 	router.HandleFunc("/api/users/admin/{username}", handler.GetAdmin).Methods(http.MethodGet)
 	router.HandleFunc("/api/users/driver/{username}", handler.GetDriver).Methods(http.MethodGet)
+	router.HandleFunc("/api/users/driver/unverified/{username}", handler.GetUnverifiedDriver).Methods(http.MethodGet)
 	router.HandleFunc("/api/users/passenger/{username}", handler.GetPassenger).Methods(http.MethodGet)
 
 	router.HandleFunc("/api/users/profile", handler.UpdateProfile).Methods(http.MethodPut)
