@@ -197,7 +197,7 @@ func (uh *UsersHandler) DriverRegistration(resWriter http.ResponseWriter, req *h
 		return
 	}
 
-	json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Driver successfully registered"})
+	json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "You have successfully sent registration request."})
 }
 
 func (uh *UsersHandler) DriverVerification(resWriter http.ResponseWriter, req *http.Request) {
@@ -256,7 +256,7 @@ func (uh *UsersHandler) PassengerRegistration(resWriter http.ResponseWriter, req
 		return
 	}
 
-	json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Passenger successfully registered"})
+	json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "You have been successfully registered"})
 }
 
 func (uh *UsersHandler) SearchAdmin(resWriter http.ResponseWriter, req *http.Request) {

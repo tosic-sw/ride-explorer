@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { Login } from "src/modules/shared/models/login";
 import { Token } from "src/modules/shared/models/token";
 import { MessageResponse } from "src/modules/shared/models/message-response";
-import { RegistrationDTO } from "../../models/registration-dto";
+import { DriverRegistrationDTO, RegistrationDTO } from "../../models/registration-dto";
 
 @Injectable({
   providedIn: "root",
@@ -43,4 +43,17 @@ export class AuthService {
 
     return this.http.post<HttpResponse<MessageResponse>>("ride-explorer/api/users/registration/" + role, dto, queryParams);
   }
+
+  driverRegistration(dto: DriverRegistrationDTO): Observable<HttpResponse<MessageResponse>> {
+    let queryParams = {};
+    
+    queryParams = { 
+      headers: this.headers, 
+      observe: "response" 
+    };
+
+    return this.http.post<HttpResponse<MessageResponse>>("ride-explorer/api/users/registration/driver", dto, queryParams);
+  }
+
+
 }

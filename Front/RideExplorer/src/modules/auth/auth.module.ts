@@ -8,13 +8,15 @@ import { PassengerRegistrationPageComponent } from './pages/passenger-registrati
 import { SharedModule } from '../shared/shared.module';
 import { AdminPassRegistrationComponent } from './components/admin-pass-registration/admin-pass-registration.component';
 import { AdminRegistrationPageComponent } from './pages/admin-registration-page/admin-registration-page.component';
-
-
+import { DriverRegistrationPageComponent } from './pages/driver-registration-page/driver-registration-page.component';
 
 @NgModule({
   declarations: [
     LoginComponent, 
-    PassengerRegistrationPageComponent, AdminPassRegistrationComponent, AdminRegistrationPageComponent
+    PassengerRegistrationPageComponent,
+    AdminPassRegistrationComponent,
+    AdminRegistrationPageComponent,
+    DriverRegistrationPageComponent
   ],
   imports: [
     CommonModule,

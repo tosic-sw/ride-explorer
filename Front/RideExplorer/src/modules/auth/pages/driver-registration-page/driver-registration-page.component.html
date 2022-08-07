@@ -1,0 +1,156 @@
+<div class="row justify-content-center align-items-center registerForm">
+    <form class="col-md-12 box" [formGroup]="form" (ngSubmit)="submit()">
+    <fieldset>
+        <p class="register-label">Driver registration</p>
+            <div class="form-group row">
+            <div id="username-div" class="col-md">
+                <input type="text" class="form-control" id="username" name="username" placeholder="username" formControlName="username" />
+                <small id='danger-label-username' class="text-danger danger-label" *ngIf="
+                form.controls['username'].touched &&
+                form.controls['username'].errors?.['required']
+            ">
+                Username can't be empty
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div id="pass-div" class="col-md">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                formControlName="password" />
+                <small id='danger-label-pass' class="text-danger" *ngIf="
+                form.controls['password'].touched &&
+                form.controls['password'].errors?.['required']
+            ">
+                Password can't be empty
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div id="firstname-div" class="col-md">
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Firstname"
+                    formControlName="firstname" />
+                <small id='danger-label-pass' class="text-danger" *ngIf="
+                form.controls['firstname'].touched &&
+                form.controls['firstname'].errors?.['required']
+                ">
+                    Firstname can't be empty
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div id="lastname-div" class="col-md">
+                <input type="lastname" class="form-control" id="lastname" name="lastname" placeholder="Lastname"
+                    formControlName="lastname" />
+                <small id='danger-label-pass' class="text-danger" *ngIf="
+                form.controls['lastname'].touched &&
+                form.controls['lastname'].errors?.['required']
+                ">
+                    Lastname can't be empty
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div id="email-div" class="col-md">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                    formControlName="email" />
+                <small id='danger-label-pass' class="text-danger" *ngIf="
+                form.controls['email'].touched &&
+                form.controls['email'].errors?.['required']
+                ">
+                    Email can't be empty
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <p class="register-label">Car</p>
+            <div id="plateNumber-div" class="col-md">
+                <input type="text" class="form-control" id="plateNumber" name="plateNumber" placeholder="plateNumber" formControlName="plateNumber" />
+                <small id='danger-label-plateNumber' class="text-danger danger-label" *ngIf="
+                form.controls['plateNumber'].touched &&
+                form.controls['plateNumber'].errors?.['required']
+            ">
+                Plate number can't be empty
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div id="brand-div" class="col-md">
+                <input type="text" class="form-control" id="brand" name="brand" placeholder="Brand"
+                formControlName="brand" />
+                <small id='danger-label-pass' class="text-danger" *ngIf="
+                form.controls['brand'].touched &&
+                form.controls['brand'].errors?.['required']
+            ">
+                Brand can't be empty
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div id="carModel-div" class="col-md">
+                <input type="text" class="form-control" id="carModel" name="carModel" placeholder="Car model"
+                    formControlName="carModel" />
+                <small id='danger-label-pass' class="text-danger" *ngIf="
+                form.controls['carModel'].touched &&
+                form.controls['carModel'].errors?.['required']
+                ">
+                    Car model can't be empty
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div id="fuelConsumption-div" class="col-md">
+                <input type="number" class="form-control" id="fuelConsumption" name="fuelConsumption" placeholder="Fuel consumption"
+                    formControlName="fuelConsumption" />
+                <small id='danger-label-pass' class="text-danger" *ngIf="
+                form.controls['fuelConsumption'].touched &&
+                form.controls['fuelConsumption'].errors?.['required']
+                ">
+                    Invalid value for fuel consumption
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div id="volume-div" class="col-md">
+                <input type="number" class="form-control" id="volume" name="volume" placeholder="Volume"
+                    formControlName="volume" />
+                <small id='danger-label-pass' class="text-danger" *ngIf="
+                form.controls['volume'].touched &&
+                form.controls['volume'].errors?.['required']
+                ">
+                    Invalid value for volume
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div id="power-div" class="col-md">
+                <input type="number" class="form-control" id="power" name="power" placeholder="Power"
+                    formControlName="power" />
+                <small id='danger-label-pass' class="text-danger" *ngIf="
+                form.controls['power'].touched &&
+                form.controls['power'].errors?.['required']
+                ">
+                    Invalid value for power
+                </small>
+            </div>
+        </div>
+
+        <div class="row">
+            <button id="register-button" type="submit" class="btn btn-primary" [disabled]="!form.valid">
+                Register
+            </button>
+        </div>
+
+    </fieldset>
+    </form>
+</div>
+        
