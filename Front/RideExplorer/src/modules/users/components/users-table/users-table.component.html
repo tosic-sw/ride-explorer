@@ -5,22 +5,22 @@
             <th class="center" scope="col">Firstname</th>
             <th class="center" scope="col">Lastname</th>
             <th class="center" scope="col">Email</th>
-            <th class="center" scope="col">Ban</th>
-            <th class="center" scope="col">Delete</th>
+            <th *ngIf="role !== 'admin'" class="center" scope="col">Ban</th>
+            <th *ngIf="role !== 'admin'" class="center" scope="col">Delete</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let user of users">
             <td class="center">{{user.username}}</td>
             <td class="center">{{user.firstname}}</td>
-            <td class="center">{{user.lastname}</td>
+            <td class="center">{{user.lastname}}</td>
             <td class="center">{{user.email}}.</td>
-            <td class="center">
+            <td *ngIf="role !== 'admin'" class="center">
                 <button type="button" class="btn btn-dark" (click)="banUser(user.username)">
                     <mat-icon matTooltip="Ban user">lock</mat-icon>
                 </button>
             </td>
-            <td class="center">
+            <td *ngIf="role !== 'admin'" class="center">
                 <button type="button" class="btn btn-dark" (click)="deleteUser(user.username)">
                     <mat-icon matTooltip="Delete user">delete</mat-icon>
                 </button>

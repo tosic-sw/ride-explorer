@@ -12,6 +12,9 @@ export class UsersTableComponent implements OnInit {
   @Input()
   users: UserDTO[];
 
+  @Input()
+  role: string;
+
   @Output()
   banUserEvent = new EventEmitter<string>();
   
@@ -20,6 +23,7 @@ export class UsersTableComponent implements OnInit {
 
   constructor() {
     this.users = []
+    this.role = "";
   }
 
   ngOnInit(): void {}
