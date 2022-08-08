@@ -1,0 +1,24 @@
+<table class="table table-hover table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th class="center" scope="col">Username</th>
+            <th class="center" scope="col">Firstname</th>
+            <th class="center" scope="col">Lastname</th>
+            <th class="center" scope="col">Email</th>
+            <th class="center" scope="col">Examine</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td class="center">{{user.username}}</td>
+            <td class="center">{{user.firstname}}</td>
+            <td class="center">{{user.lastname}}</td>
+            <td class="center">{{user.email}}.</td>
+            <td class="center">
+                <button type="button" class="btn btn-dark" (click)="examineUser(user.username)">
+                    <mat-icon matTooltip="Ban user">list_alt</mat-icon>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

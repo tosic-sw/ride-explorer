@@ -5,21 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67ebd713-021c-4344-bd48-7cb4b18ef8de" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/handlers/route_fragments.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/handlers/route_fragments.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/handlers/user_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/handlers/user_service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/router/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ComplaintService/handlers/complaints.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ComplaintService/handlers/complaints.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/auth/auth.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/auth/auth.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/auth/auth.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/auth/auth.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/auth/components/admin-pass-registration/admin-pass-registration.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/auth/components/admin-pass-registration/admin-pass-registration.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/auth/pages/driver-registration-page/driver-registration-page.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/auth/pages/driver-registration-page/driver-registration-page.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/auth/services/auth-service/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/auth/services/auth-service/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ReservationService/handlers/reservations.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ReservationService/handlers/reservations.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/root/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/root/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/shared/components/pagination/pagination.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/shared/components/pagination/pagination.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/shared/components/pagination/pagination.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/shared/components/pagination/pagination.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/shared/components/pagination/pagination.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/shared/components/pagination/pagination.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/9775ac4a-5a04-4e52-ae31-ade90e382cb5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9775ac4a-5a04-4e52-ae31-ade90e382cb5.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/data/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/mapppers.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/mapppers.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

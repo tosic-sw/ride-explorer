@@ -5,7 +5,7 @@
       (click)="selected(activePage - 1)"
       [ngClass]="{disabled: activePage <=  1}"
     >
-      <a class="page-link">Previous</a>
+      <a class="page-link"><<<</a>
     </li>
 
     <li
@@ -22,7 +22,7 @@
       (click)="selected(activePage + 1)"
       [ngClass]="{disabled: activePage >= pages.length}"
     >
-      <a class="page-link">Next</a>
+      <a class="page-link">>>></a>
     </li>
   </ul>
 </nav>

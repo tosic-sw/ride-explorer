@@ -327,19 +327,19 @@ func (repo *Repository) SearchAdmins(search string, offset int, size int) ([]*mo
 	result := repo.db.Scopes(repo.paginate(offset, size)).
 		Where("(deleted_at IS NULL) AND "+
 			"('' = ? or "+
-			"firstname LIKE ? or "+
-			"lastname LIKE ? or "+
-			"email LIKE ? or "+
-			"username LIKE ?)", search, concat(search), concat(search), concat(search), concat(search)).
+			"LOWER(firstname) LIKE ? or "+
+			"LOWER(lastname) LIKE ? or "+
+			"LOWER(email) LIKE ? or "+
+			"LOWER(username) LIKE ?)", search, concat(search), concat(search), concat(search), concat(search)).
 		Find(&admins)
 
 	result = repo.db.Table("admins").
 		Where("(deleted_at IS NULL) AND "+
 			"('' = ? or "+
-			"firstname LIKE ? or "+
-			"lastname LIKE ? or "+
-			"email LIKE ? or "+
-			"username LIKE ?)", search, concat(search), concat(search), concat(search), concat(search)).
+			"LOWER(firstname) LIKE ? or "+
+			"LOWER(lastname) LIKE ? or "+
+			"LOWER(email) LIKE ? or "+
+			"LOWER(username) LIKE ?)", search, concat(search), concat(search), concat(search), concat(search)).
 		Count(&totalElements)
 
 	if result.Error != nil {
@@ -355,19 +355,19 @@ func (repo *Repository) SearchDrivers(search string, offset int, size int, verif
 	result := repo.db.Scopes(repo.paginate(offset, size)).
 		Where("(deleted_at IS NULL AND banned_until < ? AND verified = ?) AND "+
 			"('' = ? or "+
-			"firstname LIKE ? or "+
-			"lastname LIKE ? or "+
-			"email LIKE ? or "+
-			"username LIKE ?)", time.Now().UnixMilli(), verified, search, concat(search), concat(search), concat(search), concat(search)).
+			"LOWER(firstname) LIKE ? or "+
+			"LOWER(lastname) LIKE ? or "+
+			"LOWER(email) LIKE ? or "+
+			"LOWER(username) LIKE ?)", time.Now().UnixMilli(), verified, search, concat(search), concat(search), concat(search), concat(search)).
 		Find(&drivers)
 
 	result = repo.db.Table("drivers").
 		Where("(deleted_at IS NULL AND banned_until < ? AND verified = ?) AND "+
 			"('' = ? or "+
-			"firstname LIKE ? or "+
-			"lastname LIKE ? or "+
-			"email LIKE ? or "+
-			"username LIKE ?)", time.Now().UnixMilli(), verified, search, concat(search), concat(search), concat(search), concat(search)).
+			"LOWER(firstname) LIKE ? or "+
+			"LOWER(lastname) LIKE ? or "+
+			"LOWER(email) LIKE ? or "+
+			"LOWER(username) LIKE ?)", time.Now().UnixMilli(), verified, search, concat(search), concat(search), concat(search), concat(search)).
 		Count(&totalElements)
 
 	if result.Error != nil {
@@ -384,19 +384,19 @@ func (repo *Repository) SearchPassengers(search string, offset int, size int) ([
 	result := repo.db.Scopes(repo.paginate(offset, size)).
 		Where("(deleted_at IS NULL AND banned_until < ?) AND "+
 			"('' = ? or "+
-			"firstname LIKE ? or "+
-			"lastname LIKE ? or "+
-			"email LIKE ? or "+
-			"username LIKE ?)", time.Now().UnixMilli(), search, concat(search), concat(search), concat(search), concat(search)).
+			"LOWER(firstname) LIKE ? or "+
+			"LOWER(lastname) LIKE ? or "+
+			"LOWER(email) LIKE ? or "+
+			"LOWER(username) LIKE ?)", time.Now().UnixMilli(), search, concat(search), concat(search), concat(search), concat(search)).
 		Find(&passengers)
 
 	result = repo.db.Table("passengers").
 		Where("(deleted_at IS NULL AND banned_until < ?) AND "+
 			"('' = ? or "+
-			"firstname LIKE ? or "+
-			"lastname LIKE ? or "+
-			"email LIKE ? or "+
-			"username LIKE ?)", time.Now().UnixMilli(), search, concat(search), concat(search), concat(search), concat(search)).
+			"LOWER(firstname) LIKE ? or "+
+			"LOWER(lastname) LIKE ? or "+
+			"LOWER(email) LIKE ? or "+
+			"LOWER(username) LIKE ?)", time.Now().UnixMilli(), search, concat(search), concat(search), concat(search), concat(search)).
 		Count(&totalElements)
 
 	if result.Error != nil {

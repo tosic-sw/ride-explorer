@@ -1,0 +1,27 @@
+<div class="heading">
+    <h1>Unverified drivers</h1>
+</div>
+
+<div class="container">
+
+    <div class="row bott">
+        <div class="col-12">
+            <app-search-input-btn (searchBtnClicked)="search($event)"></app-search-input-btn>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <app-unverified-driver-table [users]="users" (examineUserEvent)="examineUser($event)"></app-unverified-driver-table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <app-pagination class="pagination" [totalItems]="totalSize" [pageSize]="pageSize"
+                (pageSelected)="changePage($event)">
+            </app-pagination>
+        </div>
+    </div>
+
+</div>

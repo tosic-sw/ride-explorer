@@ -13,6 +13,11 @@ const routes: Routes = [
         loadChildren: () =>
           import("./../auth/auth.module").then((m) => m.AuthModule),
       },
+      {
+        path: "users",
+        loadChildren: () =>
+          import("./../users/users.module").then((m) => m.UsersModule),
+      },
     ],
   },
   {
