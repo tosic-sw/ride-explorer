@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { PaginationComponent } from 'src/modules/shared/components/pagination/pagination.component';
 import { MessageResponse } from 'src/modules/shared/models/message-response';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
@@ -20,7 +21,7 @@ export class DriversPageComponent implements OnInit {
 
   @ViewChild(PaginationComponent) pagination!: PaginationComponent;
 
-  constructor(private userService: UserService, private snackBarService: SnackBarService) { 
+  constructor(private userService: UserService, private snackBarService: SnackBarService, private router: Router) { 
     this.users = [];
     this.pageSize = 8;
     this.currentPage = 1;
@@ -93,4 +94,8 @@ export class DriversPageComponent implements OnInit {
     });
   }
 
-}
+  viewProfile(username: string) {
+    this.router.navigate(["ridexplorer/users/driver/" + username]);
+  }
+
+ }

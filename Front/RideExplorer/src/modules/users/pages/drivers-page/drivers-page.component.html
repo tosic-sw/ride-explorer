@@ -12,7 +12,13 @@
 
     <div class="row">
         <div class="col">
-            <app-users-table [users]="users" role="driver" (banUserEvent)="banUser($event)" (deleteUserEvent)="deleteUser($event)"></app-users-table>
+            <app-users-table 
+                [users]="users" 
+                role="driver" 
+                (banUserEvent)="banUser($event)" 
+                (deleteUserEvent)="deleteUser($event)"
+                (viewProfileEvent)="viewProfile($event)">
+            </app-users-table>
         </div>
     </div>
 

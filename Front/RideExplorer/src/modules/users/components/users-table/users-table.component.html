@@ -7,6 +7,7 @@
             <th class="center" scope="col">Email</th>
             <th *ngIf="role !== 'admin'" class="center" scope="col">Ban</th>
             <th *ngIf="role !== 'admin'" class="center" scope="col">Delete</th>
+            <th *ngIf="role !== 'admin'" class="center" scope="col">Profile</th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +24,11 @@
             <td *ngIf="role !== 'admin'" class="center">
                 <button type="button" class="btn btn-dark" (click)="deleteUser(user.username)">
                     <mat-icon matTooltip="Delete user">delete</mat-icon>
+                </button>
+            </td>
+            <td *ngIf="role !== 'admin'" class="center">
+                <button type="button" class="btn btn-dark" (click)="viewProfile(user.username)">
+                    <mat-icon matTooltip="View profile">account_circle</mat-icon>
                 </button>
             </td>
         </tr>

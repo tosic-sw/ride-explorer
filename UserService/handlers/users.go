@@ -342,8 +342,6 @@ func (uh *UsersHandler) GetDriver(resWriter http.ResponseWriter, req *http.Reque
 
 	driver, err := uh.repository.FindOneDriverWithCar(username)
 
-	fmt.Println(driver.Car.CarModel)
-
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Driver not found"})

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient, HttpResponse, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { UserDTO } from "../models/user-dto";
+import { DriverWithCarDTO, UserDTO } from "../models/user-dto";
 import { MessageResponse } from "src/modules/shared/models/message-response";
 
 @Injectable({
@@ -53,6 +53,28 @@ export class UserService {
     };
 
     return this.http.delete<HttpResponse<MessageResponse>>(`ride-explorer/api/users/${role}/${username}`, queryParams);
+  }
+
+  getPassenger(username: string): Observable<HttpResponse<UserDTO>> {
+    let queryParams = {};
+    
+    queryParams = { 
+      headers: this.headers, 
+      observe: "response" 
+    };
+
+    return this.http.get<HttpResponse<UserDTO>>(`ride-explorer/api/users/passenger/${username}`, queryParams);
+  }
+
+  getDriver(username: string): Observable<HttpResponse<DriverWithCarDTO>> {
+    let queryParams = {};
+    
+    queryParams = { 
+      headers: this.headers, 
+      observe: "response" 
+    };
+
+    return this.http.get<HttpResponse<DriverWithCarDTO>>(`ride-explorer/api/users/driver/${username}`, queryParams);
   }
 
 }

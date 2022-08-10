@@ -21,6 +21,9 @@ export class UsersTableComponent implements OnInit {
   @Output()
   deleteUserEvent = new EventEmitter<string>();
 
+  @Output()
+  viewProfileEvent = new EventEmitter<string>();
+
   constructor() {
     this.users = []
     this.role = "";
@@ -34,6 +37,10 @@ export class UsersTableComponent implements OnInit {
 
   deleteUser(username: string): void {
     this.deleteUserEvent.emit(username);
+  }
+
+  viewProfile(username: string): void {
+    this.viewProfileEvent.emit(username);
   }
 
 }
