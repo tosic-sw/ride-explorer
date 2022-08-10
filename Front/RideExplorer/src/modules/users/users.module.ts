@@ -10,7 +10,9 @@ import { AdminsPageComponent } from './pages/admins-page/admins-page.component';
 import { PassengersPageComponent } from './pages/passengers-page/passengers-page.component';
 import { UsersTableComponent } from './components/users-table/users-table.component';
 import { MatIconModule } from '@angular/material/icon';
-import { UnverifiedDriverTableComponent } from './components/unverified-driver-table/unverified-driver-table.component'
+import { UnverifiedDriverTableComponent } from './components/unverified-driver-table/unverified-driver-table.component';
+import { CarViewerComponent } from './components/car-viewer/car-viewer.component';
+import { UserViewerComponent } from './components/user-viewer/user-viewer.component'
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { UnverifiedDriverTableComponent } from './components/unverified-driver-t
     AdminsPageComponent,
     PassengersPageComponent,
     UsersTableComponent,
-    UnverifiedDriverTableComponent
+    UnverifiedDriverTableComponent,
+    CarViewerComponent,
+    UserViewerComponent
   ],
   imports: [
     CommonModule,

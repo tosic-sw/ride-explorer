@@ -34,7 +34,7 @@ export class AdminsPageComponent implements OnInit {
   changePage(newPage: any) {
     let newPageNumber = newPage as number;
 
-    this.userService.search(this.searchText, newPageNumber - 1, this.pageSize, "admin", false).subscribe((response: any) => {
+    this.userService.search(this.searchText, newPageNumber - 1, this.pageSize, "admin").subscribe((response: any) => {
       this.users = response.body;
       this.totalSize = Number(response.headers.get("total-elements"));
 

@@ -1,10 +1,19 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/rest-app/users/users-search" style="color: red;">Admin Navbar</a>
+    <a class="navbar-brand" style="color: red;">Ridexplorer</a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" id="usersLink" aria-current="page" href="/rest-app/users/view">Users</a>
+          <a class="nav-link active" id="usersLink" aria-current="page" routerLink="/ridexplorer/users/passengers">Passengers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" id="usersLink" aria-current="page" routerLink="/ridexplorer/users/drivers">Drivers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" id="usersLink" aria-current="page" routerLink="/ridexplorer/users/unverified-drivers">Unverified drivers</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" id="usersLink" aria-current="page" routerLink="/ridexplorer/users/admins">Admins</a>
         </li>
       </ul>
       <app-header-common></app-header-common>

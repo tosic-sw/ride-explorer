@@ -18,21 +18,21 @@ export const UsersRoutes: Routes = [
       path: "drivers",
       pathMatch: "full",
       component: DriversPageComponent,
-      // canActivate: [RoleGuard],
-      // data: { expectedRoles: "ADMIN" }
+      canActivate: [RoleGuard],
+      data: { expectedRoles: "ADMIN" }
     },
     {
       path: "admins",
       pathMatch: "full",
       component: AdminsPageComponent,
-      // canActivate: [RoleGuard],
-      // data: { expectedRoles: "ADMIN" }
+      canActivate: [RoleGuard],
+      data: { expectedRoles: "ADMIN" }
     },
     {
       path: "passengers",
       pathMatch: "full",
       component: PassengersPageComponent,
-      // canActivate: [RoleGuard],
-      // data: { expectedRoles: "ADMIN" }
+      canActivate: [RoleGuard],
+      data: { expectedRoles: "ADMIN" }
     },
   ];

@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67ebd713-021c-4344-bd48-7cb4b18ef8de" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/components/users-table/users-table.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/components/users-table/users-table.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/components/users-table/users-table.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/components/users-table/users-table.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/pages/admins-page/admins-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/pages/admins-page/admins-page.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/pages/admins-page/admins-page.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/pages/admins-page/admins-page.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/root/components/headers/header-admin/header-admin.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/root/components/headers/header-admin/header-admin.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/pages/admins-page/admins-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/pages/admins-page/admins-page.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/pages/drivers-page/drivers-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/pages/drivers-page/drivers-page.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/pages/drivers-page/drivers-page.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/pages/drivers-page/drivers-page.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/pages/drivers-page/drivers-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/pages/drivers-page/drivers-page.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/users.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/users.routes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/seed.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/seed.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/users.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

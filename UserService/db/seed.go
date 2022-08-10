@@ -131,6 +131,31 @@ var Drivers = []models.Driver{
 			Power:           101,
 		},
 	},
+	{
+		Model:     gorm.Model{},
+		Email:     "saomi@maildrop.cc",
+		Username:  "saomi",
+		Firstname: "Milos",
+		Lastname:  "Manojlovic",
+		Role:      "DRIVER",
+		Verified:  false,
+		UserAccount: models.UserAccount{
+			Model:    gorm.Model{},
+			Username: "saomi",
+			Password: "saomi",
+			Role:     models.DRIVER,
+			Verified: false,
+		},
+		Car: models.Car{
+			Model:           gorm.Model{},
+			PlateNumber:     "740TC",
+			Brand:           "Audi",
+			CarModel:        "A3",
+			FuelConsumption: 10,
+			Volume:          1600,
+			Power:           105,
+		},
+	},
 }
 
 // #################################### //
