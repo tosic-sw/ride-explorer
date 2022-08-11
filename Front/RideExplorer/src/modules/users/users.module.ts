@@ -14,7 +14,8 @@ import { UnverifiedDriverTableComponent } from './components/unverified-driver-t
 import { CarViewerComponent } from './components/car-viewer/car-viewer.component';
 import { UserViewerComponent } from './components/user-viewer/user-viewer.component';
 import { PassengerPageComponent } from './pages/passenger-page/passenger-page.component';
-import { DriverPageComponent } from './pages/driver-page/driver-page.component'
+import { DriverPageComponent } from './pages/driver-page/driver-page.component';
+import { RatingViewerComponent } from './components/rating-viewer/rating-viewer.component'
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { DriverPageComponent } from './pages/driver-page/driver-page.component'
     CarViewerComponent,
     UserViewerComponent,
     PassengerPageComponent,
-    DriverPageComponent
+    DriverPageComponent,
+    RatingViewerComponent
   ],
   imports: [
     CommonModule,

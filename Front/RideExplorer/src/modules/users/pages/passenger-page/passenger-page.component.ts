@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PaginationComponent } from 'src/modules/shared/components/pagination/pagination.component';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
+import { ViewRatingDTO } from '../../models/rating-dto';
 import { UserDTO } from '../../models/user-dto';
+import { RatingService } from '../../services/rating.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -13,11 +16,19 @@ export class PassengerPageComponent implements OnInit {
 
   user: UserDTO;
 
+  ratings: ViewRatingDTO[];
+  pageSize: number;
+  currentPage: number;
+  totalSize: number;
+
+  @ViewChild(PaginationComponent) pagination!: PaginationComponent;
+
   constructor(
       private userService: UserService, 
       private snackBarService: SnackBarService, 
       private route: ActivatedRoute,
-      private router: Router
+      private router: Router,
+      private ratingService: RatingService
     ) {
     this.user = {
       username: "",
@@ -25,6 +36,12 @@ export class PassengerPageComponent implements OnInit {
       lastname: "",
       email: ""
     };
+
+    this.pageSize = 5;
+    this.currentPage = 1;
+    this.totalSize = 1;
+
+    this.ratings = []
    }
 
   ngOnInit(): void {
@@ -34,10 +51,17 @@ export class PassengerPageComponent implements OnInit {
       this.router.navigate(["ridexplorer"]);
       return;
     }
+    
+    this.loadPassengerData(username);
+  }
+
+  loadPassengerData(username: string) {
     this.userService.getPassenger(username).subscribe((response) => {
       if(response.body) {
         this.user = response.body;
         console.log(this.user);
+
+        this.changePage(this.currentPage);
       }
     },
     (error) => {
@@ -48,6 +72,22 @@ export class PassengerPageComponent implements OnInit {
         this.snackBarService.openSnackBar("Unknown error happend while loading passenger")  
       }
       this.router.navigate(["ridexplorer"]);
+    });
+  }
+
+  changePage(newPage: any) {
+    let newPageNumber = newPage as number;
+
+    this.ratingService.getRatings(this.user.username, newPageNumber - 1, this.pageSize).subscribe((response: any) => {
+      this.ratings = response.body;
+      this.totalSize = Number(response.headers.get("total-elements"));
+
+      if(newPage === 1)
+        this.pagination.reset();
+    },
+    (error) => {
+      if(error.status === 500)
+        this.snackBarService.openSnackBar("An unknown error ocured while loading ratings for " + this.user.username);
     });
   }
 

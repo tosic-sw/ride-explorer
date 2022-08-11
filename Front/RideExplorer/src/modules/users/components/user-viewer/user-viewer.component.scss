@@ -1,0 +1,30 @@
+.center {
+    text-align: left; 
+}
+
+.bott {
+    margin-bottom: 5%;
+}
+
+.topp {
+    margin-top: 1%;
+}
+
+h2 {
+
+    font-size: 40px;
+}
+
+p {
+    font-size: 22px;
+}
+
+.headDiv {
+    width: 100%;
+    position: relative;
+    margin: auto;
+    background-color: rgb(230, 230, 230);
+    color: rgba($color: black, $alpha: 0.7);
+    border-radius: 12px;
+    padding: 18px;
+}

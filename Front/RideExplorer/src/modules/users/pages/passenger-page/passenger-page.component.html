@@ -1,1 +1,31 @@
-<p>passenger-page works!</p>
+<div class="container">
+
+    <div class="row">
+        <div class="col col-lg-3">
+            <img src="../../../../assets/prof.jpg" />
+
+            <div class="user-data">
+                <app-user-viewer [user]="user"></app-user-viewer>
+            </div>
+        </div>
+
+        <div class="col topp">
+            <h2 class="center">Ratings</h2>
+            <div class="topp">
+                <app-rating-viewer *ngFor="let rating of ratings" [rating]="rating"></app-rating-viewer>
+            </div>
+            <div class="center" id="footer">
+                <app-pagination 
+                    class="pagination" 
+                    [totalItems]="totalSize" 
+                    [pageSize]="pageSize"
+                    (pageSelected)="changePage($event)">
+                </app-pagination>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+
+

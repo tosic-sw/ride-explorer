@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UserDTO } from '../../models/user-dto';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-viewer',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserViewerComponent implements OnInit {
 
-  constructor() { }
+  @Input()
+  user: UserDTO;
 
-  ngOnInit(): void {
+  constructor() { 
+    this.user = {
+      username: "",
+      firstname: "",
+      lastname: "",
+      email: "",
+    }
   }
+
+  ngOnInit(): void {}
 
 }

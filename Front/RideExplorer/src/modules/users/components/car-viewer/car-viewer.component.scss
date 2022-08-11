@@ -1,0 +1,45 @@
+.center {
+    text-align: center; 
+}
+
+.heading {
+    text-align: center;
+    margin-top: 1%;
+}
+
+.bott {
+    margin-bottom: 1%;
+}
+
+.topp {
+    margin-top: 1%;
+}
+
+h2 {
+
+    font-size: 40px;
+}
+
+p {
+    font-size: 18px;
+}
+
+.rightt {
+    margin-right: 10%;
+}
+
+.leftt {
+    margin-left: 10%;
+}
+
+.col-12 { display: flex; justify-content: flex-end; }
+
+.headDiv {
+    width: 100%;
+    position: relative;
+    margin: auto;
+    background-color: rgb(230, 230, 230);
+    color: rgba($color: black, $alpha: 0.7);
+    border-radius: 12px;
+    padding: 18px;
+}

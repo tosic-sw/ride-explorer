@@ -1,1 +1,36 @@
-<p>driver-page works!</p>
+<div class="container">
+
+    <div class="row">
+        <div class="col col-lg-3">
+            <img src="../../../../assets/prof.jpg" />
+
+            <div class="user-data">
+                <app-user-viewer [user]="user"></app-user-viewer>
+            </div>
+        </div>
+
+        <div class="col topp">
+            <app-car-viewer [car]="user.car"></app-car-viewer>
+            <div *ngIf="ratings.length !== 0">
+                <div class="topp">
+                    <app-rating-viewer *ngFor="let rating of ratings" [rating]="rating"></app-rating-viewer>
+                </div>
+                <div class="center" id="footer">
+                    <app-pagination 
+                        class="pagination" 
+                        [totalItems]="totalSize" 
+                        [pageSize]="pageSize"
+                        (pageSelected)="changePage($event)">
+                    </app-pagination>
+                </div>
+            </div>
+            <div class="center" *ngIf="ratings.length === 0">
+                <h2 class="rating-label">There are no ratings fot {{user.username}}</h2>
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+
+
