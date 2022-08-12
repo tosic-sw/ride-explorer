@@ -10,12 +10,13 @@ import (
 
 var Admins = []models.Admin{
 	{
-		Model:     gorm.Model{},
-		Email:     "veljko@maildrop.cc",
-		Username:  "admin",
-		Firstname: "Veljko",
-		Lastname:  "Tosic",
-		Role:      "ADMIN",
+		Model:       gorm.Model{},
+		Email:       "veljko@maildrop.cc",
+		Username:    "admin",
+		Firstname:   "Veljko",
+		Lastname:    "Tosic",
+		PhoneNumber: "0612345",
+		Role:        "ADMIN",
 		UserAccount: models.UserAccount{
 			Model:    gorm.Model{},
 			Username: "admin",
@@ -25,12 +26,13 @@ var Admins = []models.Admin{
 		},
 	},
 	{
-		Model:     gorm.Model{},
-		Email:     "milic@maildrop.cc",
-		Username:  "milic",
-		Firstname: "Dragan",
-		Lastname:  "Milic",
-		Role:      "ADMIN",
+		Model:       gorm.Model{},
+		Email:       "milic@maildrop.cc",
+		Username:    "milic",
+		Firstname:   "Dragan",
+		Lastname:    "Milic",
+		PhoneNumber: "0612345",
+		Role:        "ADMIN",
 		UserAccount: models.UserAccount{
 			Model:    gorm.Model{},
 			Username: "milic",
@@ -45,12 +47,13 @@ var Admins = []models.Admin{
 
 var Passengers = []models.Passenger{
 	{
-		Model:     gorm.Model{},
-		Email:     "beli@maildrop.cc",
-		Username:  "beli",
-		Firstname: "Marko",
-		Lastname:  "Bjelica",
-		Role:      "PASSENGER",
+		Model:       gorm.Model{},
+		Email:       "beli@maildrop.cc",
+		Username:    "beli",
+		Firstname:   "Marko",
+		Lastname:    "Bjelica",
+		PhoneNumber: "0612345",
+		Role:        "PASSENGER",
 		UserAccount: models.UserAccount{
 			Model:    gorm.Model{},
 			Username: "beli",
@@ -65,6 +68,7 @@ var Passengers = []models.Passenger{
 		Username:    "boki",
 		Firstname:   "Bojan",
 		Lastname:    "Baskalo",
+		PhoneNumber: "0612345",
 		Role:        "PASSENGER",
 		BannedUntil: time.Now().AddDate(0, 3, 0).UnixMilli(),
 		UserAccount: models.UserAccount{
@@ -82,13 +86,14 @@ var Passengers = []models.Passenger{
 
 var Drivers = []models.Driver{
 	{
-		Model:     gorm.Model{},
-		Email:     "tica@maildrop.cc",
-		Username:  "tica",
-		Firstname: "Darko",
-		Lastname:  "Tica",
-		Role:      "DRIVER",
-		Verified:  true,
+		Model:       gorm.Model{},
+		Email:       "tica@maildrop.cc",
+		Username:    "tica",
+		Firstname:   "Darko",
+		Lastname:    "Tica",
+		PhoneNumber: "0612345",
+		Role:        "DRIVER",
+		Verified:    true,
 		UserAccount: models.UserAccount{
 			Model:    gorm.Model{},
 			Username: "tica",
@@ -107,13 +112,14 @@ var Drivers = []models.Driver{
 		},
 	},
 	{
-		Model:     gorm.Model{},
-		Email:     "ukica@maildrop.cc",
-		Username:  "ukica",
-		Firstname: "Uros",
-		Lastname:  "Stojanovic",
-		Role:      "DRIVER",
-		Verified:  true,
+		Model:       gorm.Model{},
+		Email:       "ukica@maildrop.cc",
+		Username:    "ukica",
+		Firstname:   "Uros",
+		Lastname:    "Stojanovic",
+		PhoneNumber: "0612345",
+		Role:        "DRIVER",
+		Verified:    true,
 		UserAccount: models.UserAccount{
 			Model:    gorm.Model{},
 			Username: "ukica",
@@ -132,13 +138,14 @@ var Drivers = []models.Driver{
 		},
 	},
 	{
-		Model:     gorm.Model{},
-		Email:     "saomi@maildrop.cc",
-		Username:  "saomi",
-		Firstname: "Milos",
-		Lastname:  "Manojlovic",
-		Role:      "DRIVER",
-		Verified:  false,
+		Model:       gorm.Model{},
+		Email:       "saomi@maildrop.cc",
+		Username:    "saomi",
+		Firstname:   "Milos",
+		Lastname:    "Manojlovic",
+		PhoneNumber: "0612345",
+		Role:        "DRIVER",
+		Verified:    false,
 		UserAccount: models.UserAccount{
 			Model:    gorm.Model{},
 			Username: "saomi",

@@ -5,6 +5,7 @@ export interface UserDTO {
     firstname: string
     lastname: string
     email: string
+    phoneNumber: string
 }
 
 export interface DriverWithCarDTO extends UserDTO {

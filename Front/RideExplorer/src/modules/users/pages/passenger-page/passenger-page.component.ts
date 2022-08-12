@@ -34,7 +34,8 @@ export class PassengerPageComponent implements OnInit {
       username: "",
       firstname: "",
       lastname: "",
-      email: ""
+      email: "",
+      phoneNumber: ""
     };
 
     this.pageSize = 5;

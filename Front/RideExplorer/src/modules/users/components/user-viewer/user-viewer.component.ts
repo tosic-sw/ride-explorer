@@ -18,6 +18,7 @@ export class UserViewerComponent implements OnInit {
       firstname: "",
       lastname: "",
       email: "",
+      phoneNumber: "",
     }
   }
 

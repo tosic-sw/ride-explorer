@@ -6,5 +6,6 @@ export interface DriverWithCarDTO {
     firstname: string
     lastname: string
     email: string
+    phoneNumber: string
     car: CarDTO
 }

@@ -5,34 +5,38 @@ type UserAccountDTO struct {
 }
 
 type UserDTO struct {
-	Email     string `json:"email"`
-	Username  string `json:"username"`
-	Firstname string `json:"firstname"`
-	Lastname  string `json:"lastname"`
-	Role      string `json:"role"`
+	Email       string `json:"email"`
+	Username    string `json:"username"`
+	Firstname   string `json:"firstname"`
+	Lastname    string `json:"lastname"`
+	PhoneNumber string `json:"phoneNumber"`
+	Role        string `json:"role"`
 }
 
 type RegistrationDTO struct {
-	Email     string `json:"email"`
-	Username  string `json:"username"`
-	Firstname string `json:"firstname"`
-	Lastname  string `json:"lastname"`
-	Password  string `json:"password"`
+	Email       string `json:"email"`
+	Username    string `json:"username"`
+	Firstname   string `json:"firstname"`
+	Lastname    string `json:"lastname"`
+	Password    string `json:"password"`
+	PhoneNumber string `json:"phoneNumber"`
 }
 
 type DriverRegistrationDTO struct {
-	Email     string `json:"email"`
-	Username  string `json:"username"`
-	Firstname string `json:"firstname"`
-	Lastname  string `json:"lastname"`
-	Password  string `json:"password"`
-	Car       CarDTO `json:"car"`
+	Email       string `json:"email"`
+	Username    string `json:"username"`
+	Firstname   string `json:"firstname"`
+	Lastname    string `json:"lastname"`
+	Password    string `json:"password"`
+	PhoneNumber string `json:"phoneNumber"`
+	Car         CarDTO `json:"car"`
 }
 
 type UserForUpdateDTO struct {
-	Email     string `json:"email"`
-	Firstname string `json:"firstname"`
-	Lastname  string `json:"lastname"`
+	Email       string `json:"email"`
+	Firstname   string `json:"firstname"`
+	Lastname    string `json:"lastname"`
+	PhoneNumber string `json:"phoneNumber"`
 }
 
 type UserPasswordChangeDTO struct {
@@ -40,20 +44,22 @@ type UserPasswordChangeDTO struct {
 }
 
 type DriverDTO struct {
-	Email     string `json:"email"`
-	Username  string `json:"username"`
-	Firstname string `json:"firstname"`
-	Lastname  string `json:"lastname"`
-	Role      string `json:"role"`
+	Email       string `json:"email"`
+	Username    string `json:"username"`
+	Firstname   string `json:"firstname"`
+	Lastname    string `json:"lastname"`
+	PhoneNumber string `json:"phoneNumber"`
+	Role        string `json:"role"`
 }
 
 type DriverWithCarDTO struct {
-	Email     string `json:"email"`
-	Username  string `json:"username"`
-	Firstname string `json:"firstname"`
-	Lastname  string `json:"lastname"`
-	Role      string `json:"role"`
-	Car       CarDTO `json:"car"`
+	Email       string `json:"email"`
+	Username    string `json:"username"`
+	Firstname   string `json:"firstname"`
+	Lastname    string `json:"lastname"`
+	PhoneNumber string `json:"phoneNumber"`
+	Role        string `json:"role"`
+	Car         CarDTO `json:"car"`
 }
 
 type CarDTO struct {

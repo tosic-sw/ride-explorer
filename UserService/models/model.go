@@ -21,6 +21,7 @@ type Admin struct {
 	Username    string      `gorm:"not null;unique"`
 	Firstname   string      `gorm:"not null"`
 	Lastname    string      `gorm:"not null"`
+	PhoneNumber string      `gorm:"not null"`
 	Role        Role        `gorm:"not null"`
 	UserAccount UserAccount `gorm:"polymorphic:User;"`
 }
@@ -31,6 +32,7 @@ type Driver struct {
 	Username    string      `gorm:"not null;unique"`
 	Firstname   string      `gorm:"not null"`
 	Lastname    string      `gorm:"not null"`
+	PhoneNumber string      `gorm:"not null"`
 	Role        Role        `gorm:"not null"`
 	UserAccount UserAccount `gorm:"polymorphic:User;"`
 	Car         Car
@@ -44,6 +46,7 @@ type Passenger struct {
 	Username    string      `gorm:"not null;unique"`
 	Firstname   string      `gorm:"not null"`
 	Lastname    string      `gorm:"not null"`
+	PhoneNumber string      `gorm:"not null"`
 	Role        Role        `gorm:"not null"`
 	UserAccount UserAccount `gorm:"polymorphic:User;"`
 	BannedUntil int64

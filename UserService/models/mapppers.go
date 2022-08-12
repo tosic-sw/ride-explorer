@@ -4,30 +4,33 @@ import "gorm.io/gorm"
 
 func (admin *Admin) ToDTO() UserDTO {
 	return UserDTO{
-		Email:     admin.Email,
-		Username:  admin.Username,
-		Firstname: admin.Firstname,
-		Lastname:  admin.Lastname,
-		Role:      string(admin.Role),
+		Email:       admin.Email,
+		Username:    admin.Username,
+		Firstname:   admin.Firstname,
+		Lastname:    admin.Lastname,
+		PhoneNumber: admin.PhoneNumber,
+		Role:        string(admin.Role),
 	}
 }
 
 func (admin *Admin) ToUpdateDTO() UserForUpdateDTO {
 	return UserForUpdateDTO{
-		Email:     admin.Email,
-		Firstname: admin.Firstname,
-		Lastname:  admin.Lastname,
+		Email:       admin.Email,
+		Firstname:   admin.Firstname,
+		Lastname:    admin.Lastname,
+		PhoneNumber: admin.PhoneNumber,
 	}
 }
 
 func (regDTO *RegistrationDTO) ToAdmin() *Admin {
 	return &Admin{
-		Model:     gorm.Model{},
-		Email:     regDTO.Email,
-		Username:  regDTO.Username,
-		Firstname: regDTO.Firstname,
-		Lastname:  regDTO.Lastname,
-		Role:      ADMIN,
+		Model:       gorm.Model{},
+		Email:       regDTO.Email,
+		Username:    regDTO.Username,
+		Firstname:   regDTO.Firstname,
+		Lastname:    regDTO.Lastname,
+		PhoneNumber: regDTO.PhoneNumber,
+		Role:        ADMIN,
 		UserAccount: UserAccount{
 			Model:    gorm.Model{},
 			Username: regDTO.Username,
@@ -40,21 +43,23 @@ func (regDTO *RegistrationDTO) ToAdmin() *Admin {
 
 func (driver *Driver) ToDTO() UserDTO {
 	return UserDTO{
-		Email:     driver.Email,
-		Username:  driver.Username,
-		Firstname: driver.Firstname,
-		Lastname:  driver.Lastname,
-		Role:      string(driver.Role),
+		Email:       driver.Email,
+		Username:    driver.Username,
+		Firstname:   driver.Firstname,
+		Lastname:    driver.Lastname,
+		PhoneNumber: driver.PhoneNumber,
+		Role:        string(driver.Role),
 	}
 }
 
 func (driver *Driver) ToDriverDTO() DriverWithCarDTO {
 	return DriverWithCarDTO{
-		Email:     driver.Email,
-		Username:  driver.Username,
-		Firstname: driver.Firstname,
-		Lastname:  driver.Lastname,
-		Role:      string(driver.Role),
+		Email:       driver.Email,
+		Username:    driver.Username,
+		Firstname:   driver.Firstname,
+		Lastname:    driver.Lastname,
+		PhoneNumber: driver.PhoneNumber,
+		Role:        string(driver.Role),
 		Car: CarDTO{
 			PlateNumber:     driver.Car.PlateNumber,
 			Brand:           driver.Car.Brand,
@@ -68,21 +73,23 @@ func (driver *Driver) ToDriverDTO() DriverWithCarDTO {
 
 func (driver *Driver) ToUpdateDTO() UserForUpdateDTO {
 	return UserForUpdateDTO{
-		Email:     driver.Email,
-		Firstname: driver.Firstname,
-		Lastname:  driver.Lastname,
+		Email:       driver.Email,
+		Firstname:   driver.Firstname,
+		Lastname:    driver.Lastname,
+		PhoneNumber: driver.PhoneNumber,
 	}
 }
 
 func (regDTO *DriverRegistrationDTO) ToDriver() *Driver {
 	return &Driver{
-		Model:     gorm.Model{},
-		Email:     regDTO.Email,
-		Username:  regDTO.Username,
-		Firstname: regDTO.Firstname,
-		Lastname:  regDTO.Lastname,
-		Role:      DRIVER,
-		Verified:  false,
+		Model:       gorm.Model{},
+		Email:       regDTO.Email,
+		Username:    regDTO.Username,
+		Firstname:   regDTO.Firstname,
+		Lastname:    regDTO.Lastname,
+		PhoneNumber: regDTO.PhoneNumber,
+		Role:        DRIVER,
+		Verified:    false,
 		UserAccount: UserAccount{
 			Model:    gorm.Model{},
 			Username: regDTO.Username,
@@ -104,30 +111,33 @@ func (regDTO *DriverRegistrationDTO) ToDriver() *Driver {
 
 func (passenger *Passenger) ToDTO() UserDTO {
 	return UserDTO{
-		Email:     passenger.Email,
-		Username:  passenger.Username,
-		Firstname: passenger.Firstname,
-		Lastname:  passenger.Lastname,
-		Role:      string(passenger.Role),
+		Email:       passenger.Email,
+		Username:    passenger.Username,
+		Firstname:   passenger.Firstname,
+		Lastname:    passenger.Lastname,
+		PhoneNumber: passenger.PhoneNumber,
+		Role:        string(passenger.Role),
 	}
 }
 
 func (passenger *Passenger) ToUpdateDTO() UserForUpdateDTO {
 	return UserForUpdateDTO{
-		Email:     passenger.Email,
-		Firstname: passenger.Firstname,
-		Lastname:  passenger.Lastname,
+		Email:       passenger.Email,
+		Firstname:   passenger.Firstname,
+		Lastname:    passenger.Lastname,
+		PhoneNumber: passenger.PhoneNumber,
 	}
 }
 
 func (regDTO *RegistrationDTO) ToPassenger() *Passenger {
 	return &Passenger{
-		Model:     gorm.Model{},
-		Email:     regDTO.Email,
-		Username:  regDTO.Username,
-		Firstname: regDTO.Firstname,
-		Lastname:  regDTO.Lastname,
-		Role:      PASSENGER,
+		Model:       gorm.Model{},
+		Email:       regDTO.Email,
+		Username:    regDTO.Username,
+		Firstname:   regDTO.Firstname,
+		Lastname:    regDTO.Lastname,
+		PhoneNumber: regDTO.PhoneNumber,
+		Role:        PASSENGER,
 		UserAccount: UserAccount{
 			Model:    gorm.Model{},
 			Username: regDTO.Username,

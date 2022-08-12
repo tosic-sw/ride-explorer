@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserSharedService } from 'src/modules/shared/services/user-shared.service';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { HttpResponse } from '@angular/common/http';
+import { DriverWithCarDTO } from 'src/modules/shared/models/driver-shared-dto';
 
 @Component({
   selector: 'app-driver-verification-page',
@@ -18,7 +19,7 @@ export class DriverVerificationPageComponent implements OnInit {
 
   username: string = "ciao";
 
-  driverDTO: DriverRegistrationDTO;
+  driverDTO: DriverWithCarDTO;
 
   constructor(
     private authService: AuthService, 
@@ -33,6 +34,7 @@ export class DriverVerificationPageComponent implements OnInit {
         firstname: "",
         lastname: "",
         email: "",
+        phoneNumber: "",
         car: {
           plateNumber: "",
           brand: "",
@@ -55,8 +57,6 @@ export class DriverVerificationPageComponent implements OnInit {
     this.userSharedService.getUnverifiedDriver(username).subscribe((response) => {
       if(response.body)
         this.driverDTO = response.body;
-      
-        
     }, 
     (error) => {
       this.snackBarService.openSnackBar(error.error.message);

@@ -31,6 +31,7 @@ export class AdminPassRegistrationComponent implements OnInit {
       firstname: [null, Validators.required],
       lastname: [null, Validators.required],
       email: [null, Validators.required],
+      phoneNumber: [null, Validators.required],
     });
   }
 
@@ -41,6 +42,7 @@ export class AdminPassRegistrationComponent implements OnInit {
       firstname: this.form.value.firstname,
       lastname: this.form.value.lastname,
       email: this.form.value.email,
+      phoneNumber: this.form.value.phoneNumber
     };
 
     this.authService.adminPassRegistration(dto, this.role).subscribe((response) => {

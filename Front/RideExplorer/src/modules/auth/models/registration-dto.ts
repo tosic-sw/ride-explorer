@@ -6,6 +6,7 @@ export interface RegistrationDTO {
     firstname: string
     lastname: string
     email: string
+    phoneNumber: string
 }
 
 export interface DriverRegistrationDTO extends RegistrationDTO {

@@ -35,6 +35,7 @@ export class DriverPageComponent implements OnInit {
       firstname: "",
       lastname: "",
       email: "",
+      phoneNumber: "",
       car: {
         brand: "",
         carModel: "",

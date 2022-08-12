@@ -31,6 +31,13 @@
         </div>
 
         <div class="form-group row">
+            <div id="email-div" class="col-md">
+                <p>Phone number</p>
+                <input type="email" [(ngModel)]="driverDTO.phoneNumber" [attr.disabled]="true" class="form-control" id="phoneNumber" name="phoneNumber" />
+            </div>
+        </div>
+
+        <div class="form-group row">
             <p class="register-label">Car</p>
             <div id="plateNumber-div" class="col-md">
                 <p>Plate number</p>

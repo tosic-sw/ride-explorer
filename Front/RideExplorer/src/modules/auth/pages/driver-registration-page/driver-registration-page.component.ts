@@ -27,6 +27,7 @@ export class DriverRegistrationPageComponent implements OnInit {
       firstname: [null, Validators.required],
       lastname: [null, Validators.required],
       email: [null, Validators.required],
+      phoneNumber: [null, Validators.required],
       plateNumber: [null, Validators.required],
       brand: [null, Validators.required],
       carModel: [null, Validators.required],
@@ -43,6 +44,7 @@ export class DriverRegistrationPageComponent implements OnInit {
       firstname: this.form.value.firstname,
       lastname: this.form.value.lastname,
       email: this.form.value.email,
+      phoneNumber: this.form.value.phoneNumber,
       car: {
         plateNumber: this.form.value.plateNumber,
         brand: this.form.value.brand,
