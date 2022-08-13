@@ -11,3 +11,11 @@ export interface UserDTO {
 export interface DriverWithCarDTO extends UserDTO {
     car: CarDTO
 }
+
+export interface UserForUpdateDTO {
+    password: string
+    firstname: string
+    lastname: string
+    email: string
+    phoneNumber: string
+}

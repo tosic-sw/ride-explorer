@@ -33,6 +33,7 @@ type DriverRegistrationDTO struct {
 }
 
 type UserForUpdateDTO struct {
+	Password    string `json:"password"`
 	Email       string `json:"email"`
 	Firstname   string `json:"firstname"`
 	Lastname    string `json:"lastname"`

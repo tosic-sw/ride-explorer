@@ -12,14 +12,15 @@ export class LoginGuard implements CanActivate {
   canActivate(): boolean {
     if (this.auth.isLoggedIn()) {
       let role = this.utilsService.getLoggedUserRole();
+      const username = this.utilsService.getLoggedUserUsername();
       if (role === "ADMIN") {
-        this.router.navigate(["ridexplorer"]);
+        this.router.navigate(["ridexplorer/users/passengers"]);
       }
       else if (role === "DRIVER") {
-        this.router.navigate(["ridexplorer"]);
+        this.router.navigate([`ridexplorer/users/driver/${username}`]);
       }
       else if (role === "PASSENGER") {
-        this.router.navigate(["ridexplorer"]);
+        this.router.navigate([`ridexplorer/users/passenger/${username}`]);
       }
 
       return false;

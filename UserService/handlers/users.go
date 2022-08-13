@@ -383,6 +383,64 @@ func (uh *UsersHandler) GetPassenger(resWriter http.ResponseWriter, req *http.Re
 	json.NewEncoder(resWriter).Encode(passenger.ToDTO())
 }
 
+func (uh *UsersHandler) GetProfileData(resWriter http.ResponseWriter, req *http.Request) {
+	resWriter.Header().Set("Content-Type", "application/json")
+
+	// Dobavi claims
+	bearer := req.Header["Authorization"]
+	if bearer == nil {
+		resWriter.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Unauthorized"})
+		return
+	}
+
+	tokenStr := strings.Split(bearer[0], " ")[1]
+	token, err := utils.ParseTokenStr(tokenStr)
+	if err != nil {
+		resWriter.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Invalid token"})
+		return
+	}
+	claims := token.Claims.(jwt.MapClaims)
+
+	var username = fmt.Sprintf("%v", claims["username"])
+
+	if claims["role"] == models.ADMIN.String() {
+		user, err := uh.repository.FindOneAdmin(username)
+		if err != nil {
+			fmt.Println(err.Error())
+			resWriter.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "User not found"})
+			return
+		}
+		json.NewEncoder(resWriter).Encode(user.ToUpdateDTO())
+		return
+	} else if claims["role"] == models.DRIVER.String() {
+		user, err := uh.repository.FindOneDriver(username)
+		if err != nil {
+			fmt.Println(err.Error())
+			resWriter.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "User not found"})
+			return
+		}
+		json.NewEncoder(resWriter).Encode(user.ToUpdateDTO())
+		return
+	} else if claims["role"] == models.PASSENGER.String() {
+		user, err := uh.repository.FindOnePassenger(username)
+		if err != nil {
+			fmt.Println(err.Error())
+			resWriter.WriteHeader(http.StatusNotFound)
+			json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "User not found"})
+			return
+		}
+		json.NewEncoder(resWriter).Encode(user.ToUpdateDTO())
+		return
+	} else {
+		resWriter.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(resWriter).Encode(models.MessageResponse{Message: "Invalid role in token"})
+	}
+}
+
 func (uh *UsersHandler) UpdateProfile(resWriter http.ResponseWriter, req *http.Request) {
 	var userDTO models.UserForUpdateDTO
 	resWriter.Header().Set("Content-Type", "application/json")

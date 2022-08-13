@@ -6,6 +6,7 @@ import { DriversPageComponent } from "./pages/drivers-page/drivers-page.componen
 import { PassengerPageComponent } from "./pages/passenger-page/passenger-page.component";
 import { PassengersPageComponent } from "./pages/passengers-page/passengers-page.component";
 import { UnverifiedDriversPageComponent } from "./pages/unverified-drivers-page/unverified-drivers-page.component";
+import { UpdateProfilePageComponent } from "./pages/update-profile-page/update-profile-page.component";
 
 
 export const UsersRoutes: Routes = [
@@ -48,6 +49,13 @@ export const UsersRoutes: Routes = [
       path: "passenger/:username",
       pathMatch: "full",
       component: PassengerPageComponent,
+      canActivate: [RoleGuard],
+      data: { expectedRoles: "ADMIN|PASSENGER|DRIVER" }
+    },
+    {
+      path: "update-profile",
+      pathMatch: "full",
+      component: UpdateProfilePageComponent,
       canActivate: [RoleGuard],
       data: { expectedRoles: "ADMIN|PASSENGER|DRIVER" }
     },

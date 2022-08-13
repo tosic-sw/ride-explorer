@@ -42,15 +42,16 @@ export class LoginComponent {
       const jwt: JwtHelperService = new JwtHelperService();
       const info = jwt.decodeToken(token);
       const role = info.role;
+      const username = info.username;
         
       if (role === "ADMIN") {
         this.router.navigate(["ridexplorer/users/passengers"]);
       }
       else if (role === "DRIVER") {
-        this.router.navigate(["ridexplorer"]);
+        this.router.navigate([`ridexplorer/users/driver/${username}`]);
       }
       else if (role === "PASSENGER") {
-        this.router.navigate(["ridexplorer"]);
+        this.router.navigate([`ridexplorer/users/passenger/${username}`]);
       }
     },
       (err) => {

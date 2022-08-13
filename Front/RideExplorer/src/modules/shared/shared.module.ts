@@ -9,27 +9,32 @@ import { UtilService } from './services/util.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './interceptors/interceptor.interceptor';
 import {MatSelectModule} from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { CreateUpdateProfileComponent } from './components/create-update-profile/create-update-profile.component';
 
 @NgModule({
   declarations: [
     PaginationComponent,
     SearchInputBtnComponent,
     SelectCustomTextComponent,
-    DateFormatPipe
+    DateFormatPipe,
+    CreateUpdateProfileComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     PaginationComponent,
     SearchInputBtnComponent,
     SelectCustomTextComponent,
-    DateFormatPipe
+    DateFormatPipe,
+    CreateUpdateProfileComponent
   ],
   providers: [
     SnackBarService,

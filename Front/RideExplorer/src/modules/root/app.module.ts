@@ -11,6 +11,8 @@ import { AuthModule } from '../auth/auth.module';
 import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ComplaintsModule } from '../complaints/complaints.module';
+import { HeaderPassengerComponent } from './components/headers/header-passenger/header-passenger.component';
+import { HeaderDriverComponent } from './components/headers/header-driver/header-driver.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { ComplaintsModule } from '../complaints/complaints.module';
     AppComponent,
     RootLayoutPageComponent,
     HeaderAdminComponent,
-    HeaderCommonComponent
+    HeaderCommonComponent,
+    HeaderPassengerComponent,
+    HeaderDriverComponent
   ],
   imports: [
     CommonModule,

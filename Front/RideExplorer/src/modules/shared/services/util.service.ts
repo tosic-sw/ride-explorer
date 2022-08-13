@@ -23,4 +23,24 @@ export class UtilService {
     return "";
   }
 
+  public getLoggedUserRoleLower(): string {
+    const item = sessionStorage.getItem("user");
+
+    if (item) {
+      const jwt: JwtHelperService = new JwtHelperService();
+      return jwt.decodeToken(item).role.toLowerCase();
+    }
+    return "";
+  }
+
+  public getLoggedUserUsername(): string {
+    const item = sessionStorage.getItem("user");
+
+    if (item) {
+      const jwt: JwtHelperService = new JwtHelperService();
+      return jwt.decodeToken(item).username;
+    }
+    return "";
+  }
+
 }

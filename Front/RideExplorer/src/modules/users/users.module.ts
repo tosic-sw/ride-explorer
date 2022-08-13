@@ -15,8 +15,8 @@ import { CarViewerComponent } from './components/car-viewer/car-viewer.component
 import { UserViewerComponent } from './components/user-viewer/user-viewer.component';
 import { PassengerPageComponent } from './pages/passenger-page/passenger-page.component';
 import { DriverPageComponent } from './pages/driver-page/driver-page.component';
-import { RatingViewerComponent } from './components/rating-viewer/rating-viewer.component'
-
+import { RatingViewerComponent } from './components/rating-viewer/rating-viewer.component';
+import { UpdateProfilePageComponent } from './pages/update-profile-page/update-profile-page.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { RatingViewerComponent } from './components/rating-viewer/rating-viewer.
     UserViewerComponent,
     PassengerPageComponent,
     DriverPageComponent,
-    RatingViewerComponent
+    RatingViewerComponent,
+    UpdateProfilePageComponent,
   ],
   imports: [
     CommonModule,

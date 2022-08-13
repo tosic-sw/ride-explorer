@@ -16,6 +16,7 @@ func (admin *Admin) ToDTO() UserDTO {
 func (admin *Admin) ToUpdateDTO() UserForUpdateDTO {
 	return UserForUpdateDTO{
 		Email:       admin.Email,
+		Password:    admin.UserAccount.Password,
 		Firstname:   admin.Firstname,
 		Lastname:    admin.Lastname,
 		PhoneNumber: admin.PhoneNumber,
@@ -52,6 +53,16 @@ func (driver *Driver) ToDTO() UserDTO {
 	}
 }
 
+func (driver *Driver) ToUpdateDTO() UserForUpdateDTO {
+	return UserForUpdateDTO{
+		Email:       driver.Email,
+		Password:    driver.UserAccount.Password,
+		Firstname:   driver.Firstname,
+		Lastname:    driver.Lastname,
+		PhoneNumber: driver.PhoneNumber,
+	}
+}
+
 func (driver *Driver) ToDriverDTO() DriverWithCarDTO {
 	return DriverWithCarDTO{
 		Email:       driver.Email,
@@ -68,15 +79,6 @@ func (driver *Driver) ToDriverDTO() DriverWithCarDTO {
 			Volume:          driver.Car.Volume,
 			Power:           driver.Car.Power,
 		},
-	}
-}
-
-func (driver *Driver) ToUpdateDTO() UserForUpdateDTO {
-	return UserForUpdateDTO{
-		Email:       driver.Email,
-		Firstname:   driver.Firstname,
-		Lastname:    driver.Lastname,
-		PhoneNumber: driver.PhoneNumber,
 	}
 }
 
@@ -123,6 +125,7 @@ func (passenger *Passenger) ToDTO() UserDTO {
 func (passenger *Passenger) ToUpdateDTO() UserForUpdateDTO {
 	return UserForUpdateDTO{
 		Email:       passenger.Email,
+		Password:    passenger.UserAccount.Password,
 		Firstname:   passenger.Firstname,
 		Lastname:    passenger.Lastname,
 		PhoneNumber: passenger.PhoneNumber,

@@ -31,6 +31,7 @@ func MapRoutesAndServe(handler *handlers.UsersHandler) {
 	router.HandleFunc("/api/users/driver/unverified/{username}", handler.GetUnverifiedDriver).Methods(http.MethodGet)
 	router.HandleFunc("/api/users/passenger/{username}", handler.GetPassenger).Methods(http.MethodGet)
 
+	router.HandleFunc("/api/users/profile", handler.GetProfileData).Methods(http.MethodGet)
 	router.HandleFunc("/api/users/profile", handler.UpdateProfile).Methods(http.MethodPut)
 	router.HandleFunc("/api/users/change-password", handler.ChangePassword).Methods(http.MethodPut)
 

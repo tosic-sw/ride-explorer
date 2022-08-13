@@ -63,7 +63,7 @@ func (repo *Repository) FindOneLogin(username string) (*models.UserAccount, erro
 func (repo *Repository) FindOneAdmin(username string) (*models.Admin, error) {
 	var admin models.Admin
 
-	result := repo.db.Where("username = ?", username).First(&admin)
+	result := repo.db.Preload("UserAccount").Where("username = ?", username).First(&admin)
 
 	if result.Error != nil {
 		return &admin, errors.New("username does not exists in database")
@@ -75,7 +75,7 @@ func (repo *Repository) FindOneAdmin(username string) (*models.Admin, error) {
 func (repo *Repository) FindOneDriver(username string) (*models.Driver, error) {
 	var driver models.Driver
 
-	result := repo.db.Where("username = ? AND verified = true", username).First(&driver)
+	result := repo.db.Preload("UserAccount").Where("username = ? AND verified = true", username).First(&driver)
 
 	if result.Error != nil {
 		return &driver, errors.New("username does not exists in database")
@@ -111,7 +111,7 @@ func (repo *Repository) FindOneUnverifiedDriverWithCar(username string) (*models
 func (repo *Repository) FindOnePassenger(username string) (*models.Passenger, error) {
 	var passenger models.Passenger
 
-	result := repo.db.Where("username = ?", username).First(&passenger)
+	result := repo.db.Preload("UserAccount").Where("username = ?", username).First(&passenger)
 
 	if result.Error != nil {
 		return &passenger, errors.New("username does not exists in database")
@@ -202,15 +202,17 @@ func (repo *Repository) SavePassenger(passenger *models.Passenger) (*models.Pass
 
 func (repo *Repository) UpdateAdmin(dto *models.UserForUpdateDTO, username string) (*models.Admin, error) {
 	var admin models.Admin
-	result := repo.db.Where("username = ?", username).First(&admin)
+	result := repo.db.Preload("UserAccount").Where("username = ?", username).First(&admin)
 
 	if result.Error != nil {
 		return &admin, result.Error
 	}
 
+	admin.UserAccount.Password = dto.Password
 	admin.Email = dto.Email
 	admin.Firstname = dto.Firstname
 	admin.Lastname = dto.Lastname
+	admin.PhoneNumber = dto.PhoneNumber
 	repo.db.Save(&admin)
 
 	return &admin, nil
@@ -218,15 +220,17 @@ func (repo *Repository) UpdateAdmin(dto *models.UserForUpdateDTO, username strin
 
 func (repo *Repository) UpdateDriver(dto *models.UserForUpdateDTO, username string) (*models.Driver, error) {
 	var driver models.Driver
-	result := repo.db.Where("username = ? AND verified = true", username).First(&driver)
+	result := repo.db.Preload("UserAccount").Where("username = ? AND verified = true", username).First(&driver)
 
 	if result.Error != nil {
 		return &driver, errors.New("username does not exists in database or not verified")
 	}
 
+	driver.Username = dto.Password
 	driver.Email = dto.Email
 	driver.Firstname = dto.Firstname
 	driver.Lastname = dto.Lastname
+	driver.PhoneNumber = dto.PhoneNumber
 	repo.db.Save(&driver)
 
 	return &driver, nil
@@ -234,16 +238,18 @@ func (repo *Repository) UpdateDriver(dto *models.UserForUpdateDTO, username stri
 
 func (repo *Repository) UpdatePassenger(dto *models.UserForUpdateDTO, username string) (*models.Passenger, error) {
 	var passenger models.Passenger
-	result := repo.db.Where("username = ?", username).First(&passenger)
-
+	result := repo.db.Preload("UserAccount").Where("username = ?", username).First(&passenger)
 	if result.Error != nil {
 		return &passenger, errors.New("username does not exists in database")
 	}
 
+	passenger.UserAccount.Password = dto.Password
 	passenger.Email = dto.Email
 	passenger.Firstname = dto.Firstname
 	passenger.Lastname = dto.Lastname
+	passenger.PhoneNumber = dto.PhoneNumber
 	repo.db.Save(&passenger)
+	repo.db.Save(passenger.UserAccount)
 
 	return &passenger, nil
 }

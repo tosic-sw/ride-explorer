@@ -158,6 +158,17 @@ func GetPassenger(resWriter http.ResponseWriter, req *http.Request) {
 	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Passenger+username)
 }
 
+func GetProfileData(resWriter http.ResponseWriter, req *http.Request) {
+	if status, err := Authenticate(req); err != nil {
+		resWriter.Header().Set("Content-Type", "application/json")
+		resWriter.WriteHeader(status)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+_Profile)
+}
+
 func UpdateProfile(resWriter http.ResponseWriter, req *http.Request) {
 	if status, err := Authenticate(req); err != nil {
 		resWriter.Header().Set("Content-Type", "application/json")

@@ -3,6 +3,14 @@
     <app-header-admin *ngIf="role === 'ADMIN'"></app-header-admin>
   </div>
 
+  <div class="col">
+    <app-header-driver *ngIf="role === 'DRIVER'"></app-header-driver>
+  </div>
+
+  <div class="col">
+    <app-header-passenger *ngIf="role === 'PASSENGER'"></app-header-passenger>
+  </div>
+
   <div class="container-fluid" style="height: 100%;">
     <div class="row">
       <div class="col">

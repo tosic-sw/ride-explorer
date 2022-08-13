@@ -1,0 +1,46 @@
+.registerForm {
+    transform: translate(0%,30%);
+    width: 50%;
+    position: relative;
+    margin: auto;
+    background-color: lightgray;
+    color: rgba($color: black, $alpha: 0.7);
+    border-radius: 18px;
+    padding: 18px;
+  }
+  @media (max-width: 350px) {
+    .myForm {
+      min-width: 90%;
+    }
+  }
+  
+  #username-div, #pass-div, #email-div, #firstname-div, #lastname-div, #phoneNumber-div {
+    text-align: center;
+  }
+  
+  #username, #password, #email, #firstname, #lastname, #phoneNumber {
+    position: relative;
+    margin: auto;
+    width: 70%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  #register-button {
+    position: relative;
+    margin: auto;
+    width: 15%;
+    margin-top: 10px;
+  }
+  
+  .register-label {
+    font-size: 40px;
+    text-transform: uppercase;
+    font-weight: 350;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-top: 4%;
+    margin-bottom: 3%;
+    font-weight: 400;
+  }
+  
