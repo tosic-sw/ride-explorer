@@ -18,6 +18,11 @@ const routes: Routes = [
         loadChildren: () =>
           import("./../users/users.module").then((m) => m.UsersModule),
       },
+      {
+        path: "complaints",
+        loadChildren: () =>
+          import("./../complaints/complaints.module").then((m) => m.ComplaintsModule),
+      },
     ],
   },
   {

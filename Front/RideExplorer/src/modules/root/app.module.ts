@@ -10,6 +10,7 @@ import { RootLayoutPageComponent } from './pages/root-layout-page/root-layout-pa
 import { AuthModule } from '../auth/auth.module';
 import { SharedModule } from '../shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ComplaintsModule } from '../complaints/complaints.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     AuthModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
+    ComplaintsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

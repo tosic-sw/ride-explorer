@@ -11,16 +11,21 @@
 
         <div class="col topp">
             <h2 class="center">Ratings</h2>
-            <div class="topp">
-                <app-rating-viewer *ngFor="let rating of ratings" [rating]="rating"></app-rating-viewer>
+            <div *ngIf="ratings.length !== 0">
+                <div class="topp">
+                    <app-rating-viewer *ngFor="let rating of ratings" [rating]="rating"></app-rating-viewer>
+                </div>
+                <div class="center" id="footer">
+                    <app-pagination 
+                        class="pagination" 
+                        [totalItems]="totalSize" 
+                        [pageSize]="pageSize"
+                        (pageSelected)="changePage($event)">
+                    </app-pagination>
+                </div>
             </div>
-            <div class="center" id="footer">
-                <app-pagination 
-                    class="pagination" 
-                    [totalItems]="totalSize" 
-                    [pageSize]="pageSize"
-                    (pageSelected)="changePage($event)">
-                </app-pagination>
+            <div class="center" *ngIf="ratings.length === 0">
+                <h2 class="rating-label">There are no ratings fot {{user.username}}</h2>
             </div>
         </div>
     </div>

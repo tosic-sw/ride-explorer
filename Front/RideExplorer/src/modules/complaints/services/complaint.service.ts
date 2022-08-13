@@ -1,18 +1,18 @@
 import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient, HttpResponse, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { ViewRatingDTO } from "../models/rating-dto";
+import { ComplaintDTO } from "../models/complaint-dto";
 
 @Injectable({
   providedIn: "root",
 })
-export class RatingService {
+export class ComplaintService {
 
   private headers = new HttpHeaders({ "Content-Type": "application/json" });
   
   constructor(private http: HttpClient) {}
 
-  getRatings(username:string, page: number, size: number): Observable<HttpResponse<ViewRatingDTO[]>> {
+  getComplaints(page: number, size: number): Observable<HttpResponse<ComplaintDTO[]>> {
     let queryParams = {};
 
     queryParams = {
@@ -23,9 +23,9 @@ export class RatingService {
         .append("size", String(size))
     };
 
-    let url: string = `ride-explorer/api/ratings/evaluated/${username}`;
+    let url: string = `ride-explorer/api/complaints`;
 
-    return this.http.get<HttpResponse<ViewRatingDTO[]>>(url, queryParams);
+    return this.http.get<HttpResponse<ComplaintDTO[]>>(url, queryParams);
   }
 
 }

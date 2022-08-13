@@ -1,0 +1,26 @@
+<div class="card expand-font">
+    
+    <div class="container card-body">
+        <div class="row">
+            
+            <div class="col">
+                <h3 class="card-title">
+                    <b class="point" (click)="viewProfile(complaint.accuser)">{{complaint.accuser}}</b>
+                    <b class="arrow">   >>>>>   </b>
+                    <b class="point" (click)="viewProfile(complaint.accused)">{{complaint.accused}}</b>
+                </h3>
+            </div>
+            
+            <div class="col col-lg-1">
+                <h3>{{complaint.createdAt | dateFormat: 'DD.MM.YYYY'}}</h3>
+            </div>
+        
+        </div>
+        
+        <div class="row">
+            <p class="card-text">{{complaint.text}}</p>
+        </div>
+
+        
+    </div>
+</div>

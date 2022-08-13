@@ -66,7 +66,7 @@ func SearchAdmin(resWriter http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	pageable := GetPageableFromRequest(req)
+	pageable := GetSearchPageableFromRequest(req)
 	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Search+_Admin+pageable)
 }
 
@@ -78,7 +78,7 @@ func SearchDriver(resWriter http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	pageable := GetPageableFromRequest(req)
+	pageable := GetSearchPageableFromRequest(req)
 	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Search+_Driver+pageable)
 }
 
@@ -90,7 +90,7 @@ func SearchUnverifiedDriver(resWriter http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	pageable := GetPageableFromRequest(req)
+	pageable := GetSearchPageableFromRequest(req)
 	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Search+Driver+_Unverified+pageable)
 }
 
@@ -102,7 +102,7 @@ func SearchPassenger(resWriter http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	pageable := GetPageableFromRequest(req)
+	pageable := GetSearchPageableFromRequest(req)
 	SendReqAndReturnResponse(resWriter, req, http.MethodGet, UserServiceRoot+Search+_Passenger+pageable)
 }
 
