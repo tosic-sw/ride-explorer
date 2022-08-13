@@ -5,22 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="67ebd713-021c-4344-bd48-7cb4b18ef8de" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/handlers/user_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/handlers/user_service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ApiGateway/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/../ApiGateway/router/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/root/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/root/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/root/components/headers/header-common/header-common.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/root/components/headers/header-common/header-common.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/shared/services/util.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/shared/services/util.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/shared/shared.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/shared/shared.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/models/user-dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/models/user-dto.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/services/user.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/services/user.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/users.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/users.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/users.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front/RideExplorer/src/modules/users/users.routes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/data/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/users.go" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/users.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/dtos.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/dtos.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/mapppers.go" beforeDir="false" afterPath="$PROJECT_DIR$/models/mapppers.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/router/router.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
