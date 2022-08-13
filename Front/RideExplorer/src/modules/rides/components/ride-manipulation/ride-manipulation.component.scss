@@ -1,0 +1,57 @@
+.rideForm {
+    transform: translate(0%,0%);
+    width: 50%;
+    position: relative;
+    margin: auto;
+    background-color: lightgray;
+    color: rgba($color: black, $alpha: 0.7);
+    border-radius: 18px;
+    padding: 18px;
+  }
+  
+  #driver_username-div,
+  #departure_location-div, 
+  #destination-div, 
+  #departure_date_time-div, 
+  #departure_address-div, 
+  #free_places-div,
+  #planned_arrival_time-div,
+  #note-div,
+  #distance-div {
+    text-align: center;
+  }
+  
+  #driver_username,
+  #departure_location, 
+  #destination, 
+  #departure_date_time, 
+  #departure_address, 
+  #free_places,
+  #planned_arrival_time,
+  #note,
+  #distance {
+    position: relative;
+    margin: auto;
+    width: 70%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  #create-button {
+    position: relative;
+    margin: auto;
+    width: 15%;
+    margin-top: 10px;
+  }
+  
+  .create-label {
+    font-size: 40px;
+    text-transform: uppercase;
+    font-weight: 350;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-top: 4%;
+    margin-bottom: 3%;
+    font-weight: 400;
+  }
+  

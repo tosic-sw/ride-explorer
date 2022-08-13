@@ -35,3 +35,8 @@ export interface ReserveDTO {
     id: number,
     places: number,
 }
+
+export interface SearchDTO {
+    departure_location: string,
+    destination: string,
+}

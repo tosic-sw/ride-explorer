@@ -1,0 +1,112 @@
+<div class="row justify-content-center align-items-center rideForm">
+    <form class="col-md-12 box" [formGroup]="form" (ngSubmit)="submit()">
+      <fieldset>
+        <div class="form-group row">
+          <div id="departure_location-div" class="col-md">
+            <input type="text" class="form-control" id="departure_location" name="departure_location" placeholder="Departure location" formControlName="departure_location" />
+            <small id='danger-label-departure_location' class="text-danger danger-label" *ngIf="
+            form.controls['departure_location'].touched &&
+            form.controls['departure_location'].errors?.['required']
+          ">
+              Departure location can't be empty
+            </small>
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <div id="destination-div" class="col-md">
+            <input type="text" class="form-control" id="destination" name="destination" placeholder="Destination"
+              formControlName="destination" />
+            <small id='danger-label-pass' class="text-danger" *ngIf="
+            form.controls['destination'].touched &&
+            form.controls['destination'].errors?.['required']
+          ">
+              Destination can't be empty
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group row">
+            <div id="departure_date_time-div" class="col-md">
+              <input type="text" class="form-control" id="departure_date_time" name="departure_date_time" placeholder="Departure date time"
+                formControlName="departure_date_time" />
+              <small id='danger-label-pass' class="text-danger" *ngIf="
+              form.controls['departure_date_time'].touched &&
+              form.controls['departure_date_time'].errors?.['required']
+            ">
+                Departure date time can't be empty
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div id="departure_address-div" class="col-md">
+              <input type="text" class="form-control" id="departure_address" name="departure_address" placeholder="Departure address"
+                formControlName="departure_address" />
+              <small id='danger-label-pass' class="text-danger" *ngIf="
+              form.controls['departure_address'].touched &&
+              form.controls['departure_address'].errors?.['required']
+            ">
+                Departure address can't be empty
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div id="free_places-div" class="col-md">
+              <input type="number" class="form-control" id="free_places" name="free_places" placeholder="Free places"
+                formControlName="free_places" />
+              <small id='danger-label-pass' class="text-danger" *ngIf="
+              form.controls['free_places'].touched &&
+              (form.controls['free_places'].errors?.['required'] ||
+               form.controls['free_places'].errors?.['min'] ||
+               form.controls['free_places'].errors?.['pattern'])
+            ">
+                Invalid value for free places
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div id="planned_arrival_time-div" class="col-md">
+              <input type="text" class="form-control" id="planned_arrival_time" name="planned_arrival_time" placeholder="Planed arrival time"
+                formControlName="planned_arrival_time" />
+              <small id='danger-label-pass' class="text-danger" *ngIf="
+              form.controls['planned_arrival_time'].touched &&
+              form.controls['planned_arrival_time'].errors?.['required']
+            ">
+                Planed arrival time can't be empty
+              </small>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div id="note-div" class="col-md">
+              <input type="text" class="form-control" id="note" name="note" placeholder="Note"
+                formControlName="note" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div id="distance-div" class="col-md">
+              <input type="number" class="form-control" id="distance" name="distance" placeholder="Distance"
+                formControlName="distance" />
+              <small id='danger-label-pass' class="text-danger" *ngIf="
+              form.controls['distance'].touched &&
+              (form.controls['distance'].errors?.['required'] ||
+               form.controls['distance'].errors?.['min'] ||
+               form.controls['distance'].errors?.['pattern'])
+            ">
+                Invalid distance value
+              </small>
+            </div>
+          </div>
+  
+        <div class="row" *ngIf="mode!=='view'">
+          <button id="create-button" type="submit" class="btn btn-primary" [disabled]="!form.valid">
+            Create
+          </button>
+        </div>
+      </fieldset>
+    </form>
+  </div>

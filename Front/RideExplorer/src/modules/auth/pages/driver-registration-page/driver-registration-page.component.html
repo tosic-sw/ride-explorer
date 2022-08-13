@@ -124,7 +124,10 @@
                     formControlName="fuelConsumption" />
                 <small id='danger-label-pass' class="text-danger" *ngIf="
                 form.controls['fuelConsumption'].touched &&
-                form.controls['fuelConsumption'].errors?.['required']
+                (form.controls['fuelConsumption'].errors?.['required'] ||
+                 form.controls['fuelConsumption'].errors?.['min'] ||
+                 form.controls['fuelConsumption'].errors?.['pattern']
+                )
                 ">
                     Invalid value for fuel consumption
                 </small>
@@ -137,7 +140,10 @@
                     formControlName="volume" />
                 <small id='danger-label-pass' class="text-danger" *ngIf="
                 form.controls['volume'].touched &&
-                form.controls['volume'].errors?.['required']
+                (form.controls['volume'].errors?.['required'] ||
+                 form.controls['volume'].errors?.['min'] ||
+                 form.controls['volume'].errors?.['pattern']
+                )
                 ">
                     Invalid value for volume
                 </small>
@@ -150,7 +156,10 @@
                     formControlName="power" />
                 <small id='danger-label-pass' class="text-danger" *ngIf="
                 form.controls['power'].touched &&
-                form.controls['power'].errors?.['required']
+                (form.controls['power'].errors?.['required'] ||
+                 form.controls['power'].errors?.['min'] ||
+                 form.controls['power'].errors?.['pattern']
+                )
                 ">
                     Invalid value for power
                 </small>

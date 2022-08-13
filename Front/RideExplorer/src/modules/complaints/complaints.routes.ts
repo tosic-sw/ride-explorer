@@ -7,7 +7,7 @@ export const ComplaintsRoutes: Routes = [
       path: "all",
       pathMatch: "full",
       component: ComplaintsPageComponent,
-      // canActivate: [RoleGuard],
-      // data: { expectedRoles: "ADMIN" }
+      canActivate: [RoleGuard],
+      data: { expectedRoles: "ADMIN" }
     },
 ];
