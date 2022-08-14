@@ -103,29 +103,50 @@ pub fn delete(username: String, id: i32) -> Result<status::NoContent, Status> {
 }
 
 #[post("/drives/search", data = "<dto>")]
-pub fn search(dto: Json<SearchDTO>) -> Result<Json<Vec<Drive>>, Status> {
+pub fn search(dto: Json<SearchDTO>) -> Result<Json<Drives>, Status> {
     let conn = establish_connection();
+    
+    let total_elements = count_search_drives(&conn, &dto);
 
-    search_drives(&conn, &dto.departure_location, &dto.destination)
-        .map(|drives| Json(drives))
+    search_drives(&conn, &dto)
+        .map(|drives| Json(
+            Drives {
+                drives: drives,
+                total_elements: total_elements
+            }
+        ))
         .map_err(|error| error_status(error))
 }
 
-#[get("/drives/driver/finished/<username>")]
-pub fn finished_driver(username: String) -> Result<Json<Vec<Drive>>, Status> {
-
+#[post("/drives/driver/finished/<username>", data = "<dto>")]
+pub fn finished_driver(username: String, dto: Json<PageableDTO>) -> Result<Json<Drives>, Status> {
     let conn = establish_connection();
-    find_finished_driver(&conn, &username)
-        .map(|drives| Json(drives))
+
+    let total_elements = count_finished_driver(&conn, &username);
+
+    find_finished_driver(&conn, &username, &dto)
+        .map(|drives| Json(
+            Drives {
+                drives: drives,
+                total_elements: total_elements
+            }
+        ))
         .map_err(|error| error_status(error))
 }
 
-#[get("/drives/driver/unfinished/<username>")]
-pub fn unfinished_driver(username: String) -> Result<Json<Vec<Drive>>, Status> {
-
+#[post("/drives/driver/unfinished/<username>", data = "<dto>")]
+pub fn unfinished_driver(username: String, dto: Json<PageableDTO>) -> Result<Json<Drives>, Status> {
     let conn = establish_connection();
-    find_unfinished_driver(&conn, &username)
-        .map(|drives| Json(drives))
+
+    let total_elements = count_unfinished_driver(&conn, &username);
+
+    find_unfinished_driver(&conn, &username, &dto)
+        .map(|drives| Json(
+            Drives {
+                drives: drives,
+                total_elements: total_elements
+            }
+        ))
         .map_err(|error| error_status(error))
 }
 

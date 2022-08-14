@@ -37,10 +37,10 @@
     margin-bottom: 10px;
   }
   
-  #create-button {
+  #create-button, #finish-button {
     position: relative;
     margin: auto;
-    width: 15%;
+    width: 20%;
     margin-top: 10px;
   }
   
@@ -55,3 +55,6 @@
     font-weight: 400;
   }
   
+  .topp {
+    margin-top: 2%;
+  }

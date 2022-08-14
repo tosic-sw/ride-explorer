@@ -9,13 +9,19 @@ import { RidesRoutes } from './rides.routes';
 import { RideManipulationComponent } from './components/ride-manipulation/ride-manipulation.component';
 import { ViewRidePageComponent } from './pages/view-ride-page/view-ride-page.component';
 import { UpdateRidePageComponent } from './pages/update-ride-page/update-ride-page.component';
+import { DriverFinishedPageComponent } from './pages/driver-finished-page/driver-finished-page.component';
+import { DriverUnfinishedPageComponent } from './pages/driver-unfinished-page/driver-unfinished-page.component';
+import { RideTableComponent } from './components/ride-table/ride-table.component';
 
 @NgModule({
   declarations: [
     CreateRidePageComponent,
     RideManipulationComponent,
     ViewRidePageComponent,
-    UpdateRidePageComponent
+    UpdateRidePageComponent,
+    DriverFinishedPageComponent,
+    DriverUnfinishedPageComponent,
+    RideTableComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +29,7 @@ import { UpdateRidePageComponent } from './pages/update-ride-page/update-ride-pa
     RouterModule.forChild(RidesRoutes),
     SharedModule,
     FormsModule,
-    MatIconModule,
+    MatIconModule
   ]
 })
 export class RidesModule { }

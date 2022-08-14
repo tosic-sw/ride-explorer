@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
+import { UtilService } from 'src/modules/shared/services/util.service';
 import { DriveDTO } from '../../models/drive-dto';
 import { RideService } from '../../services/ride.service';
 
@@ -11,7 +14,10 @@ export class ViewRidePageComponent implements OnInit {
 
   ride: DriveDTO;
 
-  constructor(private rideService: RideService) {
+  constructor(private rideService: RideService, 
+    private utilService: UtilService,
+    private route: ActivatedRoute,
+    private snackBarService: SnackBarService) {
     this.ride = {
       id: -1,
       driver_username: "",
@@ -27,6 +33,24 @@ export class ViewRidePageComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const idStr: string | null = this.route.snapshot.paramMap.get("id");
+    if(!idStr) return;
+
+    if(!this.utilService.isNumber(idStr)) {
+      this.snackBarService.openSnackBar("Invalid ride id");
+      this.utilService.navigateToMyProfile();
+    }
+
+    const id = parseInt(idStr);
+    this.rideService.getRide(id).subscribe((response) => {
+      if(response.body)
+        this.ride = response.body;
+    }, 
+    (error) => {
+      this.snackBarService.openSnackBar("An error ocured while loading ride");
+      this.utilService.navigateToMyProfile();
+    });
+  }
 
 }

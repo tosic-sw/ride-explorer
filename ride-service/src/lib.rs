@@ -9,11 +9,12 @@ use diesel::{prelude::*};
 use diesel::pg::PgConnection;
 
 use dotenv::dotenv;
+use models::PageableDTO;
 use std::env;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 use crate::schema::drives::{departure_address, free_places, note};
-use self::models::{Drive, NewDrive, UpdateDriveDTO};
+use self::models::{Drive, NewDrive, UpdateDriveDTO, SearchDTO};
 
 pub fn establish_connection() -> PgConnection {
     dotenv().ok();
@@ -29,10 +30,10 @@ pub fn insert_d1(conn: &PgConnection) -> QueryResult<Drive> {
         driver_username: String::from("tica"),
         departure_location: String::from("Novi Sad"),
         destination: String::from("Beograd"),
-        departure_date_time: 1659981600000,
+        departure_date_time: 1662814800000,
         departure_address: String::from(""),
         free_places: 3,
-        planned_arrival_time: 1659985200000,
+        planned_arrival_time: 1662818400000,
         note: String::from("Ciao bella"),
         distance: 90,
     };
@@ -49,10 +50,10 @@ pub fn insert_d2(conn: &PgConnection) -> QueryResult<Drive> {
         driver_username: String::from("tica"),
         departure_location: String::from("Novi Sad"),
         destination: String::from("Beograd"),
-        departure_date_time: 1659981600000,
+        departure_date_time: 1662814800000,
         departure_address: String::from(""),
         free_places: 3,
-        planned_arrival_time: 1659985200000,
+        planned_arrival_time: 1662818400000,
         note: String::from("Ciao bella"),
         distance: 90,
     };
@@ -69,10 +70,10 @@ pub fn insert_d3(conn: &PgConnection) -> QueryResult<Drive> {
         driver_username: String::from("ukica"),
         departure_location: String::from("Novi Sad"),
         destination: String::from("Beograd"),
-        departure_date_time: 1659981600000,
+        departure_date_time: 1662814800000,
         departure_address: String::from(""),
         free_places: 3,
-        planned_arrival_time: 1659985200000,
+        planned_arrival_time: 1662818400000,
         note: String::from("Ciao bella"),
         distance: 90,
     };
@@ -146,24 +147,38 @@ pub fn find_one(conn: &PgConnection, _id: i32) -> QueryResult<Drive> {
     drives::table.find(_id).get_result::<Drive>(conn)
 }
 
-pub fn search_drives(conn: &PgConnection, depart: &String, dest: &String) -> QueryResult<Vec<Drive>> {
+pub fn search_drives(conn: &PgConnection, dto: &SearchDTO) -> QueryResult<Vec<Drive>> {
     use schema::drives::dsl::*;
 
-    let start = SystemTime::now();
-    let since_the_epoch = start
-        .duration_since(UNIX_EPOCH)
-        .expect("Time went backwards");
-    let millis: i64 = since_the_epoch.as_millis().try_into().unwrap();
+    let offset: i64 = (dto.page - 1) * dto.size;
+    let millis: i64 = get_now_since_epoch();
 
     let results = drives
-        .filter(departure_location.eq(&depart))
-        .filter(destination.eq(dest))
+        .filter(departure_location.eq(&dto.departure_location))
+        .filter(destination.eq(&dto.destination))
         .filter(finished.eq(false))
         .filter(departure_date_time.gt(millis))
-        .limit(100)
+        .limit(dto.size)
+        .offset(offset)
         .load::<Drive>(conn);
 
     results
+}
+
+pub fn count_search_drives(conn: &PgConnection, dto: &SearchDTO) -> i64 {
+    use schema::drives::dsl::*;
+
+    let millis: i64 = get_now_since_epoch();
+
+    let total_elements = drives
+        .filter(departure_location.eq(&dto.departure_location))
+        .filter(destination.eq(&dto.destination))
+        .filter(finished.eq(false))
+        .filter(departure_date_time.gt(millis))
+        .count()
+        .get_result(conn);
+
+    total_elements.unwrap()
 }
 
 pub fn find_one_finished_driver(conn: &PgConnection, driver: &String, _id: i32) -> QueryResult<Drive> {
@@ -201,28 +216,58 @@ pub fn find_one_finished(conn: &PgConnection, _id: i32) -> QueryResult<Drive> {
     results
 }
 
-pub fn find_finished_driver(conn: &PgConnection, driver: &String) -> QueryResult<Vec<Drive>> {
+pub fn find_finished_driver(conn: &PgConnection, driver: &String, dto: &PageableDTO) -> QueryResult<Vec<Drive>> {
     use schema::drives::dsl::*;
+
+    let offset: i64 = (dto.page - 1) * dto.size;
 
     let results = drives
         .filter(finished.eq(true))
         .filter(driver_username.eq(driver))
-        .limit(100)
+        .offset(offset)
+        .limit(dto.size)
         .load::<Drive>(conn);
 
     results
 }
 
-pub fn find_unfinished_driver(conn: &PgConnection, driver: &String) -> QueryResult<Vec<Drive>> {
+pub fn count_finished_driver(conn: &PgConnection, driver: &String) -> i64 {
     use schema::drives::dsl::*;
+
+    let count = drives
+        .filter(finished.eq(true))
+        .filter(driver_username.eq(driver))
+        .count()
+        .get_result(conn);
+
+    count.unwrap()
+}
+
+pub fn find_unfinished_driver(conn: &PgConnection, driver: &String, dto: &PageableDTO) -> QueryResult<Vec<Drive>> {
+    use schema::drives::dsl::*;
+
+    let offset: i64 = (dto.page - 1) * dto.size;
 
     let results = drives
         .filter(finished.eq(false))
         .filter(driver_username.eq(driver))
-        .limit(100)
+        .offset(offset)
+        .limit(dto.size)
         .load::<Drive>(conn);
 
     results
+}
+
+pub fn count_unfinished_driver(conn: &PgConnection, driver: &String) -> i64 {
+    use schema::drives::dsl::*;
+
+    let count = drives
+        .filter(finished.eq(false))
+        .filter(driver_username.eq(driver))
+        .count()
+        .get_result(conn);
+
+    count.unwrap()
 }
 
 pub fn get_all(conn: &PgConnection) -> QueryResult<Vec<Drive>> {
@@ -233,4 +278,14 @@ pub fn get_all(conn: &PgConnection) -> QueryResult<Vec<Drive>> {
         .load::<Drive>(conn);
 
     results
+}
+
+fn get_now_since_epoch() -> i64 {
+    let start = SystemTime::now();
+    let since_the_epoch = start
+        .duration_since(UNIX_EPOCH)
+        .expect("Time went backwards");
+    let millis: i64 = since_the_epoch.as_millis().try_into().unwrap();
+
+    return millis;
 }

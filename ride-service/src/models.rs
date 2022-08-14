@@ -51,12 +51,21 @@ pub struct StatusMessage {
 
 #[derive(Serialize)]
 pub struct Drives {
-    pub drives: Vec<Drive>
+    pub drives: Vec<Drive>,
+    pub total_elements: i64,
 }
 
 
 #[derive(Deserialize)]
 pub struct SearchDTO {
     pub departure_location: String,
-    pub destination: String,
+    pub destination: String,    
+    pub page: i64,
+    pub size: i64,
+}
+
+#[derive(Deserialize)]
+pub struct PageableDTO {  
+    pub page: i64,
+    pub size: i64,
 }

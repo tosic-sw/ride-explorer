@@ -32,14 +32,15 @@ func MapRoutesAndServe() {
 	router.HandleFunc("/api/users/passenger/{username}", handlers.DeletePassenger).Methods(http.MethodDelete)
 
 	router.HandleFunc("/api/drives/{id}", handlers.GetDrive).Methods(http.MethodGet)
+	router.HandleFunc("/api/drives/unfinished/{id}/{username}", handlers.GetUnfinishedDriveForDriver).Methods(http.MethodGet)
 	router.HandleFunc("/api/drives", handlers.CreateDrive).Methods(http.MethodPost)
 	router.HandleFunc("/api/drives", handlers.UpdateDrive).Methods(http.MethodPut)
 	router.HandleFunc("/api/drives/driver/{username}/finish/{id}", handlers.FinishDriveOfDriver).Methods(http.MethodPut)
 	router.HandleFunc("/api/drives/adjust-places", handlers.AdjustPlaces).Methods(http.MethodPut)
 	router.HandleFunc("/api/drives/driver/{username}/{id}", handlers.DeleteDriveOfDriver).Methods(http.MethodDelete)
 	router.HandleFunc("/api/drives/search", handlers.SearchDrives).Methods(http.MethodPost)
-	router.HandleFunc("/api/drives/driver/finished/{username}", handlers.FinishedDrivesOfDriver).Methods(http.MethodGet)
-	router.HandleFunc("/api/drives/driver/unfinished/{username}", handlers.UnfinishedDrivesOfDriver).Methods(http.MethodGet)
+	router.HandleFunc("/api/drives/driver/finished/{username}", handlers.FinishedDrivesOfDriver).Methods(http.MethodPost)
+	router.HandleFunc("/api/drives/driver/unfinished/{username}", handlers.UnfinishedDrivesOfDriver).Methods(http.MethodPost)
 
 	router.HandleFunc("/api/reservations/{id:[0-9]+}", handlers.GetReservation).Methods(http.MethodGet)
 	router.HandleFunc("/api/reservations", handlers.CreateReservation).Methods(http.MethodPost)

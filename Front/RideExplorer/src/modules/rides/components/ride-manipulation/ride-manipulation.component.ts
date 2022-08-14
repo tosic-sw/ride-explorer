@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UtilService } from 'src/modules/shared/services/util.service';
 import { DriveDTO, NewDriveDTO, UpdateDriveDTO } from '../../models/drive-dto';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-ride-manipulation',
@@ -13,8 +14,24 @@ export class RideManipulationComponent implements OnInit {
   @Input()
   mode: string;
 
-  @Input()
-  ride: DriveDTO | undefined;
+  private _ride: DriveDTO | undefined;
+
+  @Input() set ride(value: DriveDTO | undefined) {
+    this._ride = value;
+
+    if(this._ride)
+      this.form.setValue(this._ride);
+
+    const ddt = this.form.get("departure_date_time")?.value; 
+    this.form.get("departure_date_time")?.setValue(this.formatNumberToDate(ddt));
+
+    const pat = this.form.get("planned_arrival_time")?.value; 
+    this.form.get("planned_arrival_time")?.setValue(this.formatNumberToDate(pat));
+  }
+ 
+  get ride(): DriveDTO | undefined {
+      return this._ride;
+  }
 
   form: FormGroup;
 
@@ -24,9 +41,17 @@ export class RideManipulationComponent implements OnInit {
   @Output()
   submitUpdate = new EventEmitter<UpdateDriveDTO>();
 
+  @Output()
+  finishRideEvent = new EventEmitter<number>();
+
+  dateValue: Date = new Date ("16/05/2017 13:00");
+
   constructor(private fb: FormBuilder, private utilService: UtilService) {
     this.mode = "create";
     this.form = this.fb.group({
+      id: [null, Validators.required],
+      finished: [null, Validators.required],
+      driver_username: [null, Validators.required],
       departure_location: [null, Validators.required],
       destination: [null, Validators.required],
       departure_date_time: [null, Validators.required],
@@ -40,9 +65,6 @@ export class RideManipulationComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.mode === "create") return;
-
-    if(this.ride)
-      this.form.setValue(this.ride);
 
     if(this.mode === "update") {
       this.disableUpdate();
@@ -69,10 +91,10 @@ export class RideManipulationComponent implements OnInit {
       driver_username: this.utilService.getLoggedUserUsername(),
       departure_location: this.form.value.departure_location,
       destination: this.form.value.destination,
-      departure_date_time: this.form.value.departure_date_time,
+      departure_date_time: this.formatDateToNumber(this.form.value.departure_date_time),
       departure_address: this.form.value.departure_address,
       free_places: this.form.value.free_places,
-      planned_arrival_time: this.form.value.planned_arrival_time,
+      planned_arrival_time: this.formatDateToNumber(this.form.value.planned_arrival_time),
       note: this.form.value.note,
       distance: this.form.value.distance,
     };
@@ -81,10 +103,10 @@ export class RideManipulationComponent implements OnInit {
   }
 
   updateDrive() {
-    if(!this.ride) return;
+    if(!this._ride) return;
     
     const dto: UpdateDriveDTO = {
-      id: this.ride?.id,
+      id: this._ride?.id,
       departure_address: this.form.value.departure_address,
       free_places: this.form.value.free_places,
       note: this.form.value.note,
@@ -107,6 +129,21 @@ export class RideManipulationComponent implements OnInit {
     this.form.get("departure_address")?.disable(); 
     this.form.get("free_places")?.disable(); 
     this.form.get("note")?.disable(); 
+  }
+
+  formatDateToNumber(date: Date): number {
+    return moment(date).valueOf();
+  }
+
+  formatNumberToDate(millis: number): string {
+    const strDate = moment(millis).format("yyyy-MM-DDTHH:mm"); 
+    const date = new Date(strDate);
+    const isoDate = date.toISOString().slice(0,16);
+    return isoDate;
+  }
+
+  finishRide() {
+    this.finishRideEvent.emit(this._ride?.id);
   }
 
 }

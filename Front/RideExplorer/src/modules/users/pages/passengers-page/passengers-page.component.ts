@@ -61,11 +61,12 @@ export class PassengersPageComponent implements OnInit {
   banUser(username: string) {
     this.userService.banUser(username, "passenger").subscribe((response) => {
       if(response) {
-        const idx = this.users.findIndex(user => user.username === username);
-        this.users.splice(idx, 1);
-
+        // const idx = this.users.findIndex(user => user.username === username);
+        // this.users.splice(idx, 1);
         const msg = response as unknown as MessageResponse;
         this.snackBarService.openSnackBar(msg.message);
+
+        this.changePage(1);
       }
     },
     (error) => {
@@ -79,11 +80,12 @@ export class PassengersPageComponent implements OnInit {
   deleteUser(username: string) {
     this.userService.deleteUser(username, "passenger").subscribe((response) => {
       if(response.body) {
-        const idx = this.users.findIndex(user => user.username === username);
-        this.users.splice(idx, 1);
-        
+        // const idx = this.users.findIndex(user => user.username === username);
+        // this.users.splice(idx, 1);
         const msg: MessageResponse = response.body;
         this.snackBarService.openSnackBar(msg.message);
+
+        this.changePage(1);
       }
     },
     (error) => {

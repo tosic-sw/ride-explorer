@@ -1,1 +1,7 @@
-<p>update-ride-page works!</p>
+<div class="heading">
+    <h1>Update ride</h1>
+</div>
+
+<div class="container">
+    <app-ride-manipulation [ride]="ride" mode="update" (submitUpdate)="updateRide($event)" (finishRideEvent)="finishRide($event)"></app-ride-manipulation>
+</div>

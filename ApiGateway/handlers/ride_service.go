@@ -22,6 +22,21 @@ func GetDrive(resWriter http.ResponseWriter, req *http.Request) {
 	SendReqAndReturnResponse(resWriter, req, http.MethodGet, DriveServiceRoot+id)
 }
 
+func GetUnfinishedDriveForDriver(resWriter http.ResponseWriter, req *http.Request) {
+	if status, err := Authenticate(req); err != nil {
+		resWriter.Header().Set("Content-Type", "application/json")
+		resWriter.WriteHeader(status)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	params := mux.Vars(req)
+	id := params["id"]
+	username := params["username"]
+
+	SendReqAndReturnResponse(resWriter, req, http.MethodGet, DriveServiceRoot+Unfinished+id+"/"+username)
+}
+
 func CreateDrive(resWriter http.ResponseWriter, req *http.Request) {
 	if status, err := Authorize(req, "driver"); err != nil {
 		resWriter.Header().Set("Content-Type", "application/json")
@@ -109,7 +124,7 @@ func FinishedDrivesOfDriver(resWriter http.ResponseWriter, req *http.Request) {
 	params := mux.Vars(req)
 	username := params["username"]
 
-	SendReqAndReturnResponse(resWriter, req, http.MethodGet, DriveServiceRoot+Driver+Finished+username)
+	SendReqAndReturnResponse(resWriter, req, http.MethodPost, DriveServiceRoot+Driver+Finished+username)
 }
 
 func UnfinishedDrivesOfDriver(resWriter http.ResponseWriter, req *http.Request) {
@@ -123,5 +138,5 @@ func UnfinishedDrivesOfDriver(resWriter http.ResponseWriter, req *http.Request) 
 	params := mux.Vars(req)
 	username := params["username"]
 
-	SendReqAndReturnResponse(resWriter, req, http.MethodGet, DriveServiceRoot+Driver+Unfinished+username)
+	SendReqAndReturnResponse(resWriter, req, http.MethodPost, DriveServiceRoot+Driver+Unfinished+username)
 }

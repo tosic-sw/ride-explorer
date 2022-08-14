@@ -39,4 +39,16 @@ export interface ReserveDTO {
 export interface SearchDTO {
     departure_location: string,
     destination: string,
+    page: number,
+    size: number
+}
+
+export interface PageableDTO {
+    page: number,
+    size: number
+}
+
+export interface Drives {
+    total_elements: number
+    drives: DriveDTO[]
 }
