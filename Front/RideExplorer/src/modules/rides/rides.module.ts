@@ -12,6 +12,9 @@ import { UpdateRidePageComponent } from './pages/update-ride-page/update-ride-pa
 import { DriverFinishedPageComponent } from './pages/driver-finished-page/driver-finished-page.component';
 import { DriverUnfinishedPageComponent } from './pages/driver-unfinished-page/driver-unfinished-page.component';
 import { RideTableComponent } from './components/ride-table/ride-table.component';
+import { RideSearchTableComponent } from './components/ride-search-table/ride-search-table.component';
+import { SearchRidePageComponent } from './pages/search-ride-page/search-ride-page.component';
+import { SearchFormComponent } from './components/search-form/search-form.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { RideTableComponent } from './components/ride-table/ride-table.component
     UpdateRidePageComponent,
     DriverFinishedPageComponent,
     DriverUnfinishedPageComponent,
-    RideTableComponent
+    RideTableComponent,
+    RideSearchTableComponent,
+    SearchRidePageComponent,
+    SearchFormComponent
   ],
   imports: [
     CommonModule,

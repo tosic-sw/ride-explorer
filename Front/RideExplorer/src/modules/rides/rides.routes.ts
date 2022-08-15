@@ -3,6 +3,7 @@ import { RoleGuard } from "../auth/guards/role/role.guard";
 import { CreateRidePageComponent } from "./pages/create-ride-page/create-ride-page.component";
 import { DriverFinishedPageComponent } from "./pages/driver-finished-page/driver-finished-page.component";
 import { DriverUnfinishedPageComponent } from "./pages/driver-unfinished-page/driver-unfinished-page.component";
+import { SearchRidePageComponent } from "./pages/search-ride-page/search-ride-page.component";
 import { UpdateRidePageComponent } from "./pages/update-ride-page/update-ride-page.component";
 import { ViewRidePageComponent } from "./pages/view-ride-page/view-ride-page.component";
 
@@ -41,5 +42,12 @@ export const RidesRoutes: Routes = [
       component: DriverUnfinishedPageComponent,
       canActivate: [RoleGuard],
       data: { expectedRoles: "DRIVER" }
+    },
+    {
+      path: "search",
+      pathMatch: "full",
+      component: SearchRidePageComponent,
+      canActivate: [RoleGuard],
+      data: { expectedRoles: "PASSENGER" }
     },
 ];

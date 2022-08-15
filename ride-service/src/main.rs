@@ -47,8 +47,11 @@ pub fn one_finished(id: i32) -> Result<Json<Drive>, Status> {
 }
 
 #[post("/drives", data = "<new_drive>")]
-pub fn create(new_drive: Json<NewDrive>) -> Result<status::Created<Json<Drive>>, Status> {
+pub fn create(mut new_drive: Json<NewDrive>) -> Result<status::Created<Json<Drive>>, Status> {
     let conn = establish_connection();
+
+    new_drive.departure_location = new_drive.departure_location.trim().to_lowercase();
+    new_drive.destination = new_drive.destination.trim().to_lowercase();
 
     create_drive(&conn, &new_drive.into_inner())
         .map(|drive| drive_created(drive))

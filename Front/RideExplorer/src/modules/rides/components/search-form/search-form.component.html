@@ -1,0 +1,53 @@
+<div class="container">
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="row">
+
+            <div class="col">
+                <input 
+                    class="form-control"
+                    type="text" 
+                    id="departure" 
+                    name="departure" 
+                    placeholder="Departure"
+                    formControlName="departure"/>
+
+                <small 
+                    id='danger-label-pass' 
+                    class="text-danger" 
+                    *ngIf="
+                        form.controls['departure'].touched &&
+                        form.controls['departure'].errors?.['required']">
+                    Departure field is required
+                </small>
+            </div>
+
+            <div class="col">
+                <input 
+                    class="form-control"
+                    type="text" 
+                    id="destination" 
+                    name="destination" 
+                    placeholder="Destination"
+                    formControlName="destination"/>
+
+                <small 
+                    id='danger-label-pass' 
+                    class="text-danger" 
+                    *ngIf="
+                        form.controls['destination'].touched &&
+                        form.controls['destination'].errors?.['required']">
+                    Destination field is required
+                </small>
+            </div>
+
+            <div class="col">
+                <button id="create-button" type="submit" class="btn btn-dark" [disabled]="!form.valid">
+                    Search
+                </button>
+            </div>
+
+        </div>
+    </form>
+
+</div>

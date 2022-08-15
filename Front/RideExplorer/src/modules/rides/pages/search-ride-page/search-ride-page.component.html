@@ -1,0 +1,34 @@
+<div class="heading">
+    <h1>Search rides</h1>
+</div>
+
+<div>
+    <app-search-form (searchEvent)="searchRide($event)"></app-search-form>
+
+</div>
+
+<div class="heading topp" *ngIf="rides.length===0 && searched">
+    <h2>There are no rides for given input</h2>
+</div>
+
+<div class="container" *ngIf="rides.length!==0">
+
+    <div class="row">
+        <div class="col">
+            <app-ride-search-table 
+                [rides]="rides" 
+                (viewRideEvent)="viewRide($event)"
+                (reservePlaceEvent)="reservePlace($event)">
+            </app-ride-search-table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <app-pagination class="pagination" [totalItems]="totalSize" [pageSize]="pageSize"
+                (pageSelected)="changePage($event)">
+            </app-pagination>
+        </div>
+    </div>
+
+</div>

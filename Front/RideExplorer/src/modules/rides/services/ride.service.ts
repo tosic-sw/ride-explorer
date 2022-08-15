@@ -12,7 +12,7 @@ export class RideService {
   
   constructor(private http: HttpClient) {}
 
-  searchRides(departureLocation: string, destination: string, page: number, size: number): Observable<HttpResponse<Drives>> { // Izmeni !!!
+  searchRides(searchDTO: SearchDTO): Observable<HttpResponse<Drives>> {
     let queryParams = {};
 
     queryParams = {
@@ -21,12 +21,7 @@ export class RideService {
     };
 
     let url: string = `ride-explorer/api/drives/search`;
-    const searchDTO: SearchDTO = {
-      departure_location: departureLocation,
-      destination: destination,
-      page: page + 1,
-      size: size
-    };
+    searchDTO.page = searchDTO.page + 1;
 
     return this.http.post<HttpResponse<Drives>>(url, searchDTO, queryParams);
   }

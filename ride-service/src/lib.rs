@@ -28,8 +28,8 @@ pub fn establish_connection() -> PgConnection {
 pub fn insert_d1(conn: &PgConnection) -> QueryResult<Drive> {
     let d1 = &NewDrive {
         driver_username: String::from("tica"),
-        departure_location: String::from("Novi Sad"),
-        destination: String::from("Beograd"),
+        departure_location: String::from("novi sad"),
+        destination: String::from("beograd"),
         departure_date_time: 1662814800000,
         departure_address: String::from(""),
         free_places: 3,
@@ -48,8 +48,8 @@ pub fn insert_d1(conn: &PgConnection) -> QueryResult<Drive> {
 pub fn insert_d2(conn: &PgConnection) -> QueryResult<Drive> {
     let d2 = &NewDrive {
         driver_username: String::from("tica"),
-        departure_location: String::from("Novi Sad"),
-        destination: String::from("Beograd"),
+        departure_location: String::from("novi sad"),
+        destination: String::from("beograd"),
         departure_date_time: 1662814800000,
         departure_address: String::from(""),
         free_places: 3,
@@ -68,8 +68,8 @@ pub fn insert_d2(conn: &PgConnection) -> QueryResult<Drive> {
 pub fn insert_d3(conn: &PgConnection) -> QueryResult<Drive> {
     let d3 = &NewDrive {
         driver_username: String::from("ukica"),
-        departure_location: String::from("Novi Sad"),
-        destination: String::from("Beograd"),
+        departure_location: String::from("novi sad"),
+        destination: String::from("beograd"),
         departure_date_time: 1662814800000,
         departure_address: String::from(""),
         free_places: 3,
@@ -154,8 +154,8 @@ pub fn search_drives(conn: &PgConnection, dto: &SearchDTO) -> QueryResult<Vec<Dr
     let millis: i64 = get_now_since_epoch();
 
     let results = drives
-        .filter(departure_location.eq(&dto.departure_location))
-        .filter(destination.eq(&dto.destination))
+        .filter(departure_location.eq(&dto.departure_location.trim().to_lowercase()))
+        .filter(destination.eq(&dto.destination.trim().to_lowercase()))
         .filter(finished.eq(false))
         .filter(departure_date_time.gt(millis))
         .limit(dto.size)
@@ -171,8 +171,8 @@ pub fn count_search_drives(conn: &PgConnection, dto: &SearchDTO) -> i64 {
     let millis: i64 = get_now_since_epoch();
 
     let total_elements = drives
-        .filter(departure_location.eq(&dto.departure_location))
-        .filter(destination.eq(&dto.destination))
+        .filter(departure_location.eq(&dto.departure_location.trim().to_lowercase()))
+        .filter(destination.eq(&dto.destination.trim().to_lowercase()))
         .filter(finished.eq(false))
         .filter(departure_date_time.gt(millis))
         .count()
