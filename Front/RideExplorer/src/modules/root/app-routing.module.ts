@@ -28,6 +28,11 @@ const routes: Routes = [
         loadChildren: () =>
           import("./../rides/rides.module").then((m) => m.RidesModule),
       },
+      {
+        path: "reservations",
+        loadChildren: () =>
+          import("./../reservations/reservations.module").then((m) => m.ReservationsModule),
+      },
     ],
   },
   {

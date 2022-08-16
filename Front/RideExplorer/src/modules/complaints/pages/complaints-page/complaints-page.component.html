@@ -2,7 +2,11 @@
     <h1>Complaints</h1>
 </div>
 
-<div class="container">
+<div class="heading topp" *ngIf="complaints.length===0">
+    <h2>There are no complaints</h2>
+</div>
+
+<div class="container" *ngIf="complaints.length!==0">
 
     <div class="row bott" *ngFor="let complaint of complaints" >
 

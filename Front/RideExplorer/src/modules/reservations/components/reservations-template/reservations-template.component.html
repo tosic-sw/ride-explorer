@@ -1,0 +1,27 @@
+<div class="heading">
+    <h1>{{verified ? "Verified " : "Unverified "}} reservations</h1>
+</div>
+
+<div class="heading topp" *ngIf="reservations.length===0">
+    <h2>There are no reservations</h2>
+</div>
+
+<div class="container" *ngIf="reservations.length!==0">
+
+    <app-reservation-table
+        [reservations]="reservations"
+        (viewRideEvent)="viewRide($event)"
+        (viewDriverEvent)="viewDriver($event)"
+        (viewPassengerEvent)="viewPassenger($event)"
+    >
+    </app-reservation-table>
+
+    <div class="row">
+        <div class="col">
+            <app-pagination class="pagination" [totalItems]="totalSize" [pageSize]="pageSize"
+                (pageSelected)="changePage($event)">
+            </app-pagination>
+        </div>
+    </div>
+
+</div>

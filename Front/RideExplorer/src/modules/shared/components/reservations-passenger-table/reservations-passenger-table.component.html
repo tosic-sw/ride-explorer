@@ -1,0 +1,30 @@
+<table class="table table-hover table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th class="center" scope="col">Id</th>
+            <th class="center" scope="col">Drive id</th>
+            <th class="center" scope="col">Passenger</th>
+            <th class="center" scope="col">Created at</th>
+            <th class="center" scope="col">Rate passenger</th>
+            <th class="center" scope="col">Complain about passenger</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let res of reservations">
+            <td class="center">{{res.id}}</td>
+            <td class="center point">{{res.driveId}}</td>
+            <td class="center point" (click)="viewPassenger(res.passengerUsername)">{{res.passengerUsername}}</td>
+            <td class="center">{{res.createdAt | dateFormat: 'DD.MM.YYYY HH:mm'}}</td>
+            <td class="center">
+                <button type="button" class="btn btn-dark" (click)="ratePassenger(res.passengerUsername)">
+                    <mat-icon matTooltip="Rate passenger">stars</mat-icon>
+                </button>
+            </td>
+            <td class="center">
+                <button type="button" class="btn btn-dark" (click)="complainPassenger(res.passengerUsername)">
+                    <mat-icon matTooltip="Complain about passenger">feedback</mat-icon>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

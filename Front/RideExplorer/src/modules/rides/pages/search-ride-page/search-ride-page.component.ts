@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { PaginationComponent } from 'src/modules/shared/components/pagination/pagination.component';
+import { MessageResponse } from 'src/modules/shared/models/message-response';
+import { CreateReservationDTO } from 'src/modules/shared/models/reservation-dtos';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { UtilService } from 'src/modules/shared/services/util.service';
 import { DriveDTO, SearchDTO } from '../../models/drive-dto';
+import { ReservationService } from '../../../shared/services/reservation.service';
 import { RideService } from '../../services/ride.service';
 
 @Component({
@@ -26,7 +29,8 @@ export class SearchRidePageComponent implements OnInit {
   constructor(
     private router: Router,
     private rideSerive: RideService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private reservationService: ReservationService
     ) { 
       this.rides = [];
       this.pageSize = 6;
@@ -69,8 +73,22 @@ export class SearchRidePageComponent implements OnInit {
     this.router.navigate([`ridexplorer/rides/view/${id}`])
   }
 
-  reservePlace(id: number) {
-    console.log("Should reserve place for passenger");
+  reservePlace(ride: DriveDTO) {  
+    const dto: CreateReservationDTO = {
+      driveId: ride.id,
+      driverUsername: ride.driver_username
+    };
+
+    this.reservationService.createReservation(dto).subscribe((response) => {
+      if(response.body) {
+        const msg: MessageResponse = response.body;
+        this.snackBarService.openSnackBar(msg.message);
+      }
+    },
+    (error) => {
+      const msg: MessageResponse = error.error;
+      this.snackBarService.openSnackBar(msg.message);
+    })
   }
 
   searchRide(searchDTO: SearchDTO) {

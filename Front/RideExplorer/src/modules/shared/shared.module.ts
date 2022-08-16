@@ -12,6 +12,10 @@ import {MatSelectModule} from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CreateUpdateProfileComponent } from './components/create-update-profile/create-update-profile.component';
+import { ReservationTableComponent } from './components/reservation-table/reservation-table.component';
+import { ReservationService } from './services/reservation.service';
+import { ReservationsPassengerTableComponent } from './components/reservations-passenger-table/reservations-passenger-table.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,9 @@ import { CreateUpdateProfileComponent } from './components/create-update-profile
     SearchInputBtnComponent,
     SelectCustomTextComponent,
     DateFormatPipe,
-    CreateUpdateProfileComponent
+    CreateUpdateProfileComponent,
+    ReservationTableComponent,
+    ReservationsPassengerTableComponent
   ],
   imports: [
     CommonModule,
@@ -28,17 +34,20 @@ import { CreateUpdateProfileComponent } from './components/create-update-profile
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
+    MatIconModule
   ],
   exports: [
     PaginationComponent,
     SearchInputBtnComponent,
     SelectCustomTextComponent,
     DateFormatPipe,
-    CreateUpdateProfileComponent
+    CreateUpdateProfileComponent,
+    ReservationTableComponent
   ],
   providers: [
     SnackBarService,
     UtilService,
+    ReservationService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
   ],
 })

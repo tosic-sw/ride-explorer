@@ -48,6 +48,9 @@ func MapRoutesAndServe() {
 	router.HandleFunc("/api/reservations/verify/{id:[0-9]+}", handlers.VerifyReservation).Methods(http.MethodPut)
 	router.HandleFunc("/api/reservations/user/verified", handlers.GetAllByUserVerified).Methods(http.MethodGet)
 	router.HandleFunc("/api/reservations/user/unverified", handlers.GetAllByUserUnverified).Methods(http.MethodGet)
+	router.HandleFunc("/api/reservations/drive/{drive-id:[0-9]+}/verified", handlers.GetAllByDriveIdVerified).Methods(http.MethodGet)
+	router.HandleFunc("/api/reservations/driver/{drive-id:[0-9]+}/verified", handlers.GetAllByDriverAndDriveVerified).Methods(http.MethodGet)
+	router.HandleFunc("/api/reservations/driver/{drive-id:[0-9]+}/unverified", handlers.GetAllByDriverAndDriveUnverified).Methods(http.MethodGet)
 
 	router.HandleFunc("/api/complaints", handlers.GetAllComplaints).Methods(http.MethodGet)
 	router.HandleFunc("/api/complaints", handlers.CreateComplaint).Methods(http.MethodPost)

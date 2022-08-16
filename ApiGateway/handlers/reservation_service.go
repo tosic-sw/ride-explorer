@@ -83,3 +83,48 @@ func GetAllByUserUnverified(resWriter http.ResponseWriter, req *http.Request) {
 	pageable := GetPageableFromRequest(req)
 	SendReqAndReturnResponse(resWriter, req, http.MethodGet, ReservationServiceRoot+User+_Unverified+pageable)
 }
+
+func GetAllByDriveIdVerified(resWriter http.ResponseWriter, req *http.Request) {
+	if status, err := Authorize(req, "passenger"); err != nil {
+		resWriter.Header().Set("Content-Type", "application/json")
+		resWriter.WriteHeader(status)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	params := mux.Vars(req)
+	driveId := params["drive-id"]
+
+	pageable := GetPageableFromRequest(req)
+	SendReqAndReturnResponse(resWriter, req, http.MethodGet, ReservationServiceRoot+Drive+driveId+"/"+_Verified+pageable)
+}
+
+func GetAllByDriverAndDriveVerified(resWriter http.ResponseWriter, req *http.Request) {
+	if status, err := Authorize(req, "passenger"); err != nil {
+		resWriter.Header().Set("Content-Type", "application/json")
+		resWriter.WriteHeader(status)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	params := mux.Vars(req)
+	driveId := params["drive-id"]
+
+	pageable := GetPageableFromRequest(req)
+	SendReqAndReturnResponse(resWriter, req, http.MethodGet, ReservationServiceRoot+Driver+driveId+"/"+_Verified+pageable)
+}
+
+func GetAllByDriverAndDriveUnverified(resWriter http.ResponseWriter, req *http.Request) {
+	if status, err := Authorize(req, "passenger"); err != nil {
+		resWriter.Header().Set("Content-Type", "application/json")
+		resWriter.WriteHeader(status)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	params := mux.Vars(req)
+	driveId := params["drive-id"]
+
+	pageable := GetPageableFromRequest(req)
+	SendReqAndReturnResponse(resWriter, req, http.MethodGet, ReservationServiceRoot+Driver+driveId+"/"+_Unverified+pageable)
+}

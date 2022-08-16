@@ -100,6 +100,44 @@ func (repo *Repository) FindAllByUser(username string, verified bool, offset int
 	return reservations, totalElements, nil
 }
 
+func (repo *Repository) FindAllByDriverAndDriveId(username string, driveId int64, verified bool, offset int, size int) ([]*models.Reservation, int64, error) {
+	var reservations []*models.Reservation
+	var totalElements int64 = -1
+
+	result := repo.db.Scopes(repo.paginate(offset, size)).
+		Where("(deleted_at IS NULL) AND driver_username = ? AND drive_id = ? AND verified = ?", username, driveId, verified).
+		Find(&reservations)
+
+	result = repo.db.Table("reservations").
+		Where("(deleted_at IS NULL) AND driver_username = ? AND drive_id = ? AND verified = ?", username, driveId, verified).
+		Count(&totalElements)
+
+	if result.Error != nil {
+		return reservations, totalElements, result.Error
+	}
+
+	return reservations, totalElements, nil
+}
+
+func (repo *Repository) FindAllByDriveId(driveId int64, verified bool, offset int, size int) ([]*models.Reservation, int64, error) {
+	var reservations []*models.Reservation
+	var totalElements int64 = -1
+
+	result := repo.db.Scopes(repo.paginate(offset, size)).
+		Where("(deleted_at IS NULL) AND drive_id = ? AND verified = ?", driveId, verified).
+		Find(&reservations)
+
+	result = repo.db.Table("reservations").
+		Where("(deleted_at IS NULL) AND drive_id = ? AND verified = ?", driveId, verified).
+		Count(&totalElements)
+
+	if result.Error != nil {
+		return reservations, totalElements, result.Error
+	}
+
+	return reservations, totalElements, nil
+}
+
 func (*Repository) paginate(offset int, size int) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
 		return db.Offset(offset).Limit(size)

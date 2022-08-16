@@ -12,7 +12,7 @@ export class RideSearchTableComponent implements OnInit {
   rides: DriveDTO[];
 
   @Output()
-  reservePlaceEvent = new EventEmitter<number>();
+  reservePlaceEvent = new EventEmitter<DriveDTO>();
 
   @Output()
   viewRideEvent = new EventEmitter<number>();
@@ -21,8 +21,8 @@ export class RideSearchTableComponent implements OnInit {
     this.rides = [];
   }
   
-  reservePlace(id: number) {
-    this.reservePlaceEvent.emit(id);
+  reservePlace(ride: DriveDTO) {
+    this.reservePlaceEvent.emit(ride);
   }
 
   viewRide(id: number) {

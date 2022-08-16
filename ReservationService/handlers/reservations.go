@@ -155,17 +155,19 @@ func (uh *ReservationsHandler) VerifyReservation(resWriter http.ResponseWriter, 
 }
 
 func (uh *ReservationsHandler) GetAllByUserVerified(resWriter http.ResponseWriter, req *http.Request) {
+	AdjustResponseHeaderJson(&resWriter)
+
 	username, err := GetUsernameFromRequest(req)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusUnauthorized)
 		json.NewEncoder(resWriter).Encode(models.Response{Message: "Unauthorized"})
 		return
 	}
+
 	offset, size := uh.parseSearchPageable(req)
-
 	reservations, totalElements, _ := uh.repository.FindAllByUser(username, true, offset, size)
-	resDTOs := []models.ReservationDTO{}
 
+	resDTOs := []models.ReservationDTO{}
 	for _, reservation := range reservations {
 		resDTOs = append(resDTOs, reservation.ToDTO())
 	}
@@ -176,17 +178,93 @@ func (uh *ReservationsHandler) GetAllByUserVerified(resWriter http.ResponseWrite
 }
 
 func (uh *ReservationsHandler) GetAllByUserUnverified(resWriter http.ResponseWriter, req *http.Request) {
+	AdjustResponseHeaderJson(&resWriter)
+
 	username, err := GetUsernameFromRequest(req)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusUnauthorized)
 		json.NewEncoder(resWriter).Encode(models.Response{Message: "Unauthorized"})
 		return
 	}
+
 	offset, size := uh.parseSearchPageable(req)
-
 	reservations, totalElements, _ := uh.repository.FindAllByUser(username, false, offset, size)
-	resDTOs := []models.ReservationDTO{}
 
+	resDTOs := []models.ReservationDTO{}
+	for _, reservation := range reservations {
+		resDTOs = append(resDTOs, reservation.ToDTO())
+	}
+
+	resWriter.Header().Set("Content-Type", "application/json")
+	resWriter.Header().Set("total-elements", strconv.FormatInt(totalElements, 10))
+	json.NewEncoder(resWriter).Encode(resDTOs)
+}
+
+func (uh *ReservationsHandler) GetAllByDriverAndDriveVerified(resWriter http.ResponseWriter, req *http.Request) {
+	AdjustResponseHeaderJson(&resWriter)
+
+	params := mux.Vars(req)
+	driveIdStr := params["drive-id"]
+	driveId, err := strconv.ParseInt(driveIdStr, 10, 64)
+
+	username, err := GetUsernameFromRequest(req)
+	if err != nil {
+		resWriter.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(resWriter).Encode(models.Response{Message: "Unauthorized"})
+		return
+	}
+
+	offset, size := uh.parseSearchPageable(req)
+	reservations, totalElements, _ := uh.repository.FindAllByDriverAndDriveId(username, driveId, true, offset, size)
+
+	resDTOs := []models.ReservationDTO{}
+	for _, reservation := range reservations {
+		resDTOs = append(resDTOs, reservation.ToDTO())
+	}
+
+	resWriter.Header().Set("Content-Type", "application/json")
+	resWriter.Header().Set("total-elements", strconv.FormatInt(totalElements, 10))
+	json.NewEncoder(resWriter).Encode(resDTOs)
+}
+
+func (uh *ReservationsHandler) GetAllByDriverAndDriveUnverified(resWriter http.ResponseWriter, req *http.Request) {
+	AdjustResponseHeaderJson(&resWriter)
+
+	params := mux.Vars(req)
+	driveIdStr := params["drive-id"]
+	driveId, err := strconv.ParseInt(driveIdStr, 10, 64)
+
+	username, err := GetUsernameFromRequest(req)
+	if err != nil {
+		resWriter.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(resWriter).Encode(models.Response{Message: "Unauthorized"})
+		return
+	}
+
+	offset, size := uh.parseSearchPageable(req)
+	reservations, totalElements, _ := uh.repository.FindAllByDriverAndDriveId(username, driveId, false, offset, size)
+
+	resDTOs := []models.ReservationDTO{}
+	for _, reservation := range reservations {
+		resDTOs = append(resDTOs, reservation.ToDTO())
+	}
+
+	resWriter.Header().Set("Content-Type", "application/json")
+	resWriter.Header().Set("total-elements", strconv.FormatInt(totalElements, 10))
+	json.NewEncoder(resWriter).Encode(resDTOs)
+}
+
+func (uh *ReservationsHandler) GetAllByDriveIdVerified(resWriter http.ResponseWriter, req *http.Request) {
+	AdjustResponseHeaderJson(&resWriter)
+
+	params := mux.Vars(req)
+	driveIdStr := params["drive-id"]
+	driveId, _ := strconv.ParseInt(driveIdStr, 10, 64)
+
+	offset, size := uh.parseSearchPageable(req)
+	reservations, totalElements, _ := uh.repository.FindAllByDriveId(driveId, true, offset, size)
+
+	resDTOs := []models.ReservationDTO{}
 	for _, reservation := range reservations {
 		resDTOs = append(resDTOs, reservation.ToDTO())
 	}

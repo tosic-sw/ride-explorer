@@ -44,6 +44,7 @@ const Unfinished string = "unfinished/"
 const _Verified = "verified"
 const _Unverified = "unverified"
 const User = "user/"
+const Drive = "drive/"
 
 // RatingService
 const Evaluated = "evaluated/"
