@@ -15,6 +15,7 @@ import { RideTableComponent } from './components/ride-table/ride-table.component
 import { RideSearchTableComponent } from './components/ride-search-table/ride-search-table.component';
 import { SearchRidePageComponent } from './pages/search-ride-page/search-ride-page.component';
 import { SearchFormComponent } from './components/search-form/search-form.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SearchFormComponent } from './components/search-form/search-form.compon
     RouterModule.forChild(RidesRoutes),
     SharedModule,
     FormsModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule
   ]
 })
 export class RidesModule { }

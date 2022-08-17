@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { ComplaintsPageComponent } from './pages/complaints-page/complaints-page.component';
 import { ComplaintCardComponent } from './components/complaint-card/complaint-card.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -22,6 +23,7 @@ import { ComplaintCardComponent } from './components/complaint-card/complaint-ca
     SharedModule,
     FormsModule,
     MatIconModule,
+    MatTooltipModule
   ]
 })
 export class ComplaintsModule { }

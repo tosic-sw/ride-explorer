@@ -3,5 +3,36 @@
 </div>
 
 <div class="container">
-    <app-ride-manipulation [ride]="ride" mode="view"></app-ride-manipulation>
+    
+    <div>
+        <app-ride-manipulation 
+            [ride]="ride" 
+            mode="view">
+        </app-ride-manipulation>
+    </div>
+
+    <div class="heading" *ngIf="reservations.length===0">
+        <h1>There are no verified reservations for this ride</h1>
+    </div>
+
+    <div *ngIf="reservations.length>0">
+
+        <div class="heading">
+            <h1>Verified reservations</h1>
+        </div>
+
+        <app-reservations-passenger-table
+            [reservations]="reservations"
+            (viewPassengerEvent)="viewPassenger($event)"
+            (ratePassengerEvent)="ratePassenger($event)"
+            (complainPassengerEvent)="complainPassenger($event)"
+            >
+        </app-reservations-passenger-table>
+
+        <app-pagination class="pagination" [totalItems]="totalSize" [pageSize]="pageSize"
+            (pageSelected)="changePage($event)">
+        </app-pagination>
+
+    </div>
+    
 </div>

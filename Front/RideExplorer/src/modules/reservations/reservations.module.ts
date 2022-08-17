@@ -7,6 +7,7 @@ import { ReservationsRoutes } from './reservations.routes';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -20,7 +21,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     ReactiveFormsModule,
     RouterModule.forChild(ReservationsRoutes),
-    SharedModule
+    SharedModule,
+    MatTooltipModule
   ]
 })
 export class ReservationsModule { }

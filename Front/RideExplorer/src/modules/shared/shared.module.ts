@@ -16,6 +16,8 @@ import { ReservationTableComponent } from './components/reservation-table/reserv
 import { ReservationService } from './services/reservation.service';
 import { ReservationsPassengerTableComponent } from './components/reservations-passenger-table/reservations-passenger-table.component';
 import { MatIconModule } from '@angular/material/icon';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    MatTooltipModule
   ],
   exports: [
     PaginationComponent,
@@ -42,7 +45,8 @@ import { MatIconModule } from '@angular/material/icon';
     SelectCustomTextComponent,
     DateFormatPipe,
     CreateUpdateProfileComponent,
-    ReservationTableComponent
+    ReservationTableComponent,
+    ReservationsPassengerTableComponent
   ],
   providers: [
     SnackBarService,

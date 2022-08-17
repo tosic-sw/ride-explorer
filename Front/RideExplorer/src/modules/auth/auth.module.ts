@@ -10,6 +10,7 @@ import { AdminPassRegistrationComponent } from './components/admin-pass-registra
 import { AdminRegistrationPageComponent } from './pages/admin-registration-page/admin-registration-page.component';
 import { DriverRegistrationPageComponent } from './pages/driver-registration-page/driver-registration-page.component';
 import { DriverVerificationPageComponent } from './pages/driver-verification-page/driver-verification-page.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { DriverVerificationPageComponent } from './pages/driver-verification-pag
     ReactiveFormsModule,
     RouterModule.forChild(AuthRoutes),
     SharedModule,
-    FormsModule
+    FormsModule,
+    MatTooltipModule
   ],
   providers: []
 })

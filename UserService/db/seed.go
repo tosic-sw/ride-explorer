@@ -80,6 +80,38 @@ var Passengers = []models.Passenger{
 			Verified:    true,
 		},
 	},
+	{
+		Model:       gorm.Model{},
+		Email:       "mile@maildrop.cc",
+		Username:    "mile",
+		Firstname:   "Milos",
+		Lastname:    "Tosic",
+		PhoneNumber: "0612345",
+		Role:        "PASSENGER",
+		UserAccount: models.UserAccount{
+			Model:    gorm.Model{},
+			Username: "mile",
+			Password: "mile",
+			Role:     models.PASSENGER,
+			Verified: true,
+		},
+	},
+	{
+		Model:       gorm.Model{},
+		Email:       "toma@maildrop.cc",
+		Username:    "toma",
+		Firstname:   "Toma",
+		Lastname:    "Vlajinac",
+		PhoneNumber: "0612345",
+		Role:        "PASSENGER",
+		UserAccount: models.UserAccount{
+			Model:    gorm.Model{},
+			Username: "toma",
+			Password: "toma",
+			Role:     models.PASSENGER,
+			Verified: true,
+		},
+	},
 }
 
 // #################################### //

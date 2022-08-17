@@ -6,6 +6,7 @@
             <th class="center" scope="col">Passenger</th>
             <th class="center" scope="col">Driver</th>
             <th class="center" scope="col">Created at</th>
+            <th class="center" scope="col" *ngIf="verificationMode">Verify</th>
         </tr>
     </thead>
     <tbody>
@@ -15,6 +16,11 @@
             <td class="center point" (click)="viewPassenger(res.passengerUsername)">{{res.passengerUsername}}</td>
             <td class="center point" (click)="viewDriver(res.driverUsername)">{{res.driverUsername}}</td>
             <td class="center">{{res.createdAt | dateFormat: 'DD.MM.YYYY HH:mm'}}</td>
+            <td class="center" *ngIf="verificationMode">
+                <button type="button" class="btn btn-dark" (click)="verifyReservation(res.id)">
+                    <mat-icon matTooltip="Verify reservation">verified_user</mat-icon>
+                </button>
+            </td>
         </tr>
     </tbody>
 </table>

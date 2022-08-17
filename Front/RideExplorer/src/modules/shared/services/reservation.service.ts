@@ -26,7 +26,7 @@ export class ReservationService {
     return this.http.post<HttpResponse<MessageResponse>>(url, dto, queryParams);
   }
 
-  getVerifiedForDrive(driveId: number, page: number, size: number): Observable<HttpResponse<ReservationDTO[]>> {
+  getVerifiedForRide(driveId: number, page: number, size: number): Observable<HttpResponse<ReservationDTO[]>> {
     let queryParams = {};
 
     queryParams = {
@@ -104,6 +104,19 @@ export class ReservationService {
     let url: string = `ride-explorer/api/reservations/user/unverified`;
 
     return this.http.get<HttpResponse<ReservationDTO[]>>(url, queryParams);
+  }
+
+  verifyReservation(id: number): Observable<HttpResponse<MessageResponse>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: 'response'
+    };
+
+    let url: string = `ride-explorer/api/reservations/verify/${id}`;
+
+    return this.http.put<HttpResponse<MessageResponse>>(url, queryParams);
   }
 
 }

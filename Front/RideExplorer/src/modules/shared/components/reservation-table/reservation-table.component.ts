@@ -11,6 +11,9 @@ export class ReservationTableComponent implements OnInit {
   @Input()
   reservations: ReservationDTO[];
 
+  @Input()
+  verificationMode: boolean;
+
   @Output()
   viewRideEvent = new EventEmitter<number>();
 
@@ -20,8 +23,12 @@ export class ReservationTableComponent implements OnInit {
   @Output()
   viewPassengerEvent = new EventEmitter<string>();
 
+  @Output()
+  verifyReservationEvent = new EventEmitter<number>();
+
   constructor() { 
     this.reservations = [];
+    this.verificationMode = false;
   }
 
   viewRide(id: number) {
@@ -34,6 +41,10 @@ export class ReservationTableComponent implements OnInit {
 
   viewPassenger(username: string) {
     this.viewPassengerEvent.emit(username);
+  }
+
+  verifyReservation(id: number) {
+    this.verifyReservationEvent.emit(id);
   }
 
   ngOnInit(): void {}

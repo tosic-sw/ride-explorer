@@ -85,7 +85,7 @@ func GetAllByUserUnverified(resWriter http.ResponseWriter, req *http.Request) {
 }
 
 func GetAllByDriveIdVerified(resWriter http.ResponseWriter, req *http.Request) {
-	if status, err := Authorize(req, "passenger"); err != nil {
+	if status, err := Authenticate(req); err != nil {
 		resWriter.Header().Set("Content-Type", "application/json")
 		resWriter.WriteHeader(status)
 		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
@@ -100,7 +100,7 @@ func GetAllByDriveIdVerified(resWriter http.ResponseWriter, req *http.Request) {
 }
 
 func GetAllByDriverAndDriveVerified(resWriter http.ResponseWriter, req *http.Request) {
-	if status, err := Authorize(req, "passenger"); err != nil {
+	if status, err := Authorize(req, "driver"); err != nil {
 		resWriter.Header().Set("Content-Type", "application/json")
 		resWriter.WriteHeader(status)
 		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
@@ -115,7 +115,7 @@ func GetAllByDriverAndDriveVerified(resWriter http.ResponseWriter, req *http.Req
 }
 
 func GetAllByDriverAndDriveUnverified(resWriter http.ResponseWriter, req *http.Request) {
-	if status, err := Authorize(req, "passenger"); err != nil {
+	if status, err := Authorize(req, "driver"); err != nil {
 		resWriter.Header().Set("Content-Type", "application/json")
 		resWriter.WriteHeader(status)
 		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
