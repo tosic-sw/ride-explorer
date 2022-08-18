@@ -35,10 +35,12 @@ export class AdminsPageComponent implements OnInit {
     let newPageNumber = newPage as number;
 
     this.userService.search(this.searchText, newPageNumber - 1, this.pageSize, "admin").subscribe((response: any) => {
-      this.users = response.body;
-      this.totalSize = Number(response.headers.get("total-elements"));
+      if(response.body) {
+        this.users = response.body;
+        this.totalSize = Number(response.headers.get("total-elements"));
+      }
 
-      if(newPage === 1)
+      if(newPage === 1 && this.pagination)
         this.pagination.reset();
     },
     (error) => {

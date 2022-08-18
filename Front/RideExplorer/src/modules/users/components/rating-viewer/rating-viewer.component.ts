@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ViewRatingDTO } from '../../models/rating-dto';
+import { ViewRatingDTO } from '../../../shared/models/rating-dto';
 
 @Component({
   selector: 'app-rating-viewer',

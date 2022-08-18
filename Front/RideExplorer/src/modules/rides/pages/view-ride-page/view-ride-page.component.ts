@@ -1,9 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ComplaintDTO, CreateComplaintDTO } from 'src/modules/shared/models/complaint-dto';
+import { MessageResponse } from 'src/modules/shared/models/message-response';
+import { RatingDTO } from 'src/modules/shared/models/rating-dto';
 import { ReservationDTO } from 'src/modules/shared/models/reservation-dtos';
+import { ComplaintService } from 'src/modules/shared/services/complaint.service';
+import { RatingService } from 'src/modules/shared/services/rating.service';
 import { ReservationService } from 'src/modules/shared/services/reservation.service';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { UtilService } from 'src/modules/shared/services/util.service';
+import { ComplainComponent } from '../../components/complain/complain.component';
+import { RateComponent } from '../../components/rate/rate.component';
 import { DriveDTO } from '../../models/drive-dto';
 import { RideService } from '../../services/ride.service';
 
@@ -28,6 +36,9 @@ export class ViewRidePageComponent implements OnInit {
     private route: ActivatedRoute,
     private snackBarService: SnackBarService,
     private reservationService: ReservationService,
+    public dialog: MatDialog,
+    private ratingService: RatingService,
+    private complaintService: ComplaintService,
     private router: Router) {
       this.rideId = -1;
       this.username = "";
@@ -88,11 +99,79 @@ export class ViewRidePageComponent implements OnInit {
   }
 
   ratePassenger(username: string) {
-    console.log(username);
+    if(username === this.utilService.getLoggedUserUsername()) {
+      this.snackBarService.openSnackBar("You cannot rate yourself")
+      return;
+    }
+    this.openDialogRate(username);
   }
 
   complainPassenger(username: string) {
-    console.log(username);
+    if(username === this.utilService.getLoggedUserUsername()) {
+      this.snackBarService.openSnackBar("You cannot comlpain about yourself")
+      return;
+    }
+    this.openDialogComplain(username);
+  }
+
+  openDialogRate(username: string): void {
+    const dialogRef = this.dialog.open(RateComponent, {
+      width: '550px',
+      height: '450px',
+      data: username
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+
+      const dto: RatingDTO = {
+        driveId: this.ride.id,
+        positive: result.positive,
+        text: result.text,
+        evaluated: username
+      };
+
+      this.ratingService.createRating(dto).subscribe((response) => {
+        if(response.body) {
+          const msg: MessageResponse = response.body;
+          this.snackBarService.openSnackBar(msg.message);
+        }        
+      }, 
+      (error) => {
+        const msg: MessageResponse = error.error;
+        this.snackBarService.openSnackBar(msg.message);
+      });
+
+    });
+  }
+
+  openDialogComplain(username: string): void {
+    const dialogRef = this.dialog.open(ComplainComponent, {
+      width: '550px',
+      height: '420px',
+      data: username
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      const dto: CreateComplaintDTO = {
+        driveId: this.ride.id,
+        accused: username,
+        text: result
+      };
+
+      this.complaintService.createComplaint(dto).subscribe((response) => {
+        if(response.body) {
+          const msg: MessageResponse = response.body;
+          this.snackBarService.openSnackBar(msg.message);
+        }  
+      },
+      (error) => {
+        const msg: MessageResponse = error.error;
+        this.snackBarService.openSnackBar(msg.message);
+      });
+      
+    });
   }
 
   private getIdFromRoute(): number {

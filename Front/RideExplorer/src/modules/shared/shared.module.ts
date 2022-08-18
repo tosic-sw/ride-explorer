@@ -18,6 +18,8 @@ import { ReservationsPassengerTableComponent } from './components/reservations-p
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ComplaintService } from './services/complaint.service';
+import { RatingService } from './services/rating.service';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     SnackBarService,
     UtilService,
     ReservationService,
+    ComplaintService,
+    RatingService,
     { provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true },
   ],
 })

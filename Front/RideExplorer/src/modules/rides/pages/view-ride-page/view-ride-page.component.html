@@ -26,6 +26,7 @@
             (viewPassengerEvent)="viewPassenger($event)"
             (ratePassengerEvent)="ratePassenger($event)"
             (complainPassengerEvent)="complainPassenger($event)"
+            [rideFinished]="ride.finished"
             >
         </app-reservations-passenger-table>
 

@@ -11,6 +11,9 @@ export class ReservationsPassengerTableComponent implements OnInit {
   @Input()
   reservations: ReservationDTO[];
 
+  @Input()
+  rideFinished: boolean;
+
   @Output()
   viewPassengerEvent = new EventEmitter<string>();
 
@@ -22,6 +25,7 @@ export class ReservationsPassengerTableComponent implements OnInit {
 
   constructor() { 
     this.reservations = [];
+    this.rideFinished = false;
   }
 
   viewPassenger(username: string) {

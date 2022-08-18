@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ComplaintDTO } from '../../models/complaint-dto';
+import { ComplaintDTO } from '../../../shared/models/complaint-dto';
 
 @Component({
   selector: 'app-complaint-card',

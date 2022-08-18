@@ -56,8 +56,10 @@ export class ReservationsTemplateComponent implements OnInit {
 
   loadUnverifiedForPassenger(newPageNumber: number) {
     this.reservationService.getUnverifiedForPassenger(newPageNumber - 1, this.pageSize).subscribe((response: any) => {
-      this.reservations = response.body;
-      this.totalSize = Number(response.headers.get("total-elements"));
+      if(response.body) {
+        this.reservations = response.body;
+        this.totalSize = Number(response.headers.get("total-elements"));
+      }
     },
     (error) => {
       if(error.status === 500)

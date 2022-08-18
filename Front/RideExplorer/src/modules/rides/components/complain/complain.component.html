@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>Complain about {{data}}</h1>
+
+<div mat-dialog-content>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <fieldset>
+
+        <div class="form-group row">
+          <div id="text-div" class="col-md">
+            <textarea 
+              class="form-control" 
+              id="text" 
+              name="text" 
+              placeholder="Enter comment" 
+              formControlName="text"
+              rows="10">
+            </textarea>
+            <small 
+              id='danger-label-text' 
+              class="text-danger danger-label" 
+              *ngIf="
+                form.controls['text'].touched &&
+                form.controls['text'].errors?.['required']">
+              Text can't be empty
+            </small>
+          </div>
+        </div>
+  
+        <div id="wrapper" class="row topp">
+          <button type="submit" class="btn btn-dark wid" [disabled]="!form.valid">
+            Finish
+          </button>
+        </div>
+        
+      </fieldset>
+    </form>
+    
+  </div>

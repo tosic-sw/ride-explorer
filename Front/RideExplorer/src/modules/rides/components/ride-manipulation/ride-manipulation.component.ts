@@ -49,9 +49,9 @@ export class RideManipulationComponent implements OnInit {
   constructor(private fb: FormBuilder, private utilService: UtilService) {
     this.mode = "create";
     this.form = this.fb.group({
-      id: [null, Validators.required],
-      finished: [null, Validators.required],
-      driver_username: [null, Validators.required],
+      id: [null],
+      finished: [null],
+      driver_username: [null],
       departure_location: [null, Validators.required],
       destination: [null, Validators.required],
       departure_date_time: [null, Validators.required],

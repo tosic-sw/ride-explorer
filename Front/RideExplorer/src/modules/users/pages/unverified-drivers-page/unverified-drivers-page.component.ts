@@ -36,10 +36,12 @@ export class UnverifiedDriversPageComponent implements OnInit {
     let newPageNumber = newPage as number;
 
     this.userService.search(this.searchText, newPageNumber - 1, this.pageSize, "driver", false).subscribe((response: any) => {
-      this.users = response.body;
-      this.totalSize = Number(response.headers.get("total-elements"));
-
-      if(newPage === 1)
+      if(response) {
+        this.users = response.body;
+        this.totalSize = Number(response.headers.get("total-elements"));
+      }
+      
+      if(newPage === 1 && this.pagination)
         this.pagination.reset();
     },
     (error) => {

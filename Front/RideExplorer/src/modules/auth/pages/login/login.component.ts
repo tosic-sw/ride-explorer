@@ -56,7 +56,7 @@ export class LoginComponent {
     },
       (err) => {
         if (err.status === 401)
-          this.snackBarService.openSnackBar("Bad credentials");
+          this.snackBarService.openSnackBar("Bad credentials or banned account");
       }
     );
   }

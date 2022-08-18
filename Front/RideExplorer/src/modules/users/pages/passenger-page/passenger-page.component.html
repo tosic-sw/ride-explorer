@@ -8,7 +8,7 @@
                 <app-user-viewer [user]="user"></app-user-viewer>
             </div>
         </div>
-
+         
         <div class="col topp">
             <h2 class="center">Ratings</h2>
             <div *ngIf="ratings.length !== 0">
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="center" *ngIf="ratings.length === 0">
-                <h2 class="rating-label">There are no ratings fot {{user.username}}</h2>
+                <h2 class="rating-label">There are no ratings for {{user.username}}</h2>
             </div>
         </div>
     </div>

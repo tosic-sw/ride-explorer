@@ -83,7 +83,7 @@ export class UpdateRidePageComponent implements OnInit {
         this.totalSize = Number(response.headers.get("total-elements"));
       }
 
-      if(newPage === 1)
+      if(newPage === 1 && this.pagination)
         this.pagination.reset();
     },
     (error) => {

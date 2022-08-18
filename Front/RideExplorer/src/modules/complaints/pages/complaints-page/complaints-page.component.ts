@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { PaginationComponent } from 'src/modules/shared/components/pagination/pagination.component';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
-import { ComplaintDTO } from '../../models/complaint-dto';
-import { ComplaintService } from '../../services/complaint.service';
+import { ComplaintDTO } from '../../../shared/models/complaint-dto';
+import { ComplaintService } from 'src/modules/shared/services/complaint.service';
 
 @Component({
   selector: 'app-complaints-page',
@@ -36,10 +36,11 @@ export class ComplaintsPageComponent implements OnInit {
     let newPageNumber = newPage as number;
 
     this.complaintService.getComplaints(newPageNumber - 1, this.pageSize).subscribe((response: any) => {
-      this.complaints = response.body;
-      this.totalSize = Number(response.headers.get("total-elements"));
-      
-      if(newPage === 1)
+      if(response.body) {
+        this.complaints = response.body;
+        this.totalSize = Number(response.headers.get("total-elements"));
+      }
+      if(newPage === 1 && this.pagination)
         this.pagination.reset();
     },
     (error) => {

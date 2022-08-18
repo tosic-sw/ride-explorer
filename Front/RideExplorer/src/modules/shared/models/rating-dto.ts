@@ -6,3 +6,10 @@ export interface ViewRatingDTO {
     positive: boolean;
     text: string;
 }
+
+export interface RatingDTO {
+    evaluated: string;
+    driveId: number;
+    positive: boolean;
+    text: string;
+}

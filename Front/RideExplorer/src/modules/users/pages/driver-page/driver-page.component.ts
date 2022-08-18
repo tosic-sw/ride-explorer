@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaginationComponent } from 'src/modules/shared/components/pagination/pagination.component';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
-import { ViewRatingDTO } from '../../models/rating-dto';
+import { ViewRatingDTO } from '../../../shared/models/rating-dto';
 import { DriverWithCarDTO } from '../../models/user-dto';
-import { RatingService } from '../../services/rating.service';
+import { RatingService } from '../../../shared/services/rating.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -88,10 +88,12 @@ export class DriverPageComponent implements OnInit {
     let newPageNumber = newPage as number;
 
     this.ratingService.getRatings(this.user.username, newPageNumber - 1, this.pageSize).subscribe((response: any) => {
-      this.ratings = response.body;
-      this.totalSize = Number(response.headers.get("total-elements"));
-
-      if(newPage === 1)
+      if(response.body) {
+        this.ratings = response.body;
+        this.totalSize = Number(response.headers.get("total-elements"));
+      }
+      
+      if(newPage === 1 && this.pagination)
         this.pagination.reset();
     },
     (error) => {

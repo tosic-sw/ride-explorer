@@ -5,8 +5,8 @@
             <th class="center" scope="col">Drive id</th>
             <th class="center" scope="col">Passenger</th>
             <th class="center" scope="col">Created at</th>
-            <th class="center" scope="col">Rate passenger</th>
-            <th class="center" scope="col">Complain passenger</th>
+            <th class="center" scope="col" *ngIf="rideFinished">Rate passenger</th>
+            <th class="center" scope="col" *ngIf="rideFinished">Complain passenger</th>
         </tr>
     </thead>
     <tbody>
@@ -15,12 +15,12 @@
             <td class="center point">{{res.driveId}}</td>
             <td class="center point" (click)="viewPassenger(res.passengerUsername)">{{res.passengerUsername}}</td>
             <td class="center">{{res.createdAt | dateFormat: 'DD.MM.YYYY HH:mm'}}</td>
-            <td class="center">
+            <td class="center" *ngIf="rideFinished">
                 <button type="button" class="btn btn-dark" (click)="ratePassenger(res.passengerUsername)">
                     <mat-icon matTooltip="Rate passenger">stars</mat-icon>
                 </button>
             </td>
-            <td class="center">
+            <td class="center" *ngIf="rideFinished">
                 <button type="button" class="btn btn-dark" (click)="complainPassenger(res.passengerUsername)">
                     <mat-icon matTooltip="Complain about passenger">feedback</mat-icon>
                 </button>
