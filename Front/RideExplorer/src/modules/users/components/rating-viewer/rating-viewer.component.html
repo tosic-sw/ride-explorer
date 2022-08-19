@@ -2,7 +2,7 @@
     <div class="container card-body">
         <div class="row">
             <div class="col">
-                <h3 class="card-title" (click)="viewProfile(rating.evaluator)"><b>{{rating.evaluator}}</b></h3>
+                <h3 class="card-title"><b>{{rating.evaluator}}</b></h3>
             </div>
 
             <div class="col col-lg-1">
@@ -10,6 +10,13 @@
                 <mat-icon *ngIf="!rating.positive">thumb_down</mat-icon>
             </div>
         </div>
+        
         <p class="card-text">{{rating.text}}</p>
+        <div class="rightt" *ngIf="viewer===rating.evaluator">
+            <button class="btn btn-dark" (click)="updateRating()">
+                Update rating
+            </button>
+        </div>
+        
     </div>
 </div>

@@ -11,7 +11,7 @@ import { ReservationService } from 'src/modules/shared/services/reservation.serv
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
 import { UtilService } from 'src/modules/shared/services/util.service';
 import { ComplainComponent } from '../../components/complain/complain.component';
-import { RateComponent } from '../../components/rate/rate.component';
+import { RateComponent } from '../../../shared/components/rate/rate.component';
 import { DriveDTO } from '../../models/drive-dto';
 import { RideService } from '../../services/ride.service';
 
@@ -118,7 +118,11 @@ export class ViewRidePageComponent implements OnInit {
     const dialogRef = this.dialog.open(RateComponent, {
       width: '550px',
       height: '450px',
-      data: username
+      data: {
+        text: null,
+        positive: true,
+        username: username
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -153,6 +157,8 @@ export class ViewRidePageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if(!result)
+        return;
 
       const dto: CreateComplaintDTO = {
         driveId: this.ride.id,
@@ -187,6 +193,27 @@ export class ViewRidePageComponent implements OnInit {
       this.utilService.navigateToMyProfile();
     }
     return parseInt(idStr);
+  }
+
+  canComplainAndRate(): boolean {
+    for(let reservation of this.reservations) {
+      if(reservation.passengerUsername === this.username)
+        return true;
+    }
+    
+    return false;
+  }
+
+  rateDriver(): void {
+    this.openDialogRate(this.ride.driver_username);
+  }
+
+  complainDriver(): void {
+    this.openDialogComplain(this.ride.driver_username);
+  }
+
+  navigateDriver(): void {
+    this.router.navigate([`/ridexplorer/users/driver/${this.ride.driver_username}`]);
   }
 
 }

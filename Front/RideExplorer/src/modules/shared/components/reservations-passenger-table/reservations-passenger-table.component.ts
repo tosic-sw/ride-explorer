@@ -14,6 +14,9 @@ export class ReservationsPassengerTableComponent implements OnInit {
   @Input()
   rideFinished: boolean;
 
+  @Input()
+  viewer: string;
+
   @Output()
   viewPassengerEvent = new EventEmitter<string>();
 
@@ -26,6 +29,7 @@ export class ReservationsPassengerTableComponent implements OnInit {
   constructor() { 
     this.reservations = [];
     this.rideFinished = false;
+    this.viewer = "";
   }
 
   viewPassenger(username: string) {
@@ -38,6 +42,19 @@ export class ReservationsPassengerTableComponent implements OnInit {
 
   complainPassenger(username: string) {
     this.complainPassengerEvent.emit(username);
+  }
+
+  canComplainAndRate(): boolean {
+    for(let reservation of this.reservations) {
+
+      if(reservation.passengerUsername === this.viewer)
+        return true;
+      
+      if(reservation.driverUsername === this.viewer)
+        return true;
+    }
+    
+    return false;
   }
 
   ngOnInit(): void {}

@@ -1,5 +1,16 @@
 <div class="heading">
-    <h1>Ride data</h1>
+    <h1 class="point" (click)="navigateDriver()">Driver: {{ride.driver_username}}</h1>
+    <div class="row" *ngIf="canComplainAndRate()">
+        
+        <div class="col" style="margin-left: 25%;">
+            <button class="btn btn-secondary" (click)="rateDriver()">Rate {{ride.driver_username}}</button>
+        </div>
+
+        <div class="col" style="margin-right: 25%;">
+            <button class="btn btn-secondary" (click)="complainDriver()">Complain about {{ride.driver_username}}</button>
+        </div>  
+    
+    </div>
 </div>
 
 <div class="container">
@@ -27,6 +38,7 @@
             (ratePassengerEvent)="ratePassenger($event)"
             (complainPassengerEvent)="complainPassenger($event)"
             [rideFinished]="ride.finished"
+            [viewer]="username"
             >
         </app-reservations-passenger-table>
 

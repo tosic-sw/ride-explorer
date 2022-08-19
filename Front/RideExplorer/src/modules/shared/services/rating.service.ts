@@ -42,7 +42,7 @@ export class RatingService {
     return this.http.post<HttpResponse<MessageResponse>>(url, dto, queryParams);
   }
 
-  updateRating(dto: RatingDTO): Observable<HttpResponse<MessageResponse>> {
+  updateRating(id: number, dto: RatingDTO): Observable<HttpResponse<MessageResponse>> {
     let queryParams = {};
 
     queryParams = {
@@ -50,7 +50,7 @@ export class RatingService {
       observe: 'response'
     };
 
-    let url: string = `ride-explorer/api/ratings`;
+    let url: string = `ride-explorer/api/ratings/${id}`;
 
     return this.http.put<HttpResponse<MessageResponse>>(url, dto, queryParams);
   }

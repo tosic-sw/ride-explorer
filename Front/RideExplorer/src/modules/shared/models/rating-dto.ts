@@ -13,3 +13,9 @@ export interface RatingDTO {
     positive: boolean;
     text: string;
 }
+
+export interface RatingModalData {
+    text: string;
+    positive: boolean;
+    username: string;
+}

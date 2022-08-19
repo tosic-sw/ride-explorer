@@ -6,6 +6,7 @@ import { ViewRatingDTO } from '../../../shared/models/rating-dto';
 import { DriverWithCarDTO } from '../../models/user-dto';
 import { RatingService } from '../../../shared/services/rating.service';
 import { UserService } from '../../services/user.service';
+import { UtilService } from 'src/modules/shared/services/util.service';
 
 @Component({
   selector: 'app-driver-page',
@@ -23,12 +24,15 @@ export class DriverPageComponent implements OnInit {
 
   @ViewChild(PaginationComponent) pagination!: PaginationComponent;
 
+  username: string;
+
   constructor(
       private userService: UserService, 
       private snackBarService: SnackBarService, 
       private route: ActivatedRoute,
       private router: Router,
-      private ratingService: RatingService
+      private ratingService: RatingService,
+      private utilService: UtilService
     ) {
     this.user = {
       username: "",
@@ -51,6 +55,7 @@ export class DriverPageComponent implements OnInit {
     this.totalSize = 1;
 
     this.ratings = []
+    this.username = utilService.getLoggedUserUsername();
    }
 
   ngOnInit(): void {
@@ -100,6 +105,10 @@ export class DriverPageComponent implements OnInit {
       if(error.status === 500)
         this.snackBarService.openSnackBar("An unknown error ocured while loading ratings for " + this.user.username);
     });
+  }
+
+  reloadRatings(): void {
+    this.changePage(this.currentPage);
   }
 
 }

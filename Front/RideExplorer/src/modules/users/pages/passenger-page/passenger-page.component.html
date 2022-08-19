@@ -13,7 +13,12 @@
             <h2 class="center">Ratings</h2>
             <div *ngIf="ratings.length !== 0">
                 <div class="topp">
-                    <app-rating-viewer *ngFor="let rating of ratings" [rating]="rating"></app-rating-viewer>
+                    <app-rating-viewer 
+                        *ngFor="let rating of ratings" 
+                        [rating]="rating" 
+                        [viewer]="username"
+                        (ratingUpdatedEvent)="reloadRatings()" >
+                    </app-rating-viewer>
                 </div>
                 <div class="center" id="footer">
                     <app-pagination 

@@ -17,6 +17,7 @@ import { PassengerPageComponent } from './pages/passenger-page/passenger-page.co
 import { DriverPageComponent } from './pages/driver-page/driver-page.component';
 import { RatingViewerComponent } from './components/rating-viewer/rating-viewer.component';
 import { UpdateProfilePageComponent } from './pages/update-profile-page/update-profile-page.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { UpdateProfilePageComponent } from './pages/update-profile-page/update-p
     SharedModule,
     FormsModule,
     MatIconModule,
+    MatDialogModule
   ]
 })
 export class UsersModule { }

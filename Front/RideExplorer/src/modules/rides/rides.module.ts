@@ -16,7 +16,7 @@ import { RideSearchTableComponent } from './components/ride-search-table/ride-se
 import { SearchRidePageComponent } from './pages/search-ride-page/search-ride-page.component';
 import { SearchFormComponent } from './components/search-form/search-form.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RateComponent } from './components/rate/rate.component';
+import { RateComponent } from '../shared/components/rate/rate.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ComplainComponent } from './components/complain/complain.component';
 

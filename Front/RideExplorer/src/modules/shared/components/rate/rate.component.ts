@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { RatingData } from '../../models/modal-data';
+import { RatingData } from '../../../rides/models/modal-data';
+import { RatingModalData } from '../../models/rating-dto';
 
 @Component({
   selector: 'app-rate',
@@ -14,12 +15,12 @@ export class RateComponent implements OnInit {
 
   constructor(
     private dialogRef: MatDialogRef<RateComponent>, 
-    @Inject(MAT_DIALOG_DATA) public data: string,
+    @Inject(MAT_DIALOG_DATA) public data: RatingModalData,
     private fb: FormBuilder) { 
     
     this.form = this.fb.group({
-      text: [null, Validators.required],
-      opinion: ["Positive", Validators.required]
+      text: [data.text, Validators.required],
+      opinion: [data.positive ? "Positive" : "Negative", Validators.required]
     });
 
   }
