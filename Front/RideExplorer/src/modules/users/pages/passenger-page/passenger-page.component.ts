@@ -54,7 +54,7 @@ export class PassengerPageComponent implements OnInit {
     const username = this.route.snapshot.paramMap.get("username");
     if(!username) {
       this.snackBarService.openSnackBar("Error ocured");
-      this.router.navigate(["ridexplorer"]);
+      this.utilService.navigateToMyProfile();
       return;
     }
     
@@ -76,7 +76,7 @@ export class PassengerPageComponent implements OnInit {
       else {
         this.snackBarService.openSnackBar("Unknown error happend while loading passenger")  
       }
-      this.router.navigate(["ridexplorer"]);
+      this.utilService.navigateToMyProfile();
     });
   }
 

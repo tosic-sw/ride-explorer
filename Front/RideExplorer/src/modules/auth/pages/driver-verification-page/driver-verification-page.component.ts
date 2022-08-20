@@ -9,6 +9,7 @@ import { UserSharedService } from 'src/modules/shared/services/user-shared.servi
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { HttpResponse } from '@angular/common/http';
 import { DriverWithCarDTO } from 'src/modules/shared/models/driver-shared-dto';
+import { UtilService } from 'src/modules/shared/services/util.service';
 
 @Component({
   selector: 'app-driver-verification-page',
@@ -26,7 +27,8 @@ export class DriverVerificationPageComponent implements OnInit {
     private router: Router,
     private snackBarService: SnackBarService,
     private route: ActivatedRoute,
-    private userSharedService: UserSharedService
+    private userSharedService: UserSharedService,
+    private utilService: UtilService
     ) {
       this.driverDTO = {
         username: "",
@@ -50,7 +52,7 @@ export class DriverVerificationPageComponent implements OnInit {
     let username = this.route.snapshot.paramMap.get("username");
     if(!username) {
       this.snackBarService.openSnackBar("An error ocured while accesing driver verification page");
-      this.router.navigate(["ridexplorer"]);
+      this.utilService.navigateToMyProfile();
       return;
     }
 
@@ -74,7 +76,7 @@ export class DriverVerificationPageComponent implements OnInit {
     this.authService.driverVerification(username).subscribe((response: HttpResponse<MessageResponse>) => {
       let msg = response as unknown as MessageResponse;
       this.snackBarService.openSnackBar(msg.message);
-      this.router.navigate(["ridexplorer"]);
+      this.router.navigate([`/ridexplorer/users/driver/${username}`]);
     }, 
     (error) => {
         this.snackBarService.openSnackBar(error.error.message);

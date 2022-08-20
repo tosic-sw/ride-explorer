@@ -28,14 +28,14 @@ pub fn establish_connection() -> PgConnection {
 pub fn insert_d1(conn: &PgConnection) -> QueryResult<Drive> {
     let d1 = &NewDrive {
         driver_username: String::from("tica"),
-        departure_location: String::from("novi sad"),
-        destination: String::from("beograd"),
-        departure_date_time: 1662814800000,
-        departure_address: String::from("Misiceva 3"),
-        free_places: 3,
-        planned_arrival_time: 1662818400000,
-        note: String::from("Ciao bella"),
-        distance: 90,
+        departure_location: String::from("becej"),
+        destination: String::from("novi sad"),
+        departure_date_time: 1662361200000,
+        departure_address: String::from("Becejska 1"),
+        free_places: 5,
+        planned_arrival_time: 1662364800000,
+        note: String::from("Smoking not allowed in car."),
+        distance: 70,
     };
 
     use schema::drives;
@@ -47,15 +47,15 @@ pub fn insert_d1(conn: &PgConnection) -> QueryResult<Drive> {
 
 pub fn insert_d2(conn: &PgConnection) -> QueryResult<Drive> {
     let d2 = &NewDrive {
-        driver_username: String::from("tica"),
-        departure_location: String::from("novi sad"),
-        destination: String::from("beograd"),
-        departure_date_time: 1662814800000,
-        departure_address: String::from("Bojoviceva 4"),
-        free_places: 3,
-        planned_arrival_time: 1662818400000,
-        note: String::from("Ciao bella"),
-        distance: 90,
+        driver_username: String::from("ukica"),
+        departure_location: String::from("zajecar"),
+        destination: String::from("novi sad"),
+        departure_date_time: 1662346800000,
+        departure_address: String::from("Cupiceva 1"),
+        free_places: 4,
+        planned_arrival_time: 1662360300000,
+        note: String::from("Wearing masks is forbbiden"),
+        distance: 350,
     };
 
     use schema::drives;
@@ -70,11 +70,11 @@ pub fn insert_d3(conn: &PgConnection) -> QueryResult<Drive> {
         driver_username: String::from("ukica"),
         departure_location: String::from("novi sad"),
         destination: String::from("beograd"),
-        departure_date_time: 1662814800000,
-        departure_address: String::from("Putnikova 5"),
-        free_places: 3,
-        planned_arrival_time: 1662818400000,
-        note: String::from("Ciao bella"),
+        departure_date_time: 1662375600000,
+        departure_address: String::from("Fruskogorska 1 14"),
+        free_places: 4,
+        planned_arrival_time: 1662379200000,
+        note: String::from("Wearing masks is forbbiden"),
         distance: 90,
     };
 

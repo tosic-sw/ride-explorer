@@ -2,7 +2,12 @@
     <h1>Passengers</h1>
 </div>
 
-<div class="container">
+<div class="heading" *ngIf="users.length===0">
+    <h2>There are no passengers</h2>
+</div>
+
+
+<div class="container" *ngIf="users.length>0">
 
     <div class="row bott">
         <div class="col-12">

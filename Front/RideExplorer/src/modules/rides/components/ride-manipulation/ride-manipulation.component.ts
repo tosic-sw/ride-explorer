@@ -19,7 +19,7 @@ export class RideManipulationComponent implements OnInit {
   @Input() set ride(value: DriveDTO | undefined) {
     this._ride = value;
 
-    if(this._ride)
+    if(this._ride) 
       this.form.setValue(this._ride);
 
     const ddt = this.form.get("departure_date_time")?.value; 
@@ -95,7 +95,7 @@ export class RideManipulationComponent implements OnInit {
       departure_address: this.form.value.departure_address,
       free_places: this.form.value.free_places,
       planned_arrival_time: this.formatDateToNumber(this.form.value.planned_arrival_time),
-      note: this.form.value.note,
+      note: this.form.value.note ? this.form.value.note : "",
       distance: this.form.value.distance,
     };
 
@@ -144,6 +144,15 @@ export class RideManipulationComponent implements OnInit {
 
   finishRide() {
     this.finishRideEvent.emit(this._ride?.id);
+  }
+
+  isFinishButtonDisable() {
+    const now = moment(new Date()).valueOf();
+
+    if(this._ride)   
+      return now < this._ride?.planned_arrival_time;
+
+    return false;
   }
 
 }

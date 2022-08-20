@@ -132,6 +132,7 @@ export class UpdateRidePageComponent implements OnInit {
     this.reservationService.verifyReservation(id).subscribe((response) => {
       let msg = response as unknown as MessageResponse;
       this.snackBarService.openSnackBar(msg.message);
+      this.ride.free_places = this.ride.free_places - 1;
       this.changePage(1);
     },
     (error) => {

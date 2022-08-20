@@ -116,7 +116,13 @@
           <button id="create-button" type="submit" class="btn btn-primary" [disabled]="!form.valid">
             {{mode==="create" ? "Create" : "Update"}}
           </button>
-          <button (click)="finishRide()" id="finish-button" type="button" class="btn btn-primary" *ngIf="mode==='update'">
+          <button 
+              (click)="finishRide()" 
+              id="finish-button" 
+              type="button" 
+              class="btn btn-primary" 
+              *ngIf="mode==='update'"
+              [disabled]="false">
             Finish
           </button>
         </div>

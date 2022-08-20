@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageResponse } from 'src/modules/shared/models/message-response';
 import { SnackBarService } from 'src/modules/shared/services/snack-bar.service';
+import { UtilService } from 'src/modules/shared/services/util.service';
 import { RegistrationDTO } from '../../models/registration-dto';
 import { AuthService } from '../../services/auth-service/auth.service';
 
@@ -22,7 +23,8 @@ export class AdminPassRegistrationComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private utilService: UtilService
   ) {
     this.role = "";
     this.form = this.fb.group({
@@ -52,7 +54,7 @@ export class AdminPassRegistrationComponent implements OnInit {
         this.snackBarService.openSnackBar(msgReponse.message);
 
         if(this.role === "admin") 
-          this.router.navigate(["ridexplorer"]);
+          this.utilService.navigateToMyProfile();
 
         else if (this.role === "passenger") 
           this.router.navigate(["ridexplorer/auth/login"]);

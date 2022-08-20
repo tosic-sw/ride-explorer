@@ -31,9 +31,9 @@ export class DriverRegistrationPageComponent implements OnInit {
       plateNumber: [null, Validators.required],
       brand: [null, Validators.required],
       carModel: [null, Validators.required],
-      fuelConsumption: ['', [Validators.required, Validators.min(1), Validators.pattern('^(0|[1-9][0-9]*)$')]],
-      volume: ['', [Validators.required, Validators.min(1), Validators.pattern('^(0|[1-9][0-9]*)$')]],
-      power: ['', [Validators.required, Validators.min(1), Validators.pattern('^(0|[1-9][0-9]*)$')]],
+      fuelConsumption: [null, [Validators.required, Validators.min(1), Validators.pattern('^(0|[1-9][0-9]*)$')]],
+      volume: [null, [Validators.required, Validators.min(1), Validators.pattern('^(0|[1-9][0-9]*)$')]],
+      power: [null, [Validators.required, Validators.min(1), Validators.pattern('^(0|[1-9][0-9]*)$')]],
     });
   }
 
