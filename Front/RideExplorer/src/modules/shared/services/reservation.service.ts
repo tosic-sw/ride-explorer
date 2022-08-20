@@ -26,6 +26,19 @@ export class ReservationService {
     return this.http.post<HttpResponse<MessageResponse>>(url, dto, queryParams);
   }
 
+  deleteReservation(id: number): Observable<HttpResponse<MessageResponse>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: 'response'
+    };
+
+    let url: string = `ride-explorer/api/reservations/${id}`;
+
+    return this.http.delete<HttpResponse<MessageResponse>>(url, queryParams);
+  }
+
   getVerifiedForRide(driveId: number, page: number, size: number): Observable<HttpResponse<ReservationDTO[]>> {
     let queryParams = {};
 
@@ -115,6 +128,19 @@ export class ReservationService {
     };
 
     let url: string = `ride-explorer/api/reservations/verify/${id}`;
+
+    return this.http.put<HttpResponse<MessageResponse>>(url, queryParams);
+  }
+
+  notifyDriveChanged(driveId: number): Observable<HttpResponse<MessageResponse>> {
+    let queryParams = {};
+
+    queryParams = {
+      headers: this.headers,
+      observe: 'response'
+    };
+
+    let url: string = `ride-explorer/api/reservations/drive/${driveId}/changed`;
 
     return this.http.put<HttpResponse<MessageResponse>>(url, queryParams);
   }

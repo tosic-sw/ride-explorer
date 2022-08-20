@@ -128,3 +128,17 @@ func GetAllByDriverAndDriveUnverified(resWriter http.ResponseWriter, req *http.R
 	pageable := GetPageableFromRequest(req)
 	SendReqAndReturnResponse(resWriter, req, http.MethodGet, ReservationServiceRoot+Driver+driveId+"/"+_Unverified+pageable)
 }
+
+func DriveChanged(resWriter http.ResponseWriter, req *http.Request) {
+	if status, err := Authorize(req, "driver"); err != nil {
+		resWriter.Header().Set("Content-Type", "application/json")
+		resWriter.WriteHeader(status)
+		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	params := mux.Vars(req)
+	driveId := params["drive-id"]
+
+	SendReqAndReturnResponse(resWriter, req, http.MethodPut, ReservationServiceRoot+Drive+driveId+"/"+_Changed)
+}

@@ -11,11 +11,15 @@ import (
 )
 
 type ReservationsHandler struct {
-	repository *data.Repository
+	repository  *data.Repository
+	mailHandler *MailHandler
 }
 
-func NewReservationsHandler(repository *data.Repository) *ReservationsHandler {
-	return &ReservationsHandler{repository}
+func NewReservationsHandler(repository *data.Repository, mh *MailHandler) *ReservationsHandler {
+	return &ReservationsHandler{
+		repository,
+		mh,
+	}
 }
 
 func (uh *ReservationsHandler) GetReservation(resWriter http.ResponseWriter, req *http.Request) {
@@ -92,7 +96,7 @@ func (uh *ReservationsHandler) DeleteReservation(resWriter http.ResponseWriter, 
 		return
 	}
 
-	res, err := uh.repository.FindOne(uint(idInt))
+	res, err := uh.repository.FindOneByUser(uint(idInt), username)
 	if err != nil {
 		resWriter.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(resWriter).Encode(models.Response{Message: "Invalid reservation id or not right permission to delete it"})
@@ -112,6 +116,13 @@ func (uh *ReservationsHandler) DeleteReservation(resWriter http.ResponseWriter, 
 		json.NewEncoder(resWriter).Encode(models.Response{Message: "Invalid reservation id or not right permission to delete it"})
 		return
 	}
+
+	mailMessage := models.Mail{
+		To:      res.GetDriverEmail(),
+		Subject: "Ride data changed",
+		Body:    ComposeReservationDeletedEmail(int(res.DriveId), res.DriverUsername, res.PassengerUsername),
+	}
+	uh.mailHandler.SendMail(mailMessage)
 
 	json.NewEncoder(resWriter).Encode(models.Response{Message: "Reservation successfully deleted"})
 }
@@ -272,6 +283,23 @@ func (uh *ReservationsHandler) GetAllByDriveIdVerified(resWriter http.ResponseWr
 	resWriter.Header().Set("Content-Type", "application/json")
 	resWriter.Header().Set("total-elements", strconv.FormatInt(totalElements, 10))
 	json.NewEncoder(resWriter).Encode(resDTOs)
+}
+
+func (uh *ReservationsHandler) DriveChanged(resWriter http.ResponseWriter, req *http.Request) {
+	params := mux.Vars(req)
+	driveIdStr := params["drive-id"]
+	driveId, _ := strconv.ParseInt(driveIdStr, 10, 64)
+
+	reservations, _ := uh.repository.FindAllByDriveIdVerifUnverif(driveId)
+
+	for _, reservation := range reservations {
+		mailMessage := models.Mail{
+			To:      reservation.GetPassengerEmail(),
+			Subject: "Ride data changed",
+			Body:    ComposeDriveChangedEmail(int(driveId), reservation.PassengerUsername),
+		}
+		uh.mailHandler.SendMail(mailMessage)
+	}
 }
 
 func (uh *ReservationsHandler) IsVerifiedByDriveIdAndUser(resWriter http.ResponseWriter, req *http.Request) {

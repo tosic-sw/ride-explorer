@@ -13,6 +13,8 @@
         (viewRideEvent)="viewRide($event)"
         (viewDriverEvent)="viewDriver($event)"
         (viewPassengerEvent)="viewPassenger($event)"
+        [verificationMode]="false"
+        (deleteReservationEvent)="deleteReservation($event)"
     >
     </app-reservation-table>
 

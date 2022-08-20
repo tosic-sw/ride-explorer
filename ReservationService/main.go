@@ -12,7 +12,9 @@ func main() {
 
 	repository := data.NewRepository(dbConn)
 
-	reservationsHandler := handlers.NewReservationsHandler(repository)
+	mailHandler := handlers.NewMailHandler()
+
+	reservationsHandler := handlers.NewReservationsHandler(repository, mailHandler)
 
 	router.MapRoutesAndServe(reservationsHandler)
 }

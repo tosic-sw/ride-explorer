@@ -45,6 +45,7 @@ const _Verified = "verified"
 const _Unverified = "unverified"
 const User = "user/"
 const Drive = "drive/"
+const _Changed = "changed"
 
 // RatingService
 const Evaluated = "evaluated/"

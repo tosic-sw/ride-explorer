@@ -26,6 +26,9 @@ export class ReservationTableComponent implements OnInit {
   @Output()
   verifyReservationEvent = new EventEmitter<number>();
 
+  @Output()
+  deleteReservationEvent = new EventEmitter<number>();
+
   constructor() { 
     this.reservations = [];
     this.verificationMode = false;
@@ -45,6 +48,10 @@ export class ReservationTableComponent implements OnInit {
 
   verifyReservation(id: number) {
     this.verifyReservationEvent.emit(id);
+  }
+
+  deleteReservation(id: number) {
+    this.deleteReservationEvent.emit(id);
   }
 
   ngOnInit(): void {}

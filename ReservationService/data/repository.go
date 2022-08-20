@@ -138,6 +138,20 @@ func (repo *Repository) FindAllByDriveId(driveId int64, verified bool, offset in
 	return reservations, totalElements, nil
 }
 
+func (repo *Repository) FindAllByDriveIdVerifUnverif(driveId int64) ([]*models.Reservation, error) {
+	var reservations []*models.Reservation
+
+	result := repo.db.
+		Where("(deleted_at IS NULL) AND drive_id = ?", driveId).
+		Find(&reservations)
+
+	if result.Error != nil {
+		return reservations, result.Error
+	}
+
+	return reservations, nil
+}
+
 func (*Repository) paginate(offset int, size int) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
 		return db.Offset(offset).Limit(size)

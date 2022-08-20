@@ -83,3 +83,20 @@ func VerifyDriveReservation(driveId int32, driver_username string) error {
 
 	return nil
 }
+
+func ComposeDriveChangedEmail(driveId int, username string) string {
+	return fmt.Sprintf(""+
+		"Hello %s,"+
+		"\n\nWe would like to inform you that ride with id: %d, that you have a reservation on, has been changed by driver."+
+		"\n\nBest regards,"+
+		"\nRidexplorer", username, driveId)
+}
+
+func ComposeReservationDeletedEmail(driveId int, driver string, passenger string) string {
+	return fmt.Sprintf(""+
+		"Hello %s,"+
+		"\n\nWe would like to inform you that reservation from: %s on your ride with id: %d, has been canceled."+
+		"\n\nBest regards,"+
+		"\nRidexplorer",
+		driver, passenger, driveId)
+}

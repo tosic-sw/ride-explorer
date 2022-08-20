@@ -102,6 +102,14 @@ export class UpdateRidePageComponent implements OnInit {
 
     this.rideService.updateRide(dto).subscribe((response) => {
       this.snackBarService.openSnackBar("Ride successfully updated");
+      // Send request to notify that ride has been changed on reseration service
+      this.reservationService.notifyDriveChanged(this.ride.id).subscribe((response) => {
+        console.log("Notifications for users that have reserations od this ride successfully sent..")
+      },
+      (error) => {
+        console.log("Notifications for users that have reserations od this ride not sent..")
+        console.log(error);
+      })
     }, 
     (error) => {
       this.snackBarService.openSnackBar("An error ocured while updating ride");

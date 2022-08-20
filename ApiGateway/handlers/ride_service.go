@@ -3,7 +3,6 @@ package handlers
 import (
 	"ApiGateway/models"
 	"encoding/json"
-	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
 )
@@ -55,8 +54,6 @@ func UpdateDrive(resWriter http.ResponseWriter, req *http.Request) {
 		json.NewEncoder(resWriter).Encode(models.ErrorResponse{Message: err.Error()})
 		return
 	}
-
-	fmt.Println("AAAAA")
 
 	SendReqAndReturnResponse(resWriter, req, http.MethodPut, _DriveServiceRoot)
 }
