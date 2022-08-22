@@ -197,7 +197,7 @@ export class ViewRidePageComponent implements OnInit {
 
   canComplainAndRate(): boolean {
     for(let reservation of this.reservations) {
-      if(reservation.passengerUsername === this.username)
+      if(reservation.passengerUsername === this.username && this.ride.finished)
         return true;
     }
     

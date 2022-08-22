@@ -71,9 +71,29 @@ pub fn insert_d3(conn: &PgConnection) -> QueryResult<Drive> {
         departure_location: String::from("novi sad"),
         destination: String::from("beograd"),
         departure_date_time: 1662375600000,
-        departure_address: String::from("Fruskogorska 1 14"),
+        departure_address: String::from("Fruskogorska 1"),
         free_places: 4,
         planned_arrival_time: 1662379200000,
+        note: String::from("Wearing masks is forbbiden"),
+        distance: 90,
+    };
+
+    use schema::drives;
+
+    diesel::insert_into(drives::table)
+        .values(d3)
+        .get_result(conn)
+}
+
+pub fn insert_d0(conn: &PgConnection) -> QueryResult<Drive> {
+    let d3 = &NewDrive {
+        driver_username: String::from("ukica"),
+        departure_location: String::from("novi sad"),
+        destination: String::from("beograd"),
+        departure_date_time: 1661173200000,
+        departure_address: String::from("Fruskogorska 1"),
+        free_places: 2,
+        planned_arrival_time: 1661176800000,
         note: String::from("Wearing masks is forbbiden"),
         distance: 90,
     };

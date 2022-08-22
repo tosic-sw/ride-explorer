@@ -174,10 +174,11 @@ fn drive_created(drive: Drive) -> status::Created<Json<Drive>> {
 }
 
 fn main() {
-    let conn = establish_connection();
-    _ = insert_d1(&conn);
-    _ = insert_d2(&conn);
-    _ = insert_d3(&conn);
+    // let conn = establish_connection();
+    // _ = insert_d1(&conn);
+    // _ = insert_d2(&conn);
+    // _ = insert_d3(&conn);
+    // _ = insert_d0(&conn);
 
     rocket::ignite().mount("/api", routes![find, create, update, finish, reserve, delete, search, all, finished_driver, unfinished_driver, one_unfinished_driver,
                                                  one_finished, one_finished_driver],).launch();
