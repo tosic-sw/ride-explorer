@@ -7,9 +7,12 @@ extern crate diesel;
 use self::ride_service::*;
 use diesel::result::Error;
 use ride_service::models::*;
+use ride_service::dijkstra::*;
 use rocket::{*, http::Status};
 use rocket_contrib::json::Json;
 use rocket::response::status;
+
+use std::env;
 
 #[get("/drives/<id>")]
 pub fn find(id: i32) -> Result<Json<Drive>, Status> {
@@ -162,6 +165,113 @@ pub fn all() -> Result<Json<Vec<Drive>>, Status> {
         .map_err(|error| error_status(error))
 }
 
+#[get("/advanced-search")]
+pub fn advanced_search() -> Result<Json<Vec<Drive>>, Status> {
+    let conn = establish_connection();
+    
+
+    let from: String = String::from("novi sad");
+    let to: String = String::from("zajecar");
+
+    let mut starting_ids: Vec<i32> = Vec::new();
+    let mut ending_ids: Vec<i32> = Vec::new();
+
+    let mut graph = Graph::new(Vec::new());
+
+    let mut nodes: Vec<Node> = Vec::new();
+    let drives = get_all(&conn).unwrap();
+
+    let mut drive_inserted = false;
+    for drive in &drives {
+        for node in &mut nodes {
+            if node.departure_location == drive.departure_location && node.destination == drive.destination && drive.free_places > 0 {
+                node.distances.push(drive.distance as u64);
+                node.departure_date_times.push(drive.departure_date_time as u64);
+                node.planned_arival_times.push(drive.planned_arrival_time as u64);
+                drive_inserted = true;
+            }
+        }
+        if !drive_inserted {
+            let mut new_node: Node = Node { 
+                departure_location: drive.departure_location.clone(), 
+                destination: drive.destination.clone(), 
+                drive_ids: Vec::new(), 
+                distances: Vec::new(), 
+                departure_date_times: Vec::new(), 
+                planned_arival_times: Vec::new(),
+            };
+            new_node.drive_ids.push(drive.id);
+            new_node.distances.push(drive.distance as u64);
+            new_node.departure_date_times.push(drive.departure_date_time as u64);
+            new_node.planned_arival_times.push(drive.planned_arrival_time as u64);
+            nodes.push(new_node);
+        }
+        
+        drive_inserted = false;
+    }
+
+    for node1 in &nodes {
+        for node2 in &nodes {
+            if node1.destination == node2.departure_location && node1.departure_location.ne(&node2.destination) {
+                
+                // Ovde nadji minimum po vremenu i po duzini puta
+                let mut min: u64 = std::u64::MAX;
+                let mut min_i_idx: usize = std::usize::MAX;
+                let mut min_j_idx: usize = std::usize::MAX;
+
+                for i in 0..node1.departure_date_times.len() {
+                    for j in 0..node2.departure_date_times.len() {
+                        if node1.planned_arival_times[i] > node2.departure_date_times[j] {
+                            continue;
+                        }
+
+                        let new_min: u64 = node1.distances[i];
+                        if min > new_min {
+                            min = new_min;
+                            min_i_idx = i;
+                            min_j_idx = j; 
+                        }
+                    }
+                }
+
+                if min != std::u64::MAX {
+
+                    if node1.departure_location == from {
+                        starting_ids.push(node1.drive_ids[min_i_idx])
+                    }
+
+                    if node2.destination == to {
+                        ending_ids.push(node2.drive_ids[min_i_idx])
+                    }
+
+                    graph.connections.push(
+                        dijkstra::Connection {                          
+                            peers: (node1.drive_ids[min_i_idx], node2.drive_ids[min_j_idx]),
+                            weight: min,
+                        }
+                    )
+                    
+                }
+            }
+        }
+    }
+
+    println!("Connections\n");
+    for connection in &graph.connections {
+        println!("{} to {} - weight = {}", connection.peers.0, connection.peers.1, connection.weight);
+    } 
+    println!("-----------------\n\n");
+
+    dijkstra_fun_graph(&graph, &starting_ids, &ending_ids, &drives);
+
+    // for ending_id in &ending_ids {
+    //     println!("{}", *ending_id);
+    // }
+
+
+    Ok(Json(drives))
+}
+
 fn error_status(error: Error) -> Status {
     match error {
         Error::NotFound => Status::NotFound,
@@ -174,11 +284,19 @@ fn drive_created(drive: Drive) -> status::Created<Json<Drive>> {
 }
 
 fn main() {
-    let conn = establish_connection();
-    _ = insert_d1(&conn);
-    _ = insert_d2(&conn);
-    _ = insert_d3(&conn);
+    // let conn = establish_connection();
+    // _ = insert_d1(&conn);
+    // _ = insert_d2(&conn);
+    // _ = insert_d3(&conn);
+    // _ = insert_d4(&conn);
+    // _ = insert_d5(&conn);
+    // _ = insert_d6(&conn);
+    // _ = insert_d7(&conn);
+    env::set_var("RUST_BACKTRACE", "1");
+    // dijkstra_fun();
 
     rocket::ignite().mount("/api", routes![find, create, update, finish, reserve, delete, search, all, finished_driver, unfinished_driver, one_unfinished_driver,
-                                                 one_finished, one_finished_driver],).launch();
+                                                 one_finished, one_finished_driver, advanced_search],).launch();
+
+
 }

@@ -4,6 +4,7 @@ extern crate dotenv;
 
 pub mod schema;
 pub mod models;
+pub mod dijkstra;
 
 use diesel::{prelude::*};
 use diesel::pg::PgConnection;
@@ -35,7 +36,7 @@ pub fn insert_d1(conn: &PgConnection) -> QueryResult<Drive> {
         free_places: 5,
         planned_arrival_time: 1662364800000,
         note: String::from("Smoking not allowed in car."),
-        distance: 70,
+        distance: 51,
     };
 
     use schema::drives;
@@ -71,11 +72,91 @@ pub fn insert_d3(conn: &PgConnection) -> QueryResult<Drive> {
         departure_location: String::from("novi sad"),
         destination: String::from("beograd"),
         departure_date_time: 1662375600000,
-        departure_address: String::from("Fruskogorska 1 14"),
+        departure_address: String::from("Fruskogorska 14"),
         free_places: 4,
         planned_arrival_time: 1662379200000,
         note: String::from("Wearing masks is forbbiden"),
-        distance: 90,
+        distance: 80,
+    };
+
+    use schema::drives;
+
+    diesel::insert_into(drives::table)
+        .values(d3)
+        .get_result(conn)
+}
+
+pub fn insert_d4(conn: &PgConnection) -> QueryResult<Drive> {
+    let d3 = &NewDrive {
+        driver_username: String::from("ukica"),
+        departure_location: String::from("beograd"),
+        destination: String::from("paracin"),
+        departure_date_time: 1662382800000,
+        departure_address: String::from("Karadjordjeva 1"),
+        free_places: 4,
+        planned_arrival_time: 1662390000000,
+        note: String::from("Wearing masks is forbbiden"),
+        distance: 160,
+    };
+
+    use schema::drives;
+
+    diesel::insert_into(drives::table)
+        .values(d3)
+        .get_result(conn)
+}
+
+pub fn insert_d5(conn: &PgConnection) -> QueryResult<Drive> {
+    let d3 = &NewDrive {
+        driver_username: String::from("ukica"),
+        departure_location: String::from("paracin"),
+        destination: String::from("zajecar"),
+        departure_date_time: 1662391800000,
+        departure_address: String::from("Ckaljina 1"),
+        free_places: 4,
+        planned_arrival_time: 1662397200000,
+        note: String::from("Wearing masks is forbbiden"),
+        distance: 87,
+    };
+
+    use schema::drives;
+
+    diesel::insert_into(drives::table)
+        .values(d3)
+        .get_result(conn)
+}
+
+pub fn insert_d6(conn: &PgConnection) -> QueryResult<Drive> {
+    let d3 = &NewDrive {
+        driver_username: String::from("tica"),
+        departure_location: String::from("novi sad"),
+        destination: String::from("pozarevac"),
+        departure_date_time: 1662375600000,
+        departure_address: String::from("Fruskogorska 1"),
+        free_places: 4,
+        planned_arrival_time: 1662384600000,
+        note: String::from("Smoking not allowed in car."),
+        distance: 180,
+    };
+
+    use schema::drives;
+
+    diesel::insert_into(drives::table)
+        .values(d3)
+        .get_result(conn)
+}
+
+pub fn insert_d7(conn: &PgConnection) -> QueryResult<Drive> {
+    let d3 = &NewDrive {
+        driver_username: String::from("tica"),
+        departure_location: String::from("pozarevac"),
+        destination: String::from("zajecar"),
+        departure_date_time: 1662388200000,
+        departure_address: String::from("Pozarevacka 1"),
+        free_places: 4,
+        planned_arrival_time: 1662399000000,
+        note: String::from("Smoking not allowed in car."),
+        distance: 160,
     };
 
     use schema::drives;

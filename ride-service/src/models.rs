@@ -69,3 +69,14 @@ pub struct PageableDTO {
     pub page: i64,
     pub size: i64,
 }
+
+
+pub struct Node {
+    pub departure_location: String,
+    pub destination: String,
+    pub drive_ids: Vec<i32>,
+    pub distances: Vec<u64>,
+    pub departure_date_times: Vec<u64>,
+    pub planned_arival_times: Vec<u64>,
+}
+
